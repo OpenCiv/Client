@@ -8,7 +8,7 @@ import Main from './routes/Main.svelte';
 export let url = '';
 
 onMount(async () => {
-   axios.defaults.baseURL = 'http://localhost/php/';
+   axios.defaults.baseURL = 'http://openciv/php/';
    axios.get('checkin.php').then(response => {
       if (!response.data) {
          navigate('/login');

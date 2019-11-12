@@ -8,7 +8,6 @@ import Main from './routes/Main.svelte';
 export let url = '';
 
 onMount(async () => {
-   console.log('url = ' + Router);
    axios.defaults.baseURL = 'http://localhost/php/';
    axios.get('checkin.php').then(response => {
       if (!response.data) {

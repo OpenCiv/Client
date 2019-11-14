@@ -1,10 +1,10 @@
 <script>
 import axios from 'axios';
-import { navigate } from 'svelte-routing';
+import * as sapper from '@sapper/app';
 
 function logoff() {
    axios.get('logoff.php').finally(response => {
-      navigate('/login');
+      sapper.goto('/login');
    });
 }
 </script>

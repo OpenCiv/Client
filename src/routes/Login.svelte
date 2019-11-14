@@ -1,9 +1,9 @@
-<script lang=ts>
+<script>
+import * as sapper from '@sapper/app';
 import axios from 'axios';
-import { Link, navigate } from 'svelte-routing';
 
-let email = 'matrix@straland.com';
-let password = 'ErgotSeeds';
+let email = '';
+let password = '';
 let message = '';
 $: disabled = !email || !password;
 
@@ -13,7 +13,7 @@ function login() {
       password: password
    })).then(response => {
       if (response.data.success) {
-         navigate('main', { replace: true });
+         sapper.goto('/menu');
       } else {
          message = response.data.message;
       }

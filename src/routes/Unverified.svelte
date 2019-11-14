@@ -1,6 +1,4 @@
 <script>
-import { Link } from 'svelte-routing';
-
 function resend() {
 
 }

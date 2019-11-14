@@ -1,18 +1,16 @@
 <script>
+import * as sapper from '@sapper/app';
 import axios from 'axios';
-import { tick } from 'svelte';
-import { Link, navigate } from 'svelte-routing';
 
-let name = 'Matrix';
-let email = 'matrix@straland.com';
-let password = 'ErgotSeeds';
-let repeat = 'ErgotSeeds';
+let name = '';
+let email = '';
+let password = '';
+let repeat = '';
 let message = '';
 let nameError = false;
 let emailError = false;
 let passwordError = false;
 let repeatError = false;
-let repeatPlaceholder = '';
 
 $: disabled = !name || !email || !password || password !== repeat;
 
@@ -24,9 +22,9 @@ function register() {
    })).then(response => {
       this.message = response.data.message;
       if (response.data.success) {
-         navigate('/unverified', { replace: true });
-      } else if (response.data.message ='E-mail address already used') {
-         navigate('/newpassword', { replace: true });
+         sapper.goto('/unverified', { replace: true });
+      } else if (response.data.message = 'E-mail address already used') {
+         sapper.goto('/newpassword', { replace: true });
       } else {
          this.message = response.data.message;
       }
@@ -52,11 +50,6 @@ function validate_email() {
 
 async function password_changed() {
    passwordError = false;
-   await tick();
-   repeatPlaceholder = '';
-   for (let c = 0; c < password.length; c++) {
-      repeatPlaceholder += '●';
-   }
 }
 
 function validate_password() {
@@ -95,7 +88,7 @@ function validate_repeat() {
 </div>
 <div>
    <label>Repeat password</label>
-   <input type="password" placeholder={repeatPlaceholder} bind:value={repeat} on:focus={repeat_changed} on:blur={validate_repeat}>
+   <input type="password" bind:value={repeat} on:focus={repeat_changed} on:blur={validate_repeat}>
    {#if repeatError}
       <div class="error">The passwords are not the same</div>
    {/if}

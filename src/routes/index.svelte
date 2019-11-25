@@ -2,6 +2,7 @@
 import { onMount } from 'svelte';
 import * as sapper from '@sapper/app';
 import axios from 'axios';
+import { alerts } from '../stores.js';
 
 onMount(() => {
    axios.get('checkin.php').then(response => {
@@ -11,7 +12,7 @@ onMount(() => {
          sapper.goto('/login');
       }
    }).catch(error => {
-      
+      alerts.update(a => [...a, error]);
    });
 });
 </script>

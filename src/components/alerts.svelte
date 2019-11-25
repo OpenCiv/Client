@@ -1,14 +1,21 @@
 <script>
+import { onDestroy } from 'svelte';
+import { alerts } from '../stores.js';
+
 let messages = [];
 
-export function addAlert(message) {
-   messages = [...messages, message];
-}
+const unsubscribe = alerts.subscribe(value => {
+   messages = alerts;
+});
 
 function remove(message) {
-   messages.splice(messages.indexOf(message), 1);
-   messages = messages;
+   messages = messages.filter(m => m !== message);
+   alerts.update(a => messages);
 }
+
+onDestroy(() => {
+   unsubscribe.apply();
+});
 </script>
 
 <style>
@@ -25,7 +32,8 @@ function remove(message) {
 
 .x {
    position: relative;
-   
+   top: 10px;
+   right: 10px;
 }
 </style>
 

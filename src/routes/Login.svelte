@@ -1,31 +1,32 @@
 <script>
 import * as sapper from '@sapper/app';
 import axios from 'axios';
+import { alerts } from '../stores.js';
 
 let email = '';
 let password = '';
-let message = '';
 $: disabled = !email || !password;
 
 function login() {
    axios.post('login.php', JSON.stringify({
       username: email,
       password: password
-   })).then(response => {
-      if (response.data.success) {
+   }))
+   .then(response => {
+      if (!response.data) {
          sapper.goto('/menu');
       } else {
-         message = response.data.message;
+         alerts.update(a => [...a, response.data]);
       }
-   }).catch(error => {
-      console.log(error.message);
+   })
+   .catch(error => {
+      alerts.update(a => [...a, error]);
    });
    email = '';
    password = '';
 }
 </script>
 <h2>Login</h2>
-<div class="message">{message}</div>
 <div>
    <label>E-mail address</label>
    <input type="email" bind:value={email}>

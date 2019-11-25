@@ -3,7 +3,8 @@ import axios from 'axios';
 import * as sapper from '@sapper/app';
 
 function logoff() {
-   axios.get('logoff.php').finally(response => {
+   axios.get('logoff.php')
+   .finally(response => {
       sapper.goto('/login');
    });
 }

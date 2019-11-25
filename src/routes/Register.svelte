@@ -1,12 +1,12 @@
 <script>
 import * as sapper from '@sapper/app';
 import axios from 'axios';
+import { alerts } from '../stores.js';
 
-let name = '';
-let email = '';
-let password = '';
-let repeat = '';
-let message = '';
+let name = 'Maarten';
+let email = 'matrix@straland.com';
+let password = 'ErgotSeeds';
+let repeat = 'ErgotSeeds';
 let nameError = false;
 let emailError = false;
 let passwordError = false;
@@ -20,16 +20,16 @@ function register() {
       email: email,
       password: password
    })).then(response => {
-      this.message = response.data.message;
-      if (response.data.success) {
+      if (!response.data) {
          sapper.goto('/unverified', { replace: true });
-      } else if (response.data.message = 'E-mail address already used') {
-         sapper.goto('/newpassword', { replace: true });
       } else {
-         this.message = response.data.message;
+         alerts.update(a => [...a, response.data]);
+         if (response.data = 'E-mail address already used') {
+            sapper.goto('/newpassword', { replace: true });
+         }
       }
    }).catch(error => {
-      console.log(error.message);
+      alerts.update(a => [...a, error]);
    });
 }
 
@@ -64,7 +64,6 @@ function validate_repeat() {
 }
 </script>
 <h2>Register</h2>
-<div class="message">{message}</div>
 <div>
    <label>Name</label>
    <input type="text" placeholder="Nickname or real name..." bind:value={name} on:focus={name_changed} on:blur={validate_name}>

@@ -3,10 +3,10 @@ import * as sapper from '@sapper/app';
 import axios from 'axios';
 import { alerts } from '../stores.js';
 
-let name = 'Maarten';
-let email = 'matrix@straland.com';
-let password = 'ErgotSeeds';
-let repeat = 'ErgotSeeds';
+let name = '';
+let email = '';
+let password = '';
+let repeat = '';
 let nameError = false;
 let emailError = false;
 let passwordError = false;

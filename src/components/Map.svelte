@@ -1,8 +1,30 @@
+<script>
+   export let terrain;
+
+   function imgsrc(type) {
+      return 'img/b_' + type + '.png';
+   }
+</script>
+
 <svelte:head>
-<link rel="stylesheet" href="map.css">
+   <link rel="stylesheet" href="map.css">
 </svelte:head>
 
-<div class="map_row row_001">
+{#each terrain as row}
+<div class="map_row">
+   {#each row as tile}
+   <div class="{tile.type === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}">
+      {#each tile.improvements as improvement}
+      <div class="improvement">
+         <img src={imgsrc(improvement)} alt={improvement}>
+      </div>
+      {/each}
+   </div>
+   {/each}
+</div>
+{/each}
+
+<!-- <div class="map_row">
         <div class="tile tile_ocean">
 
         </div>
@@ -24,7 +46,7 @@
 
         </div>
     </div>
-    <div class="map_row row_002">
+    <div class="map_row">
         <div class="tile tile_ocean">
 
         </div>
@@ -50,7 +72,7 @@
             </div>
         </div>
     </div>
-    <div class="map_row row_003">
+    <div class="map_row">
         <div class="tile tile_plains">
             <div class="improvement">
                 <img src="img/b_craftshop.png" alt="Craftshop">
@@ -72,7 +94,7 @@
 
         </div>
     </div>
-    <div class="map_row row_004">
+    <div class="map_row">
         <div class="tile tile_plains">
             <div class="resource">
                 <img src="img/r_sandstone.png" alt="Sandstone">
@@ -96,7 +118,7 @@
 
         </div>
     </div>
-    <div class="map_row row_005">
+    <div class="map_row">
         <div class="tile tile_plains">
 
         </div>
@@ -117,4 +139,4 @@
         <div class="tile tile_ocean">
 
         </div>
-    </div>
+    </div> -->

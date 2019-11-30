@@ -1,4 +1,4 @@
 <script>
-import navbar from '../components/navbar';
+import Navbar from '../components/Navbar';
 </script>
-<navbar/>
+<Navbar/>

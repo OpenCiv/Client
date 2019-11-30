@@ -1,7 +1,7 @@
 <script>
 import * as sapper from '@sapper/app';
 import axios from 'axios';
-import navbar from '../components/navbar.svelte';
+import Navbar from '../components/Navbar.svelte';
 import { alerts } from '../stores.js';
 
 let email = '';
@@ -28,12 +28,7 @@ function login() {
    password = '';
 }
 </script>
-<navbar/>
-<nav>
-<button on:click={() => sapper.goto('login')}>Login</button>
-<button on:click={() => sapper.goto('register')}>Register</button>
-<button on:click={() => sapper.goto('newpassword')}>New password</button>
-</nav>
+<Navbar/>
 <h2>Login</h2>
 <div>
    <label>E-mail address</label>
@@ -43,4 +38,4 @@ function login() {
    <label>Password</label>
    <input type="password" bind:value={password}>
 </div>
-<button {disabled} on:click={login}>Log in</button>
+<button {disabled} on:click={() => login()}>Log in</button>

@@ -1,8 +1,8 @@
 <script>
 import * as sapper from '@sapper/app';
 import axios from 'axios';
-import navbar from '../components/navbar';
 import { alerts } from '../stores.js';
+import Navbar from '../components/Navbar';
 
 let name = '';
 let email = '';
@@ -66,7 +66,7 @@ function validate_repeat() {
    repeatError = password !== repeat;
 }
 </script>
-<navbar/>
+<Navbar/>
 <h2>Register</h2>
 <div>
    <label>Name</label>

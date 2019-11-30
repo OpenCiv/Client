@@ -15,7 +15,7 @@ function login() {
    }))
    .then(response => {
       if (!response.data) {
-         sapper.goto('menu');
+         sapper.goto('game');
       } else {
          console.log(response.data);
          alerts.update(a => [...a, response.data]);

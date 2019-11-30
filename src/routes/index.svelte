@@ -7,7 +7,7 @@ import { alerts } from '../stores.js';
 onMount(() => {
    axios.get('checkin.php').then(response => {
       if (response.data) {
-         sapper.goto('menu');
+         sapper.goto('game');
       } else {
          sapper.goto('login');
       }

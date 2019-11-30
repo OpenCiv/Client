@@ -232,6 +232,15 @@ th {
   display: block;
   width: 100%;
 }
+.unit {
+  display: block;
+  z-index: 15;
+}
+.unit img {
+  margin-top: -32px;
+  display: block;
+  width: 100%;
+}
 .resource {
   display: block;
   padding: 0px;

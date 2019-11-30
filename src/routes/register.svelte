@@ -31,7 +31,7 @@ function register() {
          }
       }
    }).catch(error => {
-      console.log(error);
+      console.log(error ? error.message || error : 'unknown error');
       alerts.update(a => [...a, error]);
    });
 }

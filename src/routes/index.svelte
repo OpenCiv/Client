@@ -12,7 +12,7 @@ onMount(() => {
          sapper.goto('login');
       }
    }).catch(error => {
-      console.log(error);
+      console.log(error ? error.message || error : 'unknown error');
    });
 });
 </script>

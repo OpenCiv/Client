@@ -1,4 +1,7 @@
 <script>
+  import { onMount } from 'svelte';
+  import axios from 'axios';
+
   // Init values for information on divs.
   // Variables are exposed globally at the moment.
   // You can access the variables out of this scope
@@ -66,6 +69,18 @@
     commandsPanel.commandThree = " - ";
     commandsPanel.commandFour = " - ";
   }
+
+  onMount(() => {
+    axios.post('load.php', JSON.stringify({
+       game: 1
+    }))
+    .then(response => {
+      // response.data contains all the information from the server
+    })
+    .catch(error => {
+      console.log(error ? error.message || error : 'unknown error');
+    });
+  });
 </script>
 <header class="full">
    <div id="time-bar" class="fourth">

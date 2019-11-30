@@ -1,3 +1,6 @@
+<svelte:head>
+<link rel="stylesheet" href="layout.css">
+</svelte:head>
 <script>
   import { onMount } from 'svelte';
   import axios from 'axios';

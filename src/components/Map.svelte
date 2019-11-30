@@ -1,6 +1,7 @@
-<style>
-    @import '../less/map.css';
-</style>
+<svelte:head>
+<link rel="stylesheet" href="map.css">
+</svelte:head>
+
 <div class="map_row row_001">
         <div class="tile tile_ocean">
 

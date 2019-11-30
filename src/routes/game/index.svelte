@@ -1,15 +1,88 @@
+<script>
+  // Init values for information on divs.
+  // Variables are exposed globally at the moment.
+  // You can access the variables out of this scope
+  var timeBarYears = "";
+  var timeBarTurn = "";
+  var researchBarResearch = "";
+  var menuBarSelectedMenu = "";
+  var accountBarAccountName = "";
+  var sideBarUnits = {
+    unitSelectUnitBuild:"",
+    unitOneName:"",
+    unitOneDescription:"",
+    unitTwoName:"",
+    unitTwoDescription:"",
+    unitThreeName:"",
+    unitThreeDescription:""
+  };
+  var infoPanel = {
+    currentUnit:"",
+    information:"",
+  }
+  var commandsPanel = {
+    commandOne:"",
+    commandTwo:"",
+    commandThree:"",
+    commandFour:""
+  }
+  //For show purpose populate with bogus data.
+  function populateUnits(event){
+    timeBarYears = "29 000 BC";
+    timeBarTurn = "Turn " + 2;
+    researchBarResearch = "Agriculture";
+    menuBarSelectedMenu = "World view";
+    accountBarAccountName = "Laiska-Jaakko";
+    sideBarUnits.unitOneName = "Builder";
+    sideBarUnits.unitOneDescription = "Builds a lot";
+    sideBarUnits.unitTwoName = "Monk";
+    sideBarUnits.unitTwoDescription = "Prays a lot"
+    sideBarUnits.unitThreeName = "Warrior";
+    sideBarUnits.unitThreeDescription = "Fights a lot";
+    infoPanel.currentUnit = "Builder";
+    infoPanel.information = "Currenlty building an iron mine.";
+    commandsPanel.commandOne = " [Build] ";
+    commandsPanel.commandTwo = " [Move] ";
+    commandsPanel.commandThree = " [Destroy] ";
+    commandsPanel.commandFour = " [Cancel] ";
+  }
+  //For clearing variables
+  function clearAllVariables(event){
+    timeBarYears = "";
+    timeBarTurn = "";
+    researchBarResearch = "";
+    menuBarSelectedMenu = "";
+    accountBarAccountName = "";
+    sideBarUnits.unitOneName = "";
+    sideBarUnits.unitOneDescription = "";
+    sideBarUnits.unitTwoName = "";
+    sideBarUnits.unitTwoDescription = ""
+    sideBarUnits.unitThreeName = "";
+    sideBarUnits.unitThreeDescription = "";
+    infoPanel.currentUnit = "";
+    infoPanel.information = "";
+    commandsPanel.commandOne = " - ";
+    commandsPanel.commandTwo = " - ";
+    commandsPanel.commandThree = " - ";
+    commandsPanel.commandFour = " - ";
+  }
+</script>
 <header class="full">
    <div id="time-bar" class="fourth">
-      <p>Turn&nbsp;123 - 30&nbsp;000&nbsp;BC</p>
+      <!-- Get values from variables or show defaults. -->
+      <p>{timeBarTurn || "Turn 1"} - {timeBarYears || "30 000 BC"}</p>
    </div>
    <div id="research-bar" class="fourth">
-      <p class="center">Currently researching: Agriculture</p>
+      <!-- Get values from variables or show defaults. -->
+      <p class="center">Currently researching: {researchBarResearch || "No research."}</p>
    </div>
    <div id="menu-bar" class="fourth">
-      <p class="center">Menus</p>
+      <!-- Get values from variables or show defaults. -->
+      <p class="center">{menuBarSelectedMenu || "Menus"}</p>
    </div>
    <div id="account-bar" class="fourth">
-      <p class="right">King Blaablaa of Finland</p>
+      <!-- Get values from variables or show defaults. -->
+      <p class="right">{accountBarAccountName || "No login information."}</p>
    </div>
 </header>
 <main class="full">
@@ -17,22 +90,29 @@
       <p>Kartta</p>
    </div>
    <div id="sidebar" class="third">
-      <h2>Select a unit to build</h2>
-      <h3>Unit name</h3>
-      <p>Unit decription?</p>
-      <h3>Unit name</h3>
-      <p>Unit decription?</p>
-      <h3>Unit name</h3>
-      <p>Unit decription?</p>
+   <!-- Get values from variables or show defaults. -->
+      <h2>{sideBarUnits.unitSelectUnitBuild || "Select a unit to build"}</h2>
+      <h3>{sideBarUnits.unitOneName||"No unit"}</h3>
+      <p>{sideBarUnits.unitOneDescription||"No description"}</p>
+      <h3>{sideBarUnits.unitTwoName||"No unit"}</h3>
+      <p>{sideBarUnits.unitTwoDescription||"No description"}</p>
+      <h3>{sideBarUnits.unitThreeName||"No unit"}</h3>
+      <p>{sideBarUnits.unitThreeDescription||"no description"}</p>
+      <!-- Test field input. -->
+      <button on:click={populateUnits}>Populate</button>
+      <button on:click={clearAllVariables}>Clear</button>
    </div>
 </main>
 <footer class="full">
    <div id="info-panel" class="third">
-      <h3>Current unit</h3>
-      <p>Some information.</p>
+      <!-- Get values from variables or show defaults. -->
+      <h3>{infoPanel.currentUnit || "No unit selected."}</h3>
+      <p>{infoPanel.information || "Please select a unit."}</p>
    </div>
    <div id="commands-panel" class="third">
-      <p class="center">Command options</p>
+      <p class="left">Command options</p>
+      <!-- Get values from variables or show defaults. -->
+      <p class="center" id="command-buttons">{commandsPanel.commandOne || " - "}{commandsPanel.commandTwo || " - "}{commandsPanel.commandThree || " - "}{commandsPanel.commandTwo || " - "}</p>
    </div>
    <div id="status-panel" class="third">
       <h2 class="center">Turn complete</h2>

@@ -1,18 +1,12 @@
 <script>
-  import { terrain } from '../stores.js';
-
-  let _terrain;
-
-  terrain.subscribe(value => {
-     _terrain = value;
-  });
+   export let terrain;
 </script>
 
 <svelte:head>
-<link rel="stylesheet" href="map.css">
+   <link rel="stylesheet" href="map.css">
 </svelte:head>
 
-{#each _terrain as row}
+{#each terrain as row}
 <div class="map_row">
    {#each row as tile}
    <div class="{tile === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}">

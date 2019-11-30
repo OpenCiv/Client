@@ -4,8 +4,10 @@
 <script>
   import { onMount } from 'svelte';
   import axios from 'axios';
-  import Map from '../../components/map.svelte'
-  import { terrain } from '../../stores.js';
+  import Map from '../../components/Map.svelte'
+
+  // Obtained from the server and passed on to the map component
+  var terrain = [];
 
   // Init values for information on divs.
   // Variables are exposed globally at the moment.
@@ -85,7 +87,7 @@
          console.log('Could not load terrain');
       }
 
-      terrain.update(t => response.data.terrain);
+      terrain = response.data.terrain;
     })
     .catch(error => {
       console.log(error ? error.message || error : 'unknown error');

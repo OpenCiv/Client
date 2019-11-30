@@ -1,8 +1,27 @@
+<script>
+  import { terrain } from '../stores.js';
+
+  let _terrain;
+
+  terrain.subscribe(value => {
+     _terrain = value;
+  });
+</script>
+
 <svelte:head>
 <link rel="stylesheet" href="map.css">
 </svelte:head>
 
-<div class="map_row row_001">
+{#each _terrain as row}
+<div class="map_row">
+   {#each row as tile}
+   <div class="{tile === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}">
+   </div>
+   {/each}
+</div>
+{/each}
+
+<!-- <div class="map_row">
         <div class="tile tile_ocean">
 
         </div>
@@ -24,7 +43,7 @@
 
         </div>
     </div>
-    <div class="map_row row_002">
+    <div class="map_row">
         <div class="tile tile_ocean">
 
         </div>
@@ -50,7 +69,7 @@
             </div>
         </div>
     </div>
-    <div class="map_row row_003">
+    <div class="map_row">
         <div class="tile tile_plains">
             <div class="improvement">
                 <img src="img/b_craftshop.png" alt="Craftshop">
@@ -72,7 +91,7 @@
 
         </div>
     </div>
-    <div class="map_row row_004">
+    <div class="map_row">
         <div class="tile tile_plains">
             <div class="resource">
                 <img src="img/r_sandstone.png" alt="Sandstone">
@@ -96,7 +115,7 @@
 
         </div>
     </div>
-    <div class="map_row row_005">
+    <div class="map_row">
         <div class="tile tile_plains">
 
         </div>
@@ -117,4 +136,4 @@
         <div class="tile tile_ocean">
 
         </div>
-    </div>
+    </div> -->

@@ -5,6 +5,7 @@
   import { onMount } from 'svelte';
   import axios from 'axios';
   import Map from '../../components/map.svelte'
+  import { terrain } from '../../stores.js';
 
   // Init values for information on divs.
   // Variables are exposed globally at the moment.
@@ -80,6 +81,11 @@
     }))
     .then(response => {
       // response.data contains all the information from the server
+      if (!response.data.terrain) {
+         console.log('Could not load terrain');
+      }
+
+      terrain.update(t => response.data.terrain);
     })
     .catch(error => {
       console.log(error ? error.message || error : 'unknown error');
@@ -106,7 +112,7 @@
 </header>
 <main class="full">
    <div id="map" class="two-thirds">
-      <Map/>
+      <Map {terrain}/>
    </div>
    <div id="sidebar" class="third">
    <!-- Get values from variables or show defaults. -->

@@ -19,6 +19,11 @@
          <img src={imgsrc(improvement)} alt={improvement}>
       </div>
       {/each}
+      {#each tile.units as unit}
+      <div class="unit">
+         <img src={imgsrc(unit)} alt={unit}>
+      </div>
+      {/each}
    </div>
    {/each}
 </div>

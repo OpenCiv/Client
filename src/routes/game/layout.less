@@ -1,0 +1,280 @@
+/* LESS Document */
+@import url("normalize.less");
+
+/* MIXINS */
+@vari1: #8b189b; /* Pääväri */
+@vari2: darken(@vari1, 20%); /* Toinen pääväri */
+@vari3: #333333; /* Tekstin väri */
+@vari4: #fff; /* Negatekstin väri */
+@vari5: #fff; /* Taustan väri */
+
+@font1: 'Lato', Arial, sans-serif; /* Leipäfontti */
+@font2: 'Lora', Times New Roman, serif; /* Otsikkofontti */
+
+@pad1: 25px; /* Sivuilla oleva yleinen väli */
+@pad2: 0.5em; /* Ylhäällä ja alhaalla oleva yleinen väli */
+@pad3: 30px; /* Ylhäällä ja alhaalla oleva isompi väli */
+@pad4: 2*@pad3; /* Ylhäällä ja alhaalla oleva isoin väli */
+
+@border1: 2px solid #ddd; // Yleinen reuna
+
+.col {
+	width: 100%;
+	clear: both;
+	margin-left: 0;
+	margin-bottom: 0;
+	padding: @pad1 auto;
+	float: left;
+	display: block;
+}
+
+.clearfix { 
+	*zoom: 1;
+	&:before, &:after { 
+		content: ""; 
+		display: table;
+	}
+	&:after { clear: both; }
+}
+
+/* ======================================================== */
+/* BODY */
+/* ======================================================== */
+
+body {
+	font-size: 0.85em;
+	font-family: @font1;
+	color: @vari3;
+	background-color: @vari5;
+	overflow-x: hidden;
+	-ms-overflow-x: hidden;
+}
+
+@-ms-viewport{
+  width: device-width;
+}
+
+/* ======================================================== */
+/* HEADINGS */
+/* ======================================================== */
+
+h1, h2, h3, h4 {
+	font-family: @font2;
+	font-style: italic;
+	color: @vari3;
+}
+
+h1 {
+	margin: 0 @pad1 @pad2 @pad1;
+	font-size: 3em;
+	font-weight: 400;
+	line-height: 110%;
+	letter-spacing: 0px;
+	text-align: left;
+}
+
+h2 {
+	margin: 0.5*@pad2 @pad1 @pad3 @pad1;
+	font-size: 2.2em;
+	font-weight:400;	
+	letter-spacing: 0px;
+	line-height:120%;
+}
+
+h3 {
+	margin: @pad2 @pad1 @pad2/2 @pad1;
+	font-size: 1.5em;
+	font-weight:400;
+	letter-spacing:0em;
+	color: #444;
+}
+
+h4 {
+	margin: 1.5*@pad2 @pad1 @pad2 @pad1;
+	font-size: 1.1em;
+	font-weight:400;
+	letter-spacing:0.05em;
+	line-height:150%;
+}
+
+.nimiotsikko {
+	margin-bottom: -0.5em;
+}
+
+/* ======================================================== */
+/* LEIPÄTEKSTI */
+/* ======================================================== */
+
+p {
+	margin: @pad2 @pad1 1.5*@pad2 @pad1;
+	font-size: 1em;
+	font-weight:400;
+	line-height:170%;
+	text-align:left;
+}
+
+ul li {
+	line-height: 190%;
+}
+
+::selection {
+	background: @vari1;
+	color: #ffffff;
+}
+::-moz-selection {
+	background: @vari1;
+	color: #ffffff;
+}
+
+.center {
+	text-align: center;
+}
+
+.right {
+	text-align: right;
+}
+
+/* ======================================================== */
+/* LINKS */
+/* ======================================================== */
+
+a, a:visited, summary {
+	text-decoration: none;
+	color: @vari1;
+	cursor: pointer;
+}
+
+a:hover, a:active {
+	color: lighten(@vari2,25%);
+	cursor: pointer;
+}
+
+.button {
+	background-color: transparent;
+	border: 3px solid @vari1;
+	padding: @pad1/4 0.75*@pad1;
+	color: @vari1;
+	display: inline-block;
+	font-size: 1em;
+	font-weight: 700;
+	font-family: @font1;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	
+	width:auto;
+	min-width:6em;
+	
+	text-decoration:none;
+	text-align:center;
+	text-indent:0;
+	
+	border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	
+	transition: all .2s ease-in-out;
+}
+
+.button:hover, .button:active {
+	background-color: @vari1;
+	/*.tausta-gradientti;*/
+	color: @vari4;
+	
+	transform: scale(1.1);
+}
+
+/* ======================================================== */
+/* IMAGES */
+/* ======================================================== */
+
+img, object {
+	display: block;
+	max-width: 100%;
+    height: auto;
+}
+
+/* ======================================================== */
+/* STRUCTURE */
+/* ======================================================== */
+
+.full {
+	width: 100%;
+	float: left;
+	display: block;
+	padding: @pad1 0;
+	overflow-x: hidden;
+	background-color: #ffffff;
+}
+
+.wrapper {
+	width: 94%;
+	display: block;
+	margin: 0 3%;
+	.clearfix;
+}
+
+.whole {
+	.col;
+	width: 100.00%;
+	clear: none;
+}
+
+.half {
+	.col;
+	width: 50.00%;
+	clear: none;
+}
+
+.two-thirds {
+	.col;
+	width: 66.66%;
+	clear: none;
+}
+
+.third {
+	.col;
+	width: 33.333%;
+	clear: none;
+}
+
+.fourth {
+	.col;
+	width: 25%;
+	clear: none;
+}
+
+.sixth {
+	.col;
+	width: 33.333%;
+	clear: none;
+}
+
+header, header.full, footer, footer.full, #sidebar {
+	background-color: #333;
+	position: fixed;
+	h1, h2, h3, h4, p {
+		color: @vari4;	
+	}
+}
+
+header, header.full {
+	top: 0;
+	padding: @pad2/2 @pad2/2 @pad2/2 @pad2/2;
+	z-index: 100;
+}
+
+#sidebar {
+	background-color: #444;
+	height: 100vh;
+	right: 0;
+	padding-top: @pad3;
+}
+
+footer {
+	bottom: 0;
+}
+
+#research-bar, #menu-bar, #commands-panel {
+	background-color: #444;
+}
+

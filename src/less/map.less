@@ -1,0 +1,135 @@
+@import "normalize.less";
+
+// Tile size
+@tile_side: 128px;
+
+// Padding of graphics for a tile that represents land
+@tile_land_padding_top: 4px;
+@tile_land_padding_right: 4px;
+@tile_land_padding_bottom: 32px;
+@tile_land_padding_left: 4px;
+
+// Padding of building graphics
+@tile_improvement_padding_top: 32px;
+
+.map_row {
+    display: block;
+    width: 6 * @tile_side;
+    height: auto;
+    float: left;
+    clear: both;
+
+    background-color: #409AFF;
+    background-image: url(img/t_water.gif);
+    background-size: contain;
+}
+/*
+.row_001 .tile { z-index: 1; }
+.row_002 .tile { z-index: 2; }
+.row_003 .tile { z-index: 3; }
+.row_004 .tile { z-index: 4; }
+.row_005 .tile { z-index: 5; }
+*/
+
+// Base settings for one tile in map
+.tile {
+    display: block;
+    width: @tile_side;
+    height: @tile_side;
+    float: left;
+    position: relative;
+
+    // border: 1px solid rgba(255,255,255,0.15);
+    box-sizing: border-box;
+    background-color: #ccc;
+    background-size: cover;
+
+    overflow: visible;
+}
+
+// Ocean tile specific settings
+.tile_ocean {
+    background-color: transparent;
+
+    &:hover {
+        background-color: lighten(#409AFF, 5%);
+    }
+}
+
+// Plains tile specific settings
+.tile_plains {
+    //background-color: #30BF58;
+    background-color: transparent;
+    background-image: url(img/t_grass.png);
+
+    // Cliff at bottom
+    height: @tile_side + @tile_land_padding_top + @tile_land_padding_bottom;
+    width: @tile_side + @tile_land_padding_left + @tile_land_padding_right;
+    margin-bottom: -1 * @tile_land_padding_bottom;
+    margin-top: -1 * @tile_land_padding_top;
+    margin-left: -1 * @tile_land_padding_left;
+    margin-right: -1 * @tile_land_padding_right;
+
+    &:hover {
+        //background-color: lighten(#30BF58, 5%);
+        background-color: transparent;
+    }
+}
+
+// Improvement
+.improvement {
+    display: block;
+    z-index: 10;
+
+    img {
+        margin-top: -1*@tile_improvement_padding_top;
+        display: block;
+        width: 100%;
+    }
+}
+
+// Resource icon
+.resource {
+    display: block;
+    padding: 0px;
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    z-index: 10;
+
+    width: @tile_side / 3;
+    height: @tile_side / 3;
+
+    border: 3px solid #eee;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background-color: #ccc;
+
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    transition: 0.2s;
+
+    img {
+        display: block;
+        width: 100%;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        left: -1 * @tile_side / 40;
+        top: -1 * @tile_side / 40;
+        width: 0;
+        height: 0;
+        border-left: @tile_side / 12 solid #eee;
+        border-top: @tile_side / 12 solid #eee;
+        border-bottom: @tile_side / 12 solid transparent;
+        border-right: @tile_side / 12 solid transparent;
+        clear: both;
+    }
+}
+
+.tile:hover .resource {
+    right: 8px;
+    bottom: 8px;
+}

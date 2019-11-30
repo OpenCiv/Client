@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import axios from 'axios';
+  import Map from '../../components/map.svelte'
 
   // Init values for information on divs.
   // Variables are exposed globally at the moment.
@@ -102,7 +103,7 @@
 </header>
 <main class="full">
    <div id="map" class="two-thirds">
-      <p>Kartta</p>
+      <Map/>
    </div>
    <div id="sidebar" class="third">
    <!-- Get values from variables or show defaults. -->

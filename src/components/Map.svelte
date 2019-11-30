@@ -1,5 +1,9 @@
 <script>
    export let terrain;
+
+   function imgsrc(type) {
+      return 'img/b_' + type + '.png';
+   }
 </script>
 
 <svelte:head>
@@ -9,7 +13,12 @@
 {#each terrain as row}
 <div class="map_row">
    {#each row as tile}
-   <div class="{tile === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}">
+   <div class="{tile.type === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}">
+      {#each tile.improvements as improvement}
+      <div class="improvement">
+         <img src={imgsrc(improvement)} alt={improvement}>
+      </div>
+      {/each}
    </div>
    {/each}
 </div>

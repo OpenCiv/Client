@@ -83,11 +83,12 @@
     }))
     .then(response => {
       // response.data contains all the information from the server
-      if (!response.data.terrain) {
-         console.log('Could not load terrain');
+      if (!response.data) {
+         console.log('Could not load data');
       }
 
-      terrain = response.data.terrain;
+      terrain = response.data;
+      console.log(terrain);
     })
     .catch(error => {
       console.log(error ? error.message || error : 'unknown error');

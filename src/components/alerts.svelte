@@ -5,7 +5,7 @@ import { alerts } from '../stores.js';
 let messages = [];
 
 const unsubscribe = alerts.subscribe(value => {
-   messages = alerts;
+   messages = value;
 });
 
 function remove(message) {
@@ -39,7 +39,7 @@ onDestroy(() => {
 
 <div class="messages">
    {#each messages as message}
-      <div class="message">message</div>
+      <div class="message">{message}</div>
       <div class="x" on:click={remove(message)}>x</div>
    {/each}
 </div>

@@ -7,12 +7,12 @@ import { alerts } from '../stores.js';
 onMount(() => {
    axios.get('checkin.php').then(response => {
       if (response.data) {
-         sapper.goto('/menu');
+         sapper.goto('menu');
       } else {
-         sapper.goto('/login');
+         sapper.goto('login');
       }
    }).catch(error => {
-      alerts.update(a => [...a, error]);
+      console.log(error);
    });
 });
 </script>

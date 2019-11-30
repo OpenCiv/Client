@@ -1,6 +1,7 @@
 <script>
 import * as sapper from '@sapper/app';
 import axios from 'axios';
+import navbar from '../components/navbar';
 import { alerts } from '../stores.js';
 
 let name = '';
@@ -21,14 +22,16 @@ function register() {
       password: password
    })).then(response => {
       if (!response.data) {
-         sapper.goto('/unverified', { replace: true });
+         sapper.goto('unverified', { replace: true });
       } else {
+         console.log(response.data);
          alerts.update(a => [...a, response.data]);
          if (response.data = 'E-mail address already used') {
-            sapper.goto('/newpassword', { replace: true });
+            sapper.goto('newpassword', { replace: true });
          }
       }
    }).catch(error => {
+      console.log(error);
       alerts.update(a => [...a, error]);
    });
 }
@@ -63,6 +66,7 @@ function validate_repeat() {
    repeatError = password !== repeat;
 }
 </script>
+<navbar/>
 <h2>Register</h2>
 <div>
    <label>Name</label>

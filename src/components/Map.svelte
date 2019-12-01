@@ -1,6 +1,6 @@
 <script>
    import Unit from '../components/Unit.svelte';
-   export let terrain;
+   export let mapdata;
 
    function improvement_src(type) {
       return 'img/b_' + type + '.png';
@@ -11,7 +11,8 @@
    <link rel="stylesheet" href="map.css">
 </svelte:head>
 
-{#each terrain as row}
+{#if mapdata}
+{#each mapdata as row}
 <div class="map_row">
    {#each row as tile}
    <div class="{tile.type === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}">
@@ -29,6 +30,7 @@
    {/each}
 </div>
 {/each}
+{/if}
 
 <!-- <div class="map_row">
         <div class="tile tile_ocean">

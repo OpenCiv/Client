@@ -8,7 +8,7 @@
   import { selected } from '../../stores.js';
 
   // Obtained from the server and passed on to the map component
-  var terrain = [];
+  var mapdata = [];
 
   // Init values for information on divs.
   // Variables are exposed globally at the moment.
@@ -78,22 +78,23 @@
     commandsPanel.commandFour = " - ";
   }
 
-  onMount(() => {
-    axios.post('load.php', JSON.stringify({
-       game: 1
-    }))
-    .then(response => {
-      // response.data contains all the information from the server
-      if (!response.data) {
-         console.log('Could not load data');
-      }
+   onMount(() => {
+      axios.post('load.php', JSON.stringify({
+         game: 1
+      }))
+      .then(response => {
 
-      terrain = response.data;
-    })
-    .catch(error => {
-      console.log(error ? error.message || error : 'unknown error');
-    });
-  });
+         // response.data contains all the information from the server
+         if (!response.data) {
+            console.log('Could not load data');
+         }
+
+         mapdata = response.data.map;
+      })
+      .catch(error => {
+         console.log(error ? error.message || error : 'unknown error');
+      });
+   });
 
 const unsubscribe = selected.subscribe(value => {
    infoPanel.currentUnit = value ? 'Howdy' : 'None unit selected.';
@@ -120,7 +121,7 @@ const unsubscribe = selected.subscribe(value => {
 </header>
 <main class="full">
    <div id="map" class="two-thirds">
-      <Map {terrain}/>
+      <Map {mapdata}/>
    </div>
    <div id="sidebar" class="third">
    <!-- Get values from variables or show defaults. -->

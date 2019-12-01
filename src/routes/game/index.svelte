@@ -5,6 +5,7 @@
   import { onMount } from 'svelte';
   import axios from 'axios';
   import Map from '../../components/Map.svelte'
+  import { selected } from '../../stores.js';
 
   // Obtained from the server and passed on to the map component
   var terrain = [];
@@ -88,12 +89,15 @@
       }
 
       terrain = response.data;
-      console.log(terrain);
     })
     .catch(error => {
       console.log(error ? error.message || error : 'unknown error');
     });
   });
+
+const unsubscribe = selected.subscribe(value => {
+   infoPanel.currentUnit = value ? 'Howdy' : 'none';
+});
 </script>
 <header class="full">
    <div id="time-bar" class="fourth">

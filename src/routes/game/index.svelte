@@ -89,6 +89,7 @@
             console.log('Could not load data');
          }
 
+         accountBarAccountName = response.data.player.name;
          mapdata = response.data.map;
       })
       .catch(error => {

@@ -1,15 +1,9 @@
 <script>
    import Unit from '../components/Unit.svelte';
-   import { selected } from '../stores.js';
    export let terrain;
 
    function improvement_src(type) {
       return 'img/b_' + type + '.png';
-   }
-
-   function select(unit) {
-      selected.update(s => unit);
-      console.log(unit);
    }
 </script>
 
@@ -28,7 +22,7 @@
       {/each}
       {#each tile.units as unit}
       <div class="improvement">
-         <Unit on:click={e => select(e)}/>
+         <Unit {unit}/>
       </div>
       {/each}
    </div>

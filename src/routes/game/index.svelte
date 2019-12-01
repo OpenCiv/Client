@@ -96,7 +96,8 @@
   });
 
 const unsubscribe = selected.subscribe(value => {
-   infoPanel.currentUnit = value ? 'Howdy' : 'none';
+   infoPanel.currentUnit = value ? 'Howdy' : 'None unit selected.';
+   infoPanel.information = value ? 'How are you doing?' : 'Please select a unit';
 });
 </script>
 <header class="full">

@@ -1,7 +1,7 @@
 <script>
    export let terrain;
 
-   function imgsrc(type) {
+   function improvement_src(type) {
       return 'img/b_' + type + '.png';
    }
 </script>
@@ -16,12 +16,12 @@
    <div class="{tile.type === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}">
       {#each tile.improvements as improvement}
       <div class="improvement">
-         <img src={imgsrc(improvement)} alt={improvement}>
+         <img src={improvement_src(improvement)} alt={improvement}>
       </div>
       {/each}
       {#each tile.units as unit}
-      <div class="unit">
-         <img src={imgsrc(unit)} alt={unit}>
+      <div class="improvement">
+         <img src="img/u_nordic.png" alt={unit}>
       </div>
       {/each}
    </div>

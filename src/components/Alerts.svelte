@@ -8,7 +8,7 @@ const unsubscribe = alerts.subscribe(value => {
    messages = value;
 });
 
-function remove(message) {
+function remove(e, message) {
    messages = messages.filter(m => m !== message);
    alerts.set(messages);
 }
@@ -40,6 +40,6 @@ onDestroy(() => {
 <div class="messages">
    {#each messages as message}
       <div class="message">{message}</div>
-      <div class="x" on:click={remove(message)}>x</div>
+      <div class="x" on:click={e => remove(e, message)}>x</div>
    {/each}
 </div>

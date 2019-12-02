@@ -1,11 +1,11 @@
 <script>
 import { selected } from '../stores.js';
 
-export let unit;
+export let unit = null;
 
 function select(e) {
    e.stopPropagation();
-   selected.update(s => unit);
+   selected.set(unit);
 }
 </script>
 

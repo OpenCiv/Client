@@ -2,8 +2,8 @@
    import Unit from '../components/Unit.svelte';
    export let mapdata;
 
-   function improvement_src(type) {
-      return 'img/b_' + type + '.png';
+   function improvement_src(category, type) {
+      return `img/${category.charAt(0)}_` + type + '.png';
    }
 </script>
 
@@ -18,7 +18,7 @@
    <div class="{tile.type === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}">
       {#each tile.improvements as improvement}
       <div class="improvement">
-         <img src={improvement_src(improvement)} alt={improvement}>
+         <img src={improvement_src('building', improvement)} alt={improvement}>
       </div>
       {/each}
       {#each tile.units as unit}

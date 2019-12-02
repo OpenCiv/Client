@@ -10,7 +10,7 @@ const unsubscribe = alerts.subscribe(value => {
 
 function remove(message) {
    messages = messages.filter(m => m !== message);
-   alerts.update(a => messages);
+   alerts.set(messages);
 }
 
 onDestroy(() => {

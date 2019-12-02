@@ -1,8 +1,5 @@
-<script>
-import * as sapper from '@sapper/app';
-</script>
 <nav>
-   <button on:click={() => sapper.goto('login')} class="link">Login</button>
-   <button on:click={() => sapper.goto('register')} class="link">Register</button>
-   <button on:click={() => sapper.goto('newpassword')} class="link">New password</button>
+   <a href="/login">Login</a>
+   <a href="/register">Register</a>
+   <a href="/newpassword">New password</a>
 </nav>

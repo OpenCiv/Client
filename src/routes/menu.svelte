@@ -10,4 +10,9 @@ function logoff() {
 }
 </script>
 <h2>Main</h2>
+<p>
+   <!-- <a href="newgame">New game</a> -->
+   <a href="/game/1">Game 1</a>
+</p>
+
 <button on:click={logoff}>Log off</button>

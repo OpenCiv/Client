@@ -5,12 +5,12 @@ import axios from 'axios';
 import { alerts } from '../stores.js';
 
 onMount(() => {
-   alerts.update(a => [...a, 'Hello, world!']);
    axios.get('checkin.php').then(response => {
       if (response.data) {
-         sapper.goto('game');
+         sapper.goto('menu');
       } else {
-         sapper.goto('login');
+         // sapper.goto('login');
+         sapper.goto('game/1');
       }
    }).catch(error => {
       alerts.update(a => error ? error.message || error : 'unknown error');

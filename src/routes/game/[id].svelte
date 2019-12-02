@@ -1,11 +1,15 @@
 <svelte:head>
 <link rel="stylesheet" href="layout.css">
 </svelte:head>
+
 <script>
   import { onMount } from 'svelte';
+  import { stores } from '@sapper/app';
   import axios from 'axios';
   import Map from '../../components/Map.svelte'
   import { selected } from '../../stores.js';
+
+  const { page } = stores();
 
   // Obtained from the server and passed on to the map component
   var mapdata = [];
@@ -80,7 +84,7 @@
 
    onMount(() => {
       axios.post('load.php', JSON.stringify({
-         game: 1
+         game: $page.params.id
       }))
       .then(response => {
 

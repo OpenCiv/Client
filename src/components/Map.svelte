@@ -5,6 +5,10 @@
    function img_src(category, type) {
       return `img/${category.charAt(0)}_` + type + '.png';
    }
+
+   function resource_quantity(resource) {
+      return `${resource.type} (${Number.parseFloat(resource.quantity).toFixed(0)})`;
+   }
 </script>
 
 <svelte:head>
@@ -28,7 +32,7 @@
       {/each}
       {#each tile.resources as resource}
       <div class="resource">
-         <img src={img_src('resource', resource)} alt={resource}>
+         <img src={img_src('resource', resource.type)} alt={resource_quantity(resource)}>
       </div>
       {/each}
    </div>

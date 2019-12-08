@@ -1,5 +1,3 @@
-@import "normalize.less";
-
 // Tile size
 @tile_side: 128px;
 
@@ -12,6 +10,18 @@
 // Padding of building graphics
 @tile_improvement_padding_top: 32px;
 
+#map {
+    padding-top: 32px;
+    padding-bottom: 300px;
+    overflow: scroll;
+    overscroll-behavior: contain;
+    width: 100%;
+    height: 100%;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+}
+
 .map_row {
     display: block;
     width: 10 * @tile_side;
@@ -23,13 +33,6 @@
     background-image: url(img/t_water.gif);
     background-size: contain;
 }
-/*
-.row_001 .tile { z-index: 1; }
-.row_002 .tile { z-index: 2; }
-.row_003 .tile { z-index: 3; }
-.row_004 .tile { z-index: 4; }
-.row_005 .tile { z-index: 5; }
-*/
 
 // Base settings for one tile in map
 .tile {

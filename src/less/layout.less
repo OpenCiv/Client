@@ -2,14 +2,14 @@
 @import url("normalize.less");
 
 /* MIXINS */
-@vari1: #8b189b; /* Pääväri */
-@vari2: darken(@vari1, 20%); /* Toinen pääväri */
-@vari3: #333333; /* Tekstin väri */
-@vari4: #fff; /* Negatekstin väri */
-@vari5: #fff; /* Taustan väri */
+@vari1: #8b189b; /* Primary theme color */
+@vari2: darken(@vari1, 20%); /* Secondary theme color */
+@vari3: #333333; /* Text color */
+@vari4: #fff; /* Negative text color */
+@vari5: #fff; /* Background color */
 
-@font1: 'Lato', Arial, sans-serif; /* Leipäfontti */
-@font2: 'Lora', Times New Roman, serif; /* Otsikkofontti */
+@font1: 'Lato', Arial, sans-serif; /* Body text font */
+@font2: 'Lora', Times New Roman, serif; /* Headings font */
 
 @pad1: 25px; /* Sivuilla oleva yleinen väli */
 @pad2: 0.5em; /* Ylhäällä ja alhaalla oleva yleinen väli */
@@ -23,7 +23,7 @@
 	clear: both;
 	margin-left: 0;
 	margin-bottom: 0;
-	padding: @pad1 auto;
+	padding: 0 auto;
 	float: left;
 	display: block;
 }
@@ -97,12 +97,12 @@ h4 {
 	line-height:150%;
 }
 
-.nimiotsikko {
-	margin-bottom: -0.5em;
+.no-bottom-margin {
+	margin-bottom: 0;
 }
 
 /* ======================================================== */
-/* LEIPÄTEKSTI */
+/* BODY TEXT, LEIPÄTEKSTI */
 /* ======================================================== */
 
 p {
@@ -117,11 +117,7 @@ ul li {
 	line-height: 190%;
 }
 
-::selection {
-	background: @vari1;
-	color: #ffffff;
-}
-::-moz-selection {
+::selection, ::-moz-selection {
 	background: @vari1;
 	color: #ffffff;
 }
@@ -149,17 +145,18 @@ a:hover, a:active {
 	cursor: pointer;
 }
 
-.button {
-	background-color: transparent;
+button, .button, button:visited, .button:visited {
+	background-color: darken(@vari1,5%);
 	border: 3px solid @vari1;
 	padding: @pad1/4 0.75*@pad1;
-	color: @vari1;
+	color: @vari4;
 	display: inline-block;
 	font-size: 1em;
 	font-weight: 700;
 	font-family: @font1;
 	letter-spacing: 0.05em;
 	text-transform: uppercase;
+	outline: none;
 	
 	width:auto;
 	min-width:6em;
@@ -175,10 +172,11 @@ a:hover, a:active {
 	transition: all .2s ease-in-out;
 }
 
-.button:hover, .button:active {
+button:hover, button:active, .button:hover, .button:active {
 	background-color: @vari1;
 	/*.tausta-gradientti;*/
 	color: @vari4;
+	outline: none;
 	
 	transform: scale(1.1);
 }
@@ -213,59 +211,32 @@ img, object {
 	.clearfix;
 }
 
-.whole {
-	.col;
-	width: 100.00%;
-	clear: none;
-}
-
-.half {
-	.col;
-	width: 50.00%;
-	clear: none;
-}
-
-.two-thirds {
-	.col;
-	width: 66.66%;
-	clear: none;
-}
-
-.third {
-	.col;
-	width: 33.333%;
-	clear: none;
-}
-
-.fourth {
-	.col;
-	width: 25%;
-	clear: none;
-}
-
-.sixth {
-	.col;
-	width: 33.333%;
-	clear: none;
-}
-
 header, header.full, footer, footer.full, #sidebar {
 	background-color: #333;
 	position: fixed;
+	z-index: 500;
+	display: block;
 	h1, h2, h3, h4, p {
 		color: @vari4;	
 	}
 }
 
+main {
+	position: fixed;
+	background-color: transparent;
+	height: 80vh;
+	width: 100vw;
+}
+
 header, header.full {
 	top: 0;
 	padding: @pad2/2 @pad2/2 @pad2/2 @pad2/2;
-	z-index: 100;
+	min-height: 48px;
 }
 
 #sidebar {
 	background-color: #444;
-	height: 100vh;
+	height: auto;
 	right: 0;
 	padding-top: @pad3;
 }
@@ -278,3 +249,79 @@ footer {
 	background-color: #444;
 }
 
+/* ======================================================== */
+/* COLUMNS */
+/* ======================================================== */
+
+.whole, .half, .two-thirds, .third, .fourth, .sixth {
+	.col;
+	width: 100.00%;
+	clear: none;
+}
+
+.half.non-responsive {
+	.col;
+	width: 50.00%;
+	clear: none;
+}
+
+.two-thirds.non-responsive {
+	.col;
+	width: 66.66%;
+	clear: none;
+}
+
+.third.non-responsive {
+	.col;
+	width: 33.333%;
+	clear: none;
+}
+
+.fourth.non-responsive {
+	.col;
+	width: 25%;
+	clear: none;
+}
+
+.sixth.non-responsive {
+	.col;
+	width: 33.333%;
+	clear: none;
+}
+
+/* ======================================================== */
+/* DESKTOPS & BIGGER SCREENS */
+/* ======================================================== */
+@media only screen and (min-width: 640px) {
+
+	.half {
+		.col;
+		width: 50.00%;
+		clear: none;
+	}
+	
+	.two-thirds {
+		.col;
+		width: 66.66%;
+		clear: none;
+	}
+	
+	.third {
+		.col;
+		width: 33.333%;
+		clear: none;
+	}
+	
+	.fourth {
+		.col;
+		width: 25%;
+		clear: none;
+	}
+	
+	.sixth {
+		.col;
+		width: 33.333%;
+		clear: none;
+	}
+
+}

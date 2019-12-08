@@ -1,5 +1,6 @@
 <svelte:head>
 <link rel="stylesheet" href="layout.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </svelte:head>
 
 <script>
@@ -124,8 +125,8 @@ const unsubscribe = selected.subscribe(value => {
       <p class="right">{accountBarAccountName || "No login information."}</p>
    </div>
 </header>
-<main class="full">
-   <div id="map" class="two-thirds">
+<main>
+   <div id="map" class="full">
       <Map {mapdata}/>
    </div>
    <div id="sidebar" class="third">
@@ -144,9 +145,14 @@ const unsubscribe = selected.subscribe(value => {
 </main>
 <footer class="full">
    <div id="info-panel" class="third">
-      <!-- Get values from variables or show defaults. -->
-      <h3>{infoPanel.currentUnit || "No unit selected."}</h3>
-      <p>{infoPanel.information || "Please select a unit."}</p>
+      <div class="third non-responsive">
+         <img src="" alt="Unit image">
+      </div>
+      <div class="two-thirds non-responsive">
+         <!-- Get values from variables or show defaults. -->
+         <h3>{infoPanel.currentUnit || "No unit selected."}</h3>
+         <p>{infoPanel.information || "Please select a unit."}</p>
+      </div>
    </div>
    <div id="commands-panel" class="third">
       <p class="left">Command options</p>
@@ -154,7 +160,8 @@ const unsubscribe = selected.subscribe(value => {
       <p class="center" id="command-buttons">{commandsPanel.commandOne || " - "}{commandsPanel.commandTwo || " - "}{commandsPanel.commandThree || " - "}{commandsPanel.commandTwo || " - "}</p>
    </div>
    <div id="status-panel" class="third">
-      <h2 class="center">Turn complete</h2>
+      <h2 class="center no-bottom-margin">Turn complete</h2>
       <p class="center"><button id="end-turn">End Turn</button></p>
    </div>
 </footer>
+

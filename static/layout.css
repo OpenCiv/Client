@@ -178,13 +178,13 @@ th {
   padding: 0;
 }
 /* MIXINS */
-/* Pääväri */
-/* Toinen pääväri */
-/* Tekstin väri */
-/* Negatekstin väri */
-/* Taustan väri */
-/* Leipäfontti */
-/* Otsikkofontti */
+/* Primary theme color */
+/* Secondary theme color */
+/* Text color */
+/* Negative text color */
+/* Background color */
+/* Body text font */
+/* Headings font */
 /* Sivuilla oleva yleinen väli */
 /* Ylhäällä ja alhaalla oleva yleinen väli */
 /* Ylhäällä ja alhaalla oleva isompi väli */
@@ -194,7 +194,7 @@ th {
   clear: both;
   margin-left: 0;
   margin-bottom: 0;
-  padding: 25px auto;
+  padding: 0 auto;
   float: left;
   display: block;
 }
@@ -263,11 +263,11 @@ h4 {
   letter-spacing: 0.05em;
   line-height: 150%;
 }
-.nimiotsikko {
-  margin-bottom: -0.5em;
+.no-bottom-margin {
+  margin-bottom: 0;
 }
 /* ======================================================== */
-/* LEIPÄTEKSTI */
+/* BODY TEXT, LEIPÄTEKSTI */
 /* ======================================================== */
 p {
   margin: 0.5em 25px 0.75em 25px;
@@ -279,10 +279,7 @@ p {
 ul li {
   line-height: 190%;
 }
-::selection {
-  background: #8b189b;
-  color: #ffffff;
-}
+::selection,
 ::-moz-selection {
   background: #8b189b;
   color: #ffffff;
@@ -308,17 +305,21 @@ a:active {
   color: #9f1bb1;
   cursor: pointer;
 }
-.button {
-  background-color: transparent;
+button,
+.button,
+button:visited,
+.button:visited {
+  background-color: #771585;
   border: 3px solid #8b189b;
   padding: 6.25px 18.75px;
-  color: #8b189b;
+  color: #fff;
   display: inline-block;
   font-size: 1em;
   font-weight: 700;
   font-family: 'Lato', Arial, sans-serif;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  outline: none;
   width: auto;
   min-width: 6em;
   text-decoration: none;
@@ -329,11 +330,14 @@ a:active {
   -moz-border-radius: 0px;
   transition: all 0.2s ease-in-out;
 }
+button:hover,
+button:active,
 .button:hover,
 .button:active {
   background-color: #8b189b;
   /*.tausta-gradientti;*/
   color: #fff;
+  outline: none;
   transform: scale(1.1);
 }
 /* ======================================================== */
@@ -370,71 +374,6 @@ object {
 .wrapper:after {
   clear: both;
 }
-.whole {
-  clear: both;
-  margin-left: 0;
-  margin-bottom: 0;
-  padding: 25px auto;
-  float: left;
-  display: block;
-  width: 100%;
-  clear: none;
-}
-.half {
-  width: 100%;
-  clear: both;
-  margin-left: 0;
-  margin-bottom: 0;
-  padding: 25px auto;
-  float: left;
-  display: block;
-  width: 50%;
-  clear: none;
-}
-.two-thirds {
-  width: 100%;
-  clear: both;
-  margin-left: 0;
-  margin-bottom: 0;
-  padding: 25px auto;
-  float: left;
-  display: block;
-  width: 66.66%;
-  clear: none;
-}
-.third {
-  width: 100%;
-  clear: both;
-  margin-left: 0;
-  margin-bottom: 0;
-  padding: 25px auto;
-  float: left;
-  display: block;
-  width: 33.333%;
-  clear: none;
-}
-.fourth {
-  width: 100%;
-  clear: both;
-  margin-left: 0;
-  margin-bottom: 0;
-  padding: 25px auto;
-  float: left;
-  display: block;
-  width: 25%;
-  clear: none;
-}
-.sixth {
-  width: 100%;
-  clear: both;
-  margin-left: 0;
-  margin-bottom: 0;
-  padding: 25px auto;
-  float: left;
-  display: block;
-  width: 33.333%;
-  clear: none;
-}
 header,
 header.full,
 footer,
@@ -442,6 +381,8 @@ footer.full,
 #sidebar {
   background-color: #333;
   position: fixed;
+  z-index: 500;
+  display: block;
 }
 header h1,
 header.full h1,
@@ -470,15 +411,21 @@ footer.full p,
 #sidebar p {
   color: #fff;
 }
+main {
+  position: fixed;
+  background-color: transparent;
+  height: 80vh;
+  width: 100vw;
+}
 header,
 header.full {
   top: 0;
   padding: 0.25em 0.25em 0.25em 0.25em;
-  z-index: 100;
+  min-height: 48px;
 }
 #sidebar {
   background-color: #444;
-  height: 100vh;
+  height: auto;
   right: 0;
   padding-top: 30px;
 }
@@ -489,4 +436,137 @@ footer {
 #menu-bar,
 #commands-panel {
   background-color: #444;
+}
+/* ======================================================== */
+/* COLUMNS */
+/* ======================================================== */
+.whole,
+.half,
+.two-thirds,
+.third,
+.fourth,
+.sixth {
+  clear: both;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding: 0 auto;
+  float: left;
+  display: block;
+  width: 100%;
+  clear: none;
+}
+.half.non-responsive {
+  width: 100%;
+  clear: both;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding: 0 auto;
+  float: left;
+  display: block;
+  width: 50%;
+  clear: none;
+}
+.two-thirds.non-responsive {
+  width: 100%;
+  clear: both;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding: 0 auto;
+  float: left;
+  display: block;
+  width: 66.66%;
+  clear: none;
+}
+.third.non-responsive {
+  width: 100%;
+  clear: both;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding: 0 auto;
+  float: left;
+  display: block;
+  width: 33.333%;
+  clear: none;
+}
+.fourth.non-responsive {
+  width: 100%;
+  clear: both;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding: 0 auto;
+  float: left;
+  display: block;
+  width: 25%;
+  clear: none;
+}
+.sixth.non-responsive {
+  width: 100%;
+  clear: both;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding: 0 auto;
+  float: left;
+  display: block;
+  width: 33.333%;
+  clear: none;
+}
+/* ======================================================== */
+/* DESKTOPS & BIGGER SCREENS */
+/* ======================================================== */
+@media only screen and (min-width: 640px) {
+  .half {
+    width: 100%;
+    clear: both;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding: 0 auto;
+    float: left;
+    display: block;
+    width: 50%;
+    clear: none;
+  }
+  .two-thirds {
+    width: 100%;
+    clear: both;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding: 0 auto;
+    float: left;
+    display: block;
+    width: 66.66%;
+    clear: none;
+  }
+  .third {
+    width: 100%;
+    clear: both;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding: 0 auto;
+    float: left;
+    display: block;
+    width: 33.333%;
+    clear: none;
+  }
+  .fourth {
+    width: 100%;
+    clear: both;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding: 0 auto;
+    float: left;
+    display: block;
+    width: 25%;
+    clear: none;
+  }
+  .sixth {
+    width: 100%;
+    clear: both;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding: 0 auto;
+    float: left;
+    display: block;
+    width: 33.333%;
+    clear: none;
+  }
 }

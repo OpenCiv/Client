@@ -25,14 +25,14 @@ function resource_quantity(resource) {
          <img src={img_src('building', improvement)} alt={improvement}>
       </div>
       {/each}
-      {#each tile.units as unit}
-      <div class="improvement">
-         <Unit {unit}/>
-      </div>
-      {/each}
       {#each tile.resources as resource}
       <div class="resource">
          <img src={img_src('resource', resource.type)} alt={resource_quantity(resource)}>
+      </div>
+      {/each}
+      {#each tile.units as unit}
+      <div class="improvement">
+         <Unit {unit}/>
       </div>
       {/each}
    </div>
@@ -40,120 +40,3 @@ function resource_quantity(resource) {
 </div>
 {/each}
 {/if}
-
-<!-- <div class="map_row">
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_plains">
-            <div class="improvement">
-                <img src="img/b_market.png" alt="Market">
-            </div>
-        </div>
-        <div class="tile tile_plains">
-
-        </div>
-    </div>
-    <div class="map_row">
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_plains">
-            <div class="improvement">
-                <img src="img/b_church.png" alt="Church">
-            </div>
-        </div>
-        <div class="tile tile_plains">
-            <div class="resource">
-                <img src="img/r_gold.png" alt="Gold">
-            </div>
-        </div>
-        <div class="tile tile_plains">
-            <div class="improvement">
-                <img src="img/b_temple.png" alt="Temple">
-            </div>
-        </div>
-    </div>
-    <div class="map_row">
-        <div class="tile tile_plains">
-            <div class="improvement">
-                <img src="img/b_craftshop.png" alt="Craftshop">
-            </div>
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_plains">
-
-        </div>
-    </div>
-    <div class="map_row">
-        <div class="tile tile_plains">
-            <div class="resource">
-                <img src="img/r_sandstone.png" alt="Sandstone">
-            </div>
-        </div>
-        <div class="tile tile_plains">
-            <div class="improvement">
-                <img src="img/b_castle.png" alt="Castle">
-            </div>
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-    </div>
-    <div class="map_row">
-        <div class="tile tile_plains">
-
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_plains">
-            <div class="improvement">
-                <img src="img/b_tower.png" alt="Tower">
-            </div>
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-        <div class="tile tile_ocean">
-
-        </div>
-    </div> -->

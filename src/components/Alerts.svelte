@@ -1,6 +1,6 @@
 <script>
 import { onDestroy } from 'svelte';
-import { alerts } from '../stores.js';
+import { alerts } from '../stores';
 
 let messages = [];
 
@@ -39,7 +39,7 @@ onDestroy(() => {
 
 <div class="messages">
    {#each messages as message}
-      <div class="message">{message}</div>
+      <div class="message">{@html message}</div>
       <div class="x" on:click={e => remove(e, message)}>x</div>
    {/each}
 </div>

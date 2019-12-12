@@ -4,11 +4,11 @@
 </svelte:head>
 
 <script>
-import { onMount } from 'svelte';
+import { onMount, onDestroy } from 'svelte';
 import { stores } from '@sapper/app';
 import axios from 'axios';
 import Map from '../../components/Map';
-import { selected } from '../../stores.js';
+import { selected } from '../../stores';
 
 const { page } = stores();
 
@@ -18,70 +18,77 @@ var mapdata = [];
 // Init values for information on divs.
 // Variables are exposed globally at the moment.
 // You can access the variables out of this scope
-var timeBarYears = "";
-var timeBarTurn = "";
-var researchBarResearch = "";
-var menuBarSelectedMenu = "";
-var accountBarAccountName = "";
+var timeBarYears = '';
+var timeBarTurn = '';
+var researchBarResearch = '';
+var menuBarSelectedMenu = '';
+var accountBarAccountName = '';
 var sideBarUnits = {
-   unitSelectUnitBuild:"",
-   unitOneName:"",
-   unitOneDescription:"",
-   unitTwoName:"",
-   unitTwoDescription:"",
-   unitThreeName:"",
-   unitThreeDescription:""
+   unitSelectUnitBuild: '',
+   unitOneName: '',
+   unitOneDescription: '',
+   unitTwoName: '',
+   unitTwoDescription: '',
+   unitThreeName: '',
+   unitThreeDescription: ''
 };
 var infoPanel = {
-   currentUnit:"",
-   information:"",
-}
+   currentUnit: '',
+   information: '',
+};
 var commandsPanel = {
-   commandOne:"",
-   commandTwo:"",
-   commandThree:"",
-   commandFour:""
+   commandOne: '',
+   commandTwo: '',
+   commandThree: '',
+   commandFour: ''
+};
+
+// For show purpose populate with bogus data.
+function populateUnits(event) {
+   timeBarYears = '29 000 BC';
+   timeBarTurn = 'Turn ' + 2;
+   researchBarResearch = 'Agriculture';
+   menuBarSelectedMenu = 'World view';
+   accountBarAccountName = 'Laiska-Jaakko';
+   sideBarUnits.unitOneName = 'Builder';
+   sideBarUnits.unitOneDescription = 'Builds a lot';
+   sideBarUnits.unitTwoName = 'Monk';
+   sideBarUnits.unitTwoDescription = 'Prays a lot'
+   sideBarUnits.unitThreeName = 'Warrior';
+   sideBarUnits.unitThreeDescription = 'Fights a lot';
+   infoPanel.currentUnit = 'Builder';
+   infoPanel.information = 'Currenlty building an iron mine.';
+   commandsPanel.commandOne = ' [Build] ';
+   commandsPanel.commandTwo = ' [Move] ';
+   commandsPanel.commandThree = ' [Destroy] ';
+   commandsPanel.commandFour = ' [Cancel] ';
 }
-//For show purpose populate with bogus data.
-function populateUnits(event){
-   timeBarYears = "29 000 BC";
-   timeBarTurn = "Turn " + 2;
-   researchBarResearch = "Agriculture";
-   menuBarSelectedMenu = "World view";
-   accountBarAccountName = "Laiska-Jaakko";
-   sideBarUnits.unitOneName = "Builder";
-   sideBarUnits.unitOneDescription = "Builds a lot";
-   sideBarUnits.unitTwoName = "Monk";
-   sideBarUnits.unitTwoDescription = "Prays a lot"
-   sideBarUnits.unitThreeName = "Warrior";
-   sideBarUnits.unitThreeDescription = "Fights a lot";
-   infoPanel.currentUnit = "Builder";
-   infoPanel.information = "Currenlty building an iron mine.";
-   commandsPanel.commandOne = " [Build] ";
-   commandsPanel.commandTwo = " [Move] ";
-   commandsPanel.commandThree = " [Destroy] ";
-   commandsPanel.commandFour = " [Cancel] ";
+
+// For clearing variables
+function clearAllVariables(event) {
+   timeBarYears = '';
+   timeBarTurn = '';
+   researchBarResearch = '';
+   menuBarSelectedMenu = '';
+   accountBarAccountName = '';
+   sideBarUnits.unitOneName = '';
+   sideBarUnits.unitOneDescription = '';
+   sideBarUnits.unitTwoName = '';
+   sideBarUnits.unitTwoDescription = ''
+   sideBarUnits.unitThreeName = '';
+   sideBarUnits.unitThreeDescription = '';
+   infoPanel.currentUnit = '';
+   infoPanel.information = '';
+   commandsPanel.commandOne = ' - ';
+   commandsPanel.commandTwo = ' - ';
+   commandsPanel.commandThree = ' - ';
+   commandsPanel.commandFour = ' - ';
 }
-//For clearing variables
-function clearAllVariables(event){
-   timeBarYears = "";
-   timeBarTurn = "";
-   researchBarResearch = "";
-   menuBarSelectedMenu = "";
-   accountBarAccountName = "";
-   sideBarUnits.unitOneName = "";
-   sideBarUnits.unitOneDescription = "";
-   sideBarUnits.unitTwoName = "";
-   sideBarUnits.unitTwoDescription = ""
-   sideBarUnits.unitThreeName = "";
-   sideBarUnits.unitThreeDescription = "";
-   infoPanel.currentUnit = "";
-   infoPanel.information = "";
-   commandsPanel.commandOne = " - ";
-   commandsPanel.commandTwo = " - ";
-   commandsPanel.commandThree = " - ";
-   commandsPanel.commandFour = " - ";
-}
+
+const unsubscribe = selected.subscribe(value => {
+   infoPanel.currentUnit = value ? 'Howdy' : 'None unit selected.';
+   infoPanel.information = value ? 'How are you doing?' : 'Please select a unit';
+});
 
 onMount(() => {
    axios.post('load.php', JSON.stringify({
@@ -102,10 +109,7 @@ onMount(() => {
    });
 });
 
-const unsubscribe = selected.subscribe(value => {
-   infoPanel.currentUnit = value ? 'Howdy' : 'None unit selected.';
-   infoPanel.information = value ? 'How are you doing?' : 'Please select a unit';
-});
+onDestroy(unsubscribe);
 </script>
 
 <header class="full">

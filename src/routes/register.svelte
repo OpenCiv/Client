@@ -1,7 +1,7 @@
 <script>
 import * as sapper from '@sapper/app';
 import axios from 'axios';
-import { alerts } from '../stores.js';
+import { alerts } from '../stores';
 import Navbar from '../components/Navbar';
 
 let name = '';

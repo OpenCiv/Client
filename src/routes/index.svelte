@@ -2,7 +2,7 @@
 import { onMount } from 'svelte';
 import * as sapper from '@sapper/app';
 import axios from 'axios';
-import { alerts } from '../stores.js';
+import { alerts } from '../stores';
 
 onMount(() => {
    axios.get('checkin.php').then(response => {

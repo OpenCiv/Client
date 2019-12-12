@@ -1,5 +1,5 @@
 <script>
-import { onMount, onDestroy } from 'svelte';
+import { onMount } from 'svelte';
 import * as sapper from '@sapper/app';
 import axios from 'axios';
 import { alerts } from '../stores';
@@ -35,6 +35,9 @@ function resend() {
 </script>
 
 {#if user}
+<p>
+   <a href="/menu">Menu</a>
+</p>
 <p>
    <span>Display name: {#if editName}<input type=text bind:value={user.name}>{:else}{user.name}{/if}</span> <br>
    <span>E-mail address: {user.email}</span>

@@ -22,7 +22,7 @@ function register() {
       password: password
    })).then(response => {
       if (!response.data) {
-         sapper.goto('unverified', { replace: true });
+         sapper.goto('menu', { replace: true });
       } else {
          console.log(response.data);
          alerts.update(a => [...a, response.data]);
@@ -66,6 +66,7 @@ function validate_repeat() {
    repeatError = password !== repeat;
 }
 </script>
+
 <Navbar/>
 <h2>Register</h2>
 <div>

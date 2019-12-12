@@ -1,14 +1,14 @@
 <script>
-   import Unit from '../components/Unit.svelte';
-   export let mapdata;
+import Unit from '../components/Unit';
+export let mapdata;
 
-   function img_src(category, type) {
-      return `img/${category.charAt(0)}_` + type + '.png';
-   }
+function img_src(category, type) {
+   return `img/${category.charAt(0)}_` + type + '.png';
+}
 
-   function resource_quantity(resource) {
-      return `${resource.type} (${Number.parseFloat(resource.quantity).toFixed(0)})`;
-   }
+function resource_quantity(resource) {
+   return `${resource.type} (${Number.parseFloat(resource.quantity).toFixed(0)})`;
+}
 </script>
 
 <svelte:head>

@@ -1,7 +1,7 @@
 <script>
 import * as sapper from '@sapper/app';
 import axios from 'axios';
-import Navbar from '../components/Navbar.svelte';
+import Navbar from '../components/Navbar';
 import { alerts } from '../stores.js';
 
 let email = '';
@@ -14,8 +14,8 @@ function login() {
       password: password
    }))
    .then(response => {
-      if (!response.data) {
-         sapper.goto('game');
+      if (response.data) {
+         sapper.goto('menu', { replace: true });
       } else {
          console.log(response.data);
          alerts.update(a => [...a, response.data]);

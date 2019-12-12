@@ -5,7 +5,7 @@ import * as sapper from '@sapper/app';
 function logoff() {
    axios.get('logoff.php')
    .finally(() => {
-      sapper.goto('login');
+      sapper.goto('login', { replace: true });
    });
 }
 </script>

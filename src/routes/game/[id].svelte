@@ -1,112 +1,113 @@
 <svelte:head>
-<link rel="stylesheet" href="layout.css">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="layout.css">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
 </svelte:head>
 
 <script>
-  import { onMount } from 'svelte';
-  import { stores } from '@sapper/app';
-  import axios from 'axios';
-  import Map from '../../components/Map.svelte'
-  import { selected } from '../../stores.js';
+import { onMount } from 'svelte';
+import { stores } from '@sapper/app';
+import axios from 'axios';
+import Map from '../../components/Map';
+import { selected } from '../../stores.js';
 
-  const { page } = stores();
+const { page } = stores();
 
-  // Obtained from the server and passed on to the map component
-  var mapdata = [];
+// Obtained from the server and passed on to the map component
+var mapdata = [];
 
-  // Init values for information on divs.
-  // Variables are exposed globally at the moment.
-  // You can access the variables out of this scope
-  var timeBarYears = "";
-  var timeBarTurn = "";
-  var researchBarResearch = "";
-  var menuBarSelectedMenu = "";
-  var accountBarAccountName = "";
-  var sideBarUnits = {
-    unitSelectUnitBuild:"",
-    unitOneName:"",
-    unitOneDescription:"",
-    unitTwoName:"",
-    unitTwoDescription:"",
-    unitThreeName:"",
-    unitThreeDescription:""
-  };
-  var infoPanel = {
-    currentUnit:"",
-    information:"",
-  }
-  var commandsPanel = {
-    commandOne:"",
-    commandTwo:"",
-    commandThree:"",
-    commandFour:""
-  }
-  //For show purpose populate with bogus data.
-  function populateUnits(event){
-    timeBarYears = "29 000 BC";
-    timeBarTurn = "Turn " + 2;
-    researchBarResearch = "Agriculture";
-    menuBarSelectedMenu = "World view";
-    accountBarAccountName = "Laiska-Jaakko";
-    sideBarUnits.unitOneName = "Builder";
-    sideBarUnits.unitOneDescription = "Builds a lot";
-    sideBarUnits.unitTwoName = "Monk";
-    sideBarUnits.unitTwoDescription = "Prays a lot"
-    sideBarUnits.unitThreeName = "Warrior";
-    sideBarUnits.unitThreeDescription = "Fights a lot";
-    infoPanel.currentUnit = "Builder";
-    infoPanel.information = "Currenlty building an iron mine.";
-    commandsPanel.commandOne = " [Build] ";
-    commandsPanel.commandTwo = " [Move] ";
-    commandsPanel.commandThree = " [Destroy] ";
-    commandsPanel.commandFour = " [Cancel] ";
-  }
-  //For clearing variables
-  function clearAllVariables(event){
-    timeBarYears = "";
-    timeBarTurn = "";
-    researchBarResearch = "";
-    menuBarSelectedMenu = "";
-    accountBarAccountName = "";
-    sideBarUnits.unitOneName = "";
-    sideBarUnits.unitOneDescription = "";
-    sideBarUnits.unitTwoName = "";
-    sideBarUnits.unitTwoDescription = ""
-    sideBarUnits.unitThreeName = "";
-    sideBarUnits.unitThreeDescription = "";
-    infoPanel.currentUnit = "";
-    infoPanel.information = "";
-    commandsPanel.commandOne = " - ";
-    commandsPanel.commandTwo = " - ";
-    commandsPanel.commandThree = " - ";
-    commandsPanel.commandFour = " - ";
-  }
+// Init values for information on divs.
+// Variables are exposed globally at the moment.
+// You can access the variables out of this scope
+var timeBarYears = "";
+var timeBarTurn = "";
+var researchBarResearch = "";
+var menuBarSelectedMenu = "";
+var accountBarAccountName = "";
+var sideBarUnits = {
+   unitSelectUnitBuild:"",
+   unitOneName:"",
+   unitOneDescription:"",
+   unitTwoName:"",
+   unitTwoDescription:"",
+   unitThreeName:"",
+   unitThreeDescription:""
+};
+var infoPanel = {
+   currentUnit:"",
+   information:"",
+}
+var commandsPanel = {
+   commandOne:"",
+   commandTwo:"",
+   commandThree:"",
+   commandFour:""
+}
+//For show purpose populate with bogus data.
+function populateUnits(event){
+   timeBarYears = "29 000 BC";
+   timeBarTurn = "Turn " + 2;
+   researchBarResearch = "Agriculture";
+   menuBarSelectedMenu = "World view";
+   accountBarAccountName = "Laiska-Jaakko";
+   sideBarUnits.unitOneName = "Builder";
+   sideBarUnits.unitOneDescription = "Builds a lot";
+   sideBarUnits.unitTwoName = "Monk";
+   sideBarUnits.unitTwoDescription = "Prays a lot"
+   sideBarUnits.unitThreeName = "Warrior";
+   sideBarUnits.unitThreeDescription = "Fights a lot";
+   infoPanel.currentUnit = "Builder";
+   infoPanel.information = "Currenlty building an iron mine.";
+   commandsPanel.commandOne = " [Build] ";
+   commandsPanel.commandTwo = " [Move] ";
+   commandsPanel.commandThree = " [Destroy] ";
+   commandsPanel.commandFour = " [Cancel] ";
+}
+//For clearing variables
+function clearAllVariables(event){
+   timeBarYears = "";
+   timeBarTurn = "";
+   researchBarResearch = "";
+   menuBarSelectedMenu = "";
+   accountBarAccountName = "";
+   sideBarUnits.unitOneName = "";
+   sideBarUnits.unitOneDescription = "";
+   sideBarUnits.unitTwoName = "";
+   sideBarUnits.unitTwoDescription = ""
+   sideBarUnits.unitThreeName = "";
+   sideBarUnits.unitThreeDescription = "";
+   infoPanel.currentUnit = "";
+   infoPanel.information = "";
+   commandsPanel.commandOne = " - ";
+   commandsPanel.commandTwo = " - ";
+   commandsPanel.commandThree = " - ";
+   commandsPanel.commandFour = " - ";
+}
 
-   onMount(() => {
-      axios.post('load.php', JSON.stringify({
-         game: $page.params.id
-      }))
-      .then(response => {
+onMount(() => {
+   axios.post('load.php', JSON.stringify({
+      game: $page.params.id
+   }))
+   .then(response => {
 
-         // response.data contains all the information from the server
-         if (!response.data) {
-            console.log('Could not load data');
-         }
+      // response.data contains all the information from the server
+      if (!response.data) {
+         console.log('Could not load data');
+      }
 
-         accountBarAccountName = response.data.player.name;
-         mapdata = response.data.map;
-      })
-      .catch(error => {
-         console.log(error ? error.message || error : 'unknown error');
-      });
+      accountBarAccountName = response.data.player.name;
+      mapdata = response.data.map;
+   })
+   .catch(error => {
+      console.log(error ? error.message || error : 'unknown error');
    });
+});
 
 const unsubscribe = selected.subscribe(value => {
    infoPanel.currentUnit = value ? 'Howdy' : 'None unit selected.';
    infoPanel.information = value ? 'How are you doing?' : 'Please select a unit';
 });
 </script>
+
 <header class="full">
    <div id="time-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
@@ -164,4 +165,3 @@ const unsubscribe = selected.subscribe(value => {
       <p class="center"><button id="end-turn">End Turn</button></p>
    </div>
 </footer>
-

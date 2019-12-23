@@ -22,7 +22,7 @@ function resource_quantity(resource) {
             <div class="{tile.type === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}">
                {#each tile.improvements as improvement}
                   <div class="improvement">
-                     <img src={img_src('building', improvement)} alt={improvement}>
+                     <img src={img_src('building', improvement.type)} alt={improvement.type}>
                   </div>
                {/each}
                {#each tile.resources as resource}

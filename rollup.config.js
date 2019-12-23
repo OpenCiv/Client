@@ -27,7 +27,8 @@ export default {
 			svelte({
 				dev,
 				hydratable: true,
-				emitCss: true
+				emitCss: true,
+            preprocess: autoPreprocess({})
 			}),
 			resolve({
 				browser: true,
@@ -47,8 +48,7 @@ export default {
 					'@babel/plugin-syntax-dynamic-import',
 					['@babel/plugin-transform-runtime', {
 						useESModules: true
-               }],
-               autoPreprocess({})
+               }]
 				]
 			}),
 			!dev && terser({
@@ -67,13 +67,13 @@ export default {
 			}),
 			svelte({
 				generate: 'ssr',
-				dev
+				dev,
+            preprocess: autoPreprocess({})
 			}),
 			resolve({
 				dedupe
 			}),
-			commonjs(),
-         autoPreprocess({})
+			commonjs()
 		],
 		external: Object.keys(pkg.dependencies).concat(
 			require('module').builtinModules || Object.keys(process.binding('natives'))
@@ -90,8 +90,7 @@ export default {
 				'process.env.NODE_ENV': JSON.stringify(mode)
 			}),
 			commonjs(),
-			!dev && terser(),
-         autoPreprocess({})
+			!dev && terser()
 		],
 		onwarn
 	}

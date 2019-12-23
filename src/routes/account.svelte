@@ -20,10 +20,7 @@ onMount(() => {
       }
    })
    .catch(error => {
-      if (error) {
-         console.log(error ? error.message || error : 'unknown error');
-      }
-
+      console.log(error ? error.message || error : 'unknown error');
       sapper.goto('login');
    });
 });
@@ -41,27 +38,31 @@ function resend() {
       <a href="/menu">Menu</a>
    </p>
    <p>
-      <span>Display name:
-         {#if editName}
-            <input type=text bind:value={user.name}>
-         {:else}
-            {user.name}
-         {/if}
-      </span>
-      <Icon data={edit} on:click={editName = !editName} /><br>
-      <span>E-mail address:
-         {#if editEmail}
-            <input type=email bind:value={user.email}>
-         {:else}
-            {user.email}
-         {/if}
-      </span>
-      <Icon data={edit} on:click={editEmail = !editEmail} /><br>
+      <label>Display name:</label>
+      {#if editName}
+         <input type=text bind:value={user.name}>
+      {:else}
+         {user.name}
+      {/if}
+      <button on:click={() => { editName = !editName; }}>
+         <Icon data={edit} />
+      </button><br>
+      <label>E-mail address:</label>
+      {#if editEmail}
+         <input type=email bind:value={user.email}>
+      {:else}
+         {user.email}
+      {/if}
+      <button on:click={() => { editEmail = !editEmail; }}>
+         <Icon data={edit} />
+      </button><br>
    </p>
+   <a href="/changepassword">Change password</a>
+
    {#if !user.verified}
       <p div="unverified">
-         <span>Your account has not been verified yet.</span>
-         <button type="button" on:click={resend}>Resend verification e-mail</button>
+         <span>Your account has not been verified yet.</span><br>
+         <button type="button" on:click={() => resend()}>Resend verification e-mail</button>
       </p>
    {/if}
 {/if}

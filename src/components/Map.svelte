@@ -1,5 +1,5 @@
 <script>
-import Unit from '../components/Unit';
+import Unit from '../components/Unit.svelte';
 export let mapdata;
 
 function img_src(category, type) {
@@ -16,27 +16,27 @@ function resource_quantity(resource) {
 </svelte:head>
 
 {#if mapdata}
-{#each mapdata as row}
-<div class="map_row">
-   {#each row as tile}
-   <div class="{tile.type === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}">
-      {#each tile.improvements as improvement}
-      <div class="improvement">
-         <img src={img_src('building', improvement)} alt={improvement}>
+   {#each mapdata as row}
+      <div class="map_row">
+         {#each row as tile}
+            <div class="{tile.type === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}">
+               {#each tile.improvements as improvement}
+                  <div class="improvement">
+                     <img src={img_src('building', improvement)} alt={improvement}>
+                  </div>
+               {/each}
+               {#each tile.resources as resource}
+                  <div class="resource">
+                     <img src={img_src('resource', resource.type)} alt={resource_quantity(resource)}>
+                  </div>
+               {/each}
+               {#each tile.units as unit}
+                  <div class="improvement">
+                     <Unit {unit}/>
+                  </div>
+               {/each}
+            </div>
+         {/each}
       </div>
-      {/each}
-      {#each tile.resources as resource}
-      <div class="resource">
-         <img src={img_src('resource', resource.type)} alt={resource_quantity(resource)}>
-      </div>
-      {/each}
-      {#each tile.units as unit}
-      <div class="improvement">
-         <Unit {unit}/>
-      </div>
-      {/each}
-   </div>
    {/each}
-</div>
-{/each}
 {/if}

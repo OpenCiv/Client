@@ -7,7 +7,7 @@
 import { onMount, onDestroy } from 'svelte';
 import { stores } from '@sapper/app';
 import axios from 'axios';
-import Map from '../../components/Map';
+import Map from '../../components/Map.svelte';
 import { selected } from '../../stores';
 
 const { page } = stores();

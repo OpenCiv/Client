@@ -2,7 +2,7 @@
 import * as sapper from '@sapper/app';
 import axios from 'axios';
 import { alerts } from '../stores';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar.svelte';
 
 let name = '';
 let email = '';

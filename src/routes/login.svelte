@@ -1,7 +1,7 @@
 <script>
 import * as sapper from '@sapper/app';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar.svelte';
 import { alerts } from '../stores';
 
 let email = '';

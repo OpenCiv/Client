@@ -23,7 +23,7 @@ function logoff() {
 <p>
    <a href="newgame">New game</a><br>
    {#each games as game}
-   <a href={'/game/' + game.id}>{game.name}</a><br>
+      <a href={'/game/' + game.id}>{game.name}</a><br>
    {/each}
    <a href="/account">Account</a>
 </p>

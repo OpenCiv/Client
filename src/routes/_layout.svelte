@@ -1,5 +1,5 @@
 <script>
-import Alerts from '../components/Alerts';
+import Alerts from '../components/Alerts.svelte';
 </script>
 
 <svelte:head>

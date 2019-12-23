@@ -5,20 +5,31 @@ import axios from 'axios';
 let oldpass = '';
 let newpass = '';
 let repeat = '';
-let wrongpass = false;
+let message = '';
+
+// message === null when a password change is pending
+$: disabled = !oldpass || !newpass || message === null;
 
 function submitPassword() {
+   if (newpass !== repeat) {
+      message = 'The passwords are not the same';
+      return;
+   }
+
+   message = null;
    axios.post('account.php', JSON.stringify({ request: 'changepassword', oldpass, newpass }))
    .then(response => {
       if (response.data) {
+         message = '';
          console.log('Password successfully changed');
          sapper.goto('account', { replace: true });
       } else {
-         wrongpass = true;
+         message = 'Incorrect password';
       }
    })
    .catch(error => {
-      console.log(error ? error.message || error : 'unknown error');
+      message = error ? error.message || error : 'unknown error';
+      console.log(message);
    });
 }
 </script>
@@ -29,18 +40,18 @@ function submitPassword() {
 <input type=password bind:value={newpass}><br>
 <label>Repeat password:</label>
 <input type=password bind:value={repeat}><br>
-<button on:click={() => submitPassword()}>Submit</button><br>
+<button {disabled} on:click={submitPassword}>Submit</button><br>
 <a href="/account">Back</a>
-{#if wrongpass}
+{#if message}
    <p>
-      <span class="incorrect">Incorrect password</span>
+      <span class="wrong">{message}</span>
    </p>
 {/if}
 
 <style lang="less">
-@incorrect: #FF0000;
+@wrong: #FF0000;
 
-.incorrect {
-   color: @incorrect;
+.wrong {
+   color: @wrong;
 }
 </style>

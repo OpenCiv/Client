@@ -13,9 +13,14 @@ let emailError = false;
 let passwordError = false;
 let repeatError = false;
 
-$: disabled = !name || !email || !password || password !== repeat;
+$: disabled = !name || !email || !password;
 
 function register() {
+   if (password !== repeat) {
+      repeatError = true;
+      return;
+   }
+
    axios.post('register.php', JSON.stringify({
       name: name,
       email: email,

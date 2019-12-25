@@ -2,44 +2,49 @@
 import { onDestroy } from 'svelte';
 import { alerts } from '../stores';
 
-let messages = [];
-
-const unsubscribe = alerts.subscribe(value => {
-   messages = value;
-});
-
-function remove(e, message) {
-   messages = messages.filter(m => m !== message);
-   alerts.set(messages);
+function remove(e, alert) {
+   alerts.remove(alert);
 }
-
-onDestroy(() => {
-   unsubscribe.apply();
-});
 </script>
 
 <style>
 .messages {
+   width: 100%;
    position: absolute;
    bottom: 0;
-}
-
-.message {
-   width: 100%;
-   margin: 20px;
    text-align: center;
 }
 
-.x {
+.container {
+   width: 80%;
+   margin: auto;
+   padding: 20px;
    position: relative;
+   background: #D8D0C0;
+   border: 2px solid #402010;
+}
+
+.message {
+   color: #804020;
+   margin: auto;
+}
+
+.x {
+   cursor: default;
+   position: absolute;
    top: 10px;
    right: 10px;
+   color: #D8D0C0;
+   background: #804020;
+   border: 2px solid #402010;
 }
 </style>
 
 <div class="messages">
-   {#each messages as message}
-      <div class="message">{@html message}</div>
-      <div class="x" on:click={e => remove(e, message)}>x</div>
+   {#each $alerts as alert (alert.id)}
+      <div class="container">
+         <span class="message">{@html alert.message}</span>
+         <div class="x" on:click={e => remove(e, alert.id)}>x</div>
+      </div>
    {/each}
 </div>

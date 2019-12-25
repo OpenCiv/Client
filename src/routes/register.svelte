@@ -8,16 +8,18 @@ let name = '';
 let email = '';
 let password = '';
 let repeat = '';
-let nameError = false;
-let emailError = false;
-let passwordError = false;
-let repeatError = false;
 
 $: disabled = !name || !email || !password;
 
 function register() {
+   const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+   if (!re.test(email)) {
+      alerts.add('Not a valid e-mail address');
+      return;
+   }
+
    if (password !== repeat) {
-      repeatError = true;
+      alerts.add('The passwords are not the same');
       return;
    }
 
@@ -29,46 +31,15 @@ function register() {
       if (!response.data) {
          sapper.goto('menu', { replace: true });
       } else {
-         console.log(response.data);
+         alerts.add(response.data);
          alerts.update(a => [...a, response.data]);
          if (response.data = 'E-mail address already used') {
             sapper.goto('newpassword', { replace: true });
          }
       }
    }).catch(error => {
-      console.log(error ? error.message || error : 'unknown error');
-      alerts.update(a => [...a, error]);
+      alerts.add(error ? error.message || error : 'unknown error');
    });
-}
-
-function name_changed() {
-   nameError = false;
-}
-
-function validate_name() {
-   nameError = !name;
-}
-function email_changed() {
-   emailError = false;
-}
-
-function validate_email() {
-   emailError = !email;
-}
-
-async function password_changed() {
-   passwordError = false;
-}
-
-function validate_password() {
-   passwordError = !password;
-}
-function repeat_changed() {
-   repeatError = false;
-}
-
-function validate_repeat() {
-   repeatError = password !== repeat;
 }
 </script>
 
@@ -76,30 +47,18 @@ function validate_repeat() {
 <h2>Register</h2>
 <div>
    <label>Name</label>
-   <input type="text" placeholder="Nickname or real name..." bind:value={name} on:focus={name_changed} on:blur={validate_name}>
-   {#if nameError}
-      <div class="error">The name cannot be empty</div>
-   {/if}
+   <input type=text placeholder="Nickname or real name..." bind:value={name}>
 </div>
 <div>
    <label>E-mail address</label>
-   <input type="email" placeholder="johndoe@email.com" bind:value={email} on:focus={email_changed} on:blur={validate_email}>
-   {#if emailError}
-      <div class="error">The e-mail address cannot be empty</div>
-   {/if}
+   <input type=email placeholder="name@domain.com" bind:value={email}>
 </div>
 <div>
    <label>Password</label>
-   <input type="password" bind:value={password} on:focus={password_changed} on:blur={validate_password}>
-   {#if passwordError}
-      <div class="error">The password cannot be empty</div>
-   {/if}
+   <input type=password bind:value={password}>
 </div>
 <div>
    <label>Repeat password</label>
-   <input type="password" bind:value={repeat} on:focus={repeat_changed} on:blur={validate_repeat}>
-   {#if repeatError}
-      <div class="error">The passwords are not the same</div>
-   {/if}
+   <input type=password bind:value={repeat}>
 </div>
-<button {disabled} on:click={register}>Log in</button>
+<button {disabled} on:click={register}>Register</button>

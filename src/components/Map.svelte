@@ -1,5 +1,6 @@
 <script>
 import Unit from '../components/Unit.svelte';
+
 export let mapdata;
 
 function img_src(category, type) {

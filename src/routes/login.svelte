@@ -6,6 +6,7 @@ import { alerts } from '../stores';
 
 let email = '';
 let password = '';
+
 $: disabled = !email || !password;
 
 function login() {
@@ -17,15 +18,19 @@ function login() {
       if (response.data) {
          sapper.goto('menu', { replace: true });
       } else {
-         console.log(response.data);
-         alerts.update(a => [...a, response.data]);
+         alerts.add(response.data);
       }
    })
    .catch(error => {
-      console.log(error ? error.message || error : 'unknown error');
+      alerts.add(error ? error.message || error : 'unknown error');
    });
    email = '';
    password = '';
+}
+
+let count = 0;
+function sendAlert() {
+   alerts.add('This is alert #' + ++count);
 }
 </script>
 <Navbar/>

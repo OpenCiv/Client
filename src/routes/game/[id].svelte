@@ -8,7 +8,7 @@ import { onMount, onDestroy } from 'svelte';
 import { stores } from '@sapper/app';
 import axios from 'axios';
 import Map from '../../components/Map.svelte';
-import { selected } from '../../stores';
+import { alerts, selected } from '../../stores';
 
 const { page } = stores();
 
@@ -98,14 +98,14 @@ onMount(() => {
 
       // response.data contains all the information from the server
       if (!response.data) {
-         console.log('Could not load data');
+         alerts.add('Could not load data');
       }
 
       accountBarAccountName = response.data.player.name;
       mapdata = response.data.map;
    })
    .catch(error => {
-      console.log(error ? error.message || error : 'unknown error');
+      alerts.add(error ? error.message || error : 'unknown error');
    });
 });
 

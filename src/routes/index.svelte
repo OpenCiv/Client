@@ -16,8 +16,7 @@ onMount(() => {
          sapper.goto('game/1');
       }
    }).catch(error => {
-      alerts.set(error ? error.message || error : 'unknown error');
-      console.log(error ? error.message || error : 'unknown error');
+      alerts.add(error ? error.message || error : 'unknown error');
    });
 });
 </script>

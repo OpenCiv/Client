@@ -10,17 +10,31 @@ let user = null;
 let editName = false;
 let editEmail = false;
 
+const { page } = sapper.stores();
+
 onMount(() => {
    axios.post('account.php', JSON.stringify({ request: 'getuser' }))
    .then(response => {
       if (response.data) {
          user = response.data;
+         if ($page.query.token) {
+            axios.post('account.php', JSON.stringify({ request: 'verify', token: $page.query.token }))
+            .then(res => {
+               if (res.data) {
+                  user.verified = true;
+                  alerts.add('Your account is now verified');
+                  sapper.goto('menu', { replace: true })
+               } else {
+                  alerts.add('Verification failed');
+               }
+            })
+         }
       } else {
-         sapper.goto('login');
+         sapper.goto('login', { replace: true });
       }
    })
    .catch(error => {
-      console.log(error ? error.message || error : 'unknown error');
+      alerts.add(error ? error.message || error : 'unknown error');
       sapper.goto('login');
    });
 });
@@ -58,11 +72,10 @@ function resend() {
       </button><br>
    </p>
    <a href="/changepassword">Change password</a>
-
    {#if !user.verified}
       <p div="unverified">
          <span>Your account has not been verified yet.</span><br>
-         <button type="button" on:click={() => resend()}>Resend verification e-mail</button>
+         <button on:click={() => resend()}>Resend verification e-mail</button>
       </p>
    {/if}
 {/if}

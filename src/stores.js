@@ -23,12 +23,13 @@ export async function backend (address, request) {
       if (error.response) {
          // The request was made and the server responded with a status code
          // that falls out of the range of 2xx
-         alerts.add(error.response.data || 'An unknown network error occurred');
          if (error.response.status === 401) {
             sapper.goto('/login');
          }
          else if (error.response.status === 403) {
-            sapper.goto('/account');
+            sapper.goto('/menu');
+         } else {
+            alerts.add(error.response.data || 'An unknown network error occurred');
          }
       }
       else if (error.request) {

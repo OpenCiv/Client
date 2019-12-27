@@ -38,18 +38,18 @@ async function register() {
 <h2>Register</h2>
 <div>
    <label>Name</label>
-   <input disabled={$busy} type=text placeholder="Nickname or real name..." bind:value={name}>
+   <input type=text disabled={$busy} placeholder="Nickname or real name..." bind:value={name}>
 </div>
 <div>
    <label>E-mail address</label>
-   <input disabled={$busy} type=email placeholder="name@domain.com" bind:value={email}>
+   <input type=email disabled={$busy} placeholder="name@domain.com" bind:value={email}>
 </div>
 <div>
    <label>Password</label>
-   <input disabled={$busy} type=password bind:value={password}>
+   <input type=password disabled={$busy} bind:value={password}>
 </div>
 <div>
    <label>Repeat password</label>
-   <input disabled={$busy} type=password bind:value={repeat}>
+   <input type=password disabled={$busy} bind:value={repeat}>
 </div>
 <button {disabled} on:click={register}>Register</button>

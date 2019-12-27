@@ -75,7 +75,7 @@ async function resend() {
    <p>
       <label>Display name:</label>
       {#if editName}
-         <input disabled={$busy} type=text bind:value={name} on:change={() => onChangeName()}>
+         <input type=text disabled={$busy} bind:value={name} on:change={() => onChangeName()}>
       {:else}
          {user.name}
       {/if}
@@ -84,7 +84,7 @@ async function resend() {
       </button><br>
       <label>E-mail address:</label>
       {#if editEmail}
-         <input disabled={$busy} type=email bind:value={email} on:change={() => onChangeEmail(email)}>
+         <input type=email disabled={$busy} bind:value={email} on:change={() => onChangeEmail(email)}>
       {:else}
          {user.email}
       {/if}

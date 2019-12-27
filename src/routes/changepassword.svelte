@@ -1,13 +1,13 @@
 <script>
 import * as sapper from '@sapper/app';
-import { alerts, backend } from '../stores';
+import { alerts, backend, busy } from '../stores';
 
 let oldpass = '';
 let newpass = '';
 let repeat = '';
 
 // message === null when a password change is pending
-$: disabled = !oldpass || !newpass;
+$: disabled = $busy || !oldpass || !newpass;
 
 async function submitPassword() {
    if (newpass !== repeat) {
@@ -27,10 +27,10 @@ async function submitPassword() {
 
 <h2>Change password</h2>
 <label>Current password:</label>
-<input type=password bind:value={oldpass}><br>
+<input type=password disabled={$busy} bind:value={oldpass}><br>
 <label>New password:</label>
-<input type=password bind:value={newpass}><br>
+<input type=password disabled={$busy} bind:value={newpass}><br>
 <label>Repeat password:</label>
-<input type=password bind:value={repeat}><br>
+<input type=password disabled={$busy} bind:value={repeat}><br>
 <button {disabled} on:click={submitPassword}>Submit</button><br>
 <a href="/account">Back</a>

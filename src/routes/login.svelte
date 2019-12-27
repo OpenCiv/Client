@@ -24,10 +24,10 @@ async function login() {
 <h2>Login</h2>
 <div>
    <label>E-mail address</label>
-   <input disabled={$busy} type="email" bind:value={email}>
+   <input type=email disabled={$busy} bind:value={email}>
 </div>
 <div>
    <label>Password</label>
-   <input disabled={$busy} type="password" bind:value={password}>
+   <input type=password disabled={$busy} bind:value={password}>
 </div>
-<button {disabled} on:click={() => login()}>Log in</button>
+<button {disabled} on:click={login}>Log in</button>

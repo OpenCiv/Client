@@ -38,21 +38,19 @@ async function refresh() {
 async function onChangeName() {
    let result = await backend('changename', { name });
    editName = false;
-   if (result) {
-      user.name = name;
-   } else {
-      alerts.add('The name could not be changed.');
-      refresh();
-   }
+   user.name = name;
+   user = user;
 }
 
 async function onChangeEmail() {
    let result = await backend('changeemail', { email });
    editEmail = false;
-   if (result) {
+   if (result === true) {
       user.email = email;
+      user.verified = false;
+      user = user;
    } else {
-      alerts.add('The e-mail address could not be changed.');
+      alerts.add(result);
       refresh();
    }
 }
@@ -66,6 +64,20 @@ async function resend() {
       refresh();
    }
 }
+
+function cancelName(event) {
+   if (event.key === 'Escape') {
+      name = user.name;
+      editName = false;
+   }
+}
+
+function cancelEmail(event) {
+   if (event.key === 'Escape') {
+      email = user.email;
+      editEmail = false;
+   }
+}
 </script>
 
 {#if user}
@@ -75,7 +87,7 @@ async function resend() {
    <p>
       <label>Display name:</label>
       {#if editName}
-         <input type=text disabled={$busy} bind:value={name} on:change={() => onChangeName()}>
+         <input type=text disabled={$busy} bind:value={name} on:change={onChangeName} on:keydown={cancelName}>
       {:else}
          {user.name}
       {/if}
@@ -84,7 +96,7 @@ async function resend() {
       </button><br>
       <label>E-mail address:</label>
       {#if editEmail}
-         <input type=email disabled={$busy} bind:value={email} on:change={() => onChangeEmail(email)}>
+         <input type=email disabled={$busy} bind:value={email} on:change={onChangeEmail} on:keydown={cancelEmail}>
       {:else}
          {user.email}
       {/if}

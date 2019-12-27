@@ -28,8 +28,13 @@ export async function backend (address, request) {
          }
          else if (error.response.status === 403) {
             sapper.goto('/menu');
-         } else {
-            alerts.add(error.response.data || 'An unknown network error occurred');
+         }
+         else if (error.response.status === 500) {
+            alerts.add(error.response.statusText);
+            console.error(`HTTP status code: ${error.response.status}\nMessage: ${error.response.data}`);
+         }
+         else {
+            alerts.add(error.response.data || 'An unknown error occurred');
          }
       }
       else if (error.request) {

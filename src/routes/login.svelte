@@ -10,10 +10,10 @@ $: disabled = $busy || !email || !password;
 
 async function login() {
    const result = await backend('login', { username: email, password });
-   if (result) {
+   if (result === true) {
       sapper.goto('menu', { replace: true });
    } else {
-      alerts.add(response.data);
+      alerts.add(result);
    }
 
    email = '';

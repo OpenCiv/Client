@@ -2,8 +2,8 @@
 import { onDestroy } from 'svelte';
 import { alerts } from '../stores';
 
-function remove(e, alert) {
-   alerts.remove(alert);
+function remove(e, id) {
+   alerts.remove(id);
 }
 </script>
 
@@ -16,17 +16,13 @@ function remove(e, alert) {
 }
 
 .container {
+   color: #804020;
    width: 80%;
-   margin: auto;
+   margin: 10px auto;
    padding: 20px;
    position: relative;
    background: #D8D0C0;
    border: 2px solid #402010;
-}
-
-.message {
-   color: #804020;
-   margin: auto;
 }
 
 .x {
@@ -43,8 +39,8 @@ function remove(e, alert) {
 <div class="messages">
    {#each $alerts as alert (alert.id)}
       <div class="container">
-         <span class="message">{@html alert.message}</span>
-         <div class="x" on:click={e => remove(e, alert.id)}>x</div>
+         <span>{@html alert.message}</span>
+         <div class="x" on:click={() => remove(alert.id)}>x</div>
       </div>
    {/each}
 </div>

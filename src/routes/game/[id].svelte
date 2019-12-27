@@ -6,9 +6,8 @@
 <script>
 import { onMount, onDestroy } from 'svelte';
 import { stores } from '@sapper/app';
-import axios from 'axios';
 import Map from '../../components/Map.svelte';
-import { alerts, selected } from '../../stores';
+import { alerts, selected, backend } from '../../stores';
 
 const { page } = stores();
 
@@ -90,23 +89,10 @@ const unsubscribe = selected.subscribe(value => {
    infoPanel.information = value ? 'How are you doing?' : 'Please select a unit';
 });
 
-onMount(() => {
-   axios.post('load.php', JSON.stringify({
-      game: $page.params.id
-   }))
-   .then(response => {
-
-      // response.data contains all the information from the server
-      if (!response.data) {
-         alerts.add('Could not load data');
-      }
-
-      accountBarAccountName = response.data.player.name;
-      mapdata = response.data.map;
-   })
-   .catch(error => {
-      alerts.add(error ? error.message || error : 'unknown error');
-   });
+onMount(async () => {
+   let result = await backend('load', { game: $page.params.id });
+   accountBarAccountName = result.player.name;
+   mapdata = result.map;
 });
 
 onDestroy(unsubscribe);

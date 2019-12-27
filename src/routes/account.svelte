@@ -1,49 +1,70 @@
 <script>
 import { onMount } from 'svelte';
 import * as sapper from '@sapper/app';
-import axios from 'axios';
 import Icon from 'svelte-awesome/components/Icon.svelte';
 import { edit } from 'svelte-awesome/icons';
-import { alerts } from '../stores';
-
-let user = null;
-let editName = false;
-let editEmail = false;
+import { alerts, backend, busy } from '../stores';
 
 const { page } = sapper.stores();
 
-onMount(() => {
-   axios.post('account.php', JSON.stringify({ request: 'getuser' }))
-   .then(response => {
-      if (response.data) {
-         user = response.data;
-         if ($page.query.token) {
-            axios.post('account.php', JSON.stringify({ request: 'verify', token: $page.query.token }))
-            .then(res => {
-               if (res.data) {
-                  user.verified = true;
-                  alerts.add('Your account is now verified');
-                  sapper.goto('menu', { replace: true })
-               } else {
-                  alerts.add('Verification failed');
-               }
-            })
-         }
-      } else {
-         sapper.goto('login', { replace: true });
+// The values received from the server
+let user = null;
+
+// The values bound to the inputs
+let name = '';
+let email = '';
+
+// Values indicating whether the properties are in edit mode
+let editName = false;
+let editEmail = false;
+
+onMount(async () => {
+   await refresh();
+   name = user.name;
+   email = user.email;
+   if (user && $page.query.token && !user.verified) {
+      let success = await backend('verify', { token: $page.query.token });
+      alerts.add(success ? 'Your account is now verified.' : 'Verification failed.');
+      if (success) {
+         sapper.goto('menu', { replace: true });
       }
-   })
-   .catch(error => {
-      alerts.add(error ? error.message || error : 'unknown error');
-      sapper.goto('login');
-   });
+   }
 });
 
-function resend() {
-   axios.post('account.php', JSON.stringify({ request: 'resend' }))
-   .then(() => {
-      alerts.update(a => [...a, `A verification e-mail is sent to ${user.email}.<br>Please click on the link in that e-mail to verify your account.`]);
-   })
+async function refresh() {
+   user = await backend('getuser');
+}
+
+async function onChangeName() {
+   let result = await backend('changename', { name });
+   editName = false;
+   if (result) {
+      user.name = name;
+   } else {
+      alerts.add('The name could not be changed.');
+      refresh();
+   }
+}
+
+async function onChangeEmail() {
+   let result = await backend('changeemail', { email });
+   editEmail = false;
+   if (result) {
+      user.email = email;
+   } else {
+      alerts.add('The e-mail address could not be changed.');
+      refresh();
+   }
+}
+
+async function resend() {
+   let result = await backend('resend');
+   if (result) {
+      alerts.add(`A verification e-mail is sent to ${user.email}.<br>Please click on the link in that e-mail to verify your account.`);
+   } else {
+      alerts.add('The verification e-mail could not be sent.');
+      refresh();
+   }
 }
 </script>
 
@@ -54,7 +75,7 @@ function resend() {
    <p>
       <label>Display name:</label>
       {#if editName}
-         <input type=text bind:value={user.name}>
+         <input disabled={$busy} type=text bind:value={name} on:change={() => onChangeName()}>
       {:else}
          {user.name}
       {/if}
@@ -63,7 +84,7 @@ function resend() {
       </button><br>
       <label>E-mail address:</label>
       {#if editEmail}
-         <input type=email bind:value={user.email}>
+         <input disabled={$busy} type=email bind:value={email} on:change={() => onChangeEmail(email)}>
       {:else}
          {user.email}
       {/if}
@@ -75,7 +96,7 @@ function resend() {
    {#if !user.verified}
       <p div="unverified">
          <span>Your account has not been verified yet.</span><br>
-         <button on:click={() => resend()}>Resend verification e-mail</button>
+         <button disabled={$busy} on:click={() => resend()}>Resend verification e-mail</button>
       </p>
    {/if}
 {/if}

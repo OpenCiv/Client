@@ -1,5 +1,5 @@
 <script>
-import { selected } from '../stores.js';
+import { selected } from '../stores';
 
 export let unit = null;
 

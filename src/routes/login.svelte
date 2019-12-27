@@ -1,46 +1,33 @@
 <script>
 import * as sapper from '@sapper/app';
-import axios from 'axios';
 import Navbar from '../components/Navbar.svelte';
-import { alerts } from '../stores';
+import { alerts, backend, busy } from '../stores';
 
 let email = '';
 let password = '';
 
-$: disabled = !email || !password;
+$: disabled = $busy || !email || !password;
 
-function login() {
-   axios.post('login.php', JSON.stringify({
-      username: email,
-      password: password
-   }))
-   .then(response => {
-      if (response.data) {
-         sapper.goto('menu', { replace: true });
-      } else {
-         alerts.add(response.data);
-      }
-   })
-   .catch(error => {
-      alerts.add(error ? error.message || error : 'unknown error');
-   });
+async function login() {
+   const result = await backend('login', { username: email, password });
+   if (result) {
+      sapper.goto('menu', { replace: true });
+   } else {
+      alerts.add(response.data);
+   }
+
    email = '';
    password = '';
-}
-
-let count = 0;
-function sendAlert() {
-   alerts.add('This is alert #' + ++count);
 }
 </script>
 <Navbar/>
 <h2>Login</h2>
 <div>
    <label>E-mail address</label>
-   <input type="email" bind:value={email}>
+   <input disabled={$busy} type="email" bind:value={email}>
 </div>
 <div>
    <label>Password</label>
-   <input type="password" bind:value={password}>
+   <input disabled={$busy} type="password" bind:value={password}>
 </div>
 <button {disabled} on:click={() => login()}>Log in</button>

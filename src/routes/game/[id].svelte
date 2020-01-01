@@ -20,7 +20,6 @@ var mapdata = [];
 var timeBarYears = '';
 var timeBarTurn = '';
 var researchBarResearch = '';
-var menuBarSelectedMenu = '';
 var accountBarAccountName = '';
 var sideBarUnits = {
    unitSelectUnitBuild: '',
@@ -109,7 +108,7 @@ onDestroy(unsubscribe);
    </div>
    <div id="menu-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
-      <p class="center">{menuBarSelectedMenu || "Menus"}</p>
+      <p class="center"><a href="/menu">Menu</a></p>
    </div>
    <div id="account-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->

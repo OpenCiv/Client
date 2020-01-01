@@ -22,7 +22,7 @@ onMount(async () => {
    await refresh();
    name = user.name;
    email = user.email;
-   if (user && $page.query.token && !user.verified) {
+   if ($page.query.token && !user.verified) {
       let success = await backend('verify', { token: $page.query.token });
       alerts.add(success ? 'Your account is now verified.' : 'Verification failed.');
       if (success) {
@@ -38,8 +38,13 @@ async function refresh() {
 async function onChangeName() {
    let result = await backend('changename', { name });
    editName = false;
-   user.name = name;
-   user = user;
+   if (result === true) {
+      user.name = name;
+      user = user;
+   } else {
+      alerts.add(result);
+      refresh();
+   }
 }
 
 async function onChangeEmail() {
@@ -80,10 +85,12 @@ function cancelEmail(event) {
 }
 </script>
 
-{#if user}
-   <p>
-      <a href="/menu">Menu</a>
-   </p>
+<p>
+   <a href="/menu">Menu</a>
+</p>
+{#if !user}
+   <span>Loading...</span>
+{:else}
    <p>
       <label>Display name:</label>
       {#if editName}
@@ -102,7 +109,7 @@ function cancelEmail(event) {
       {/if}
       <button on:click={() => { editEmail = !editEmail; }}>
          <Icon data={edit} />
-      </button><br>
+      </button>
    </p>
    <a href="/changepassword">Change password</a>
    {#if !user.verified}

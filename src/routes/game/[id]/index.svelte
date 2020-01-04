@@ -92,11 +92,6 @@ onMount(async () => {
    let result = await backend('load', { game: $page.params.id });
    accountBarAccountName = result.player.name;
    mapdata = result.map;
-   alerts.add('Test1');
-   alerts.add('Test2');
-   alerts.add('Test3');
-   alerts.add('Test4');
-   alerts.add('Test5');
 });
 
 onDestroy(unsubscribe);

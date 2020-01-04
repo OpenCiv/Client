@@ -6,8 +6,8 @@
 <script>
 import { onMount, onDestroy } from 'svelte';
 import { stores } from '@sapper/app';
-import Map from '../../components/Map.svelte';
-import { alerts, selected, backend } from '../../stores';
+import Map from '../../../components/Map.svelte';
+import { alerts, selected, backend } from '../../../stores';
 
 const { page } = stores();
 
@@ -92,6 +92,11 @@ onMount(async () => {
    let result = await backend('load', { game: $page.params.id });
    accountBarAccountName = result.player.name;
    mapdata = result.map;
+   alerts.add('Test1');
+   alerts.add('Test2');
+   alerts.add('Test3');
+   alerts.add('Test4');
+   alerts.add('Test5');
 });
 
 onDestroy(unsubscribe);

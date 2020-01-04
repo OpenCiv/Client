@@ -83,6 +83,14 @@ function cancelEmail(event) {
       editEmail = false;
    }
 }
+
+async function remove() {
+   if (confirm("Are you sure you want to delete your account?")) {
+      await backend('remove');
+      sapper.goto('login', { replace: true });
+      alerts.add('Your account has been deleted.');
+   }
+}
 </script>
 
 <p>
@@ -111,11 +119,14 @@ function cancelEmail(event) {
          <Icon data={edit} />
       </button>
    </p>
-   <a href="/changepassword">Change password</a>
+   <p>
+      <a href="/changepassword">Change password</a>
+   </p>
+   <button disabled={$busy} on:click={remove}>Delete account</button>
    {#if !user.verified}
       <p div="unverified">
          <span>Your account has not been verified yet.</span><br>
-         <button disabled={$busy} on:click={() => resend()}>Resend verification e-mail</button>
+         <button disabled={$busy} on:click={resend}>Resend verification e-mail</button>
       </p>
    {/if}
 {/if}

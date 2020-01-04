@@ -27,6 +27,7 @@ export async function backend (address, request) {
             sapper.goto('/login');
          }
          else if (error.response.status === 403) {
+            alerts.add(error.response.data || 'An unknown error occurred');
             sapper.goto('/menu');
          }
          else if (error.response.status === 500) {

@@ -48,6 +48,7 @@ body {
 	background-color: @vari5;
 	overflow-x: hidden;
 	-ms-overflow-x: hidden;
+	overflow: hidden;
 }
 
 @-ms-viewport{
@@ -223,6 +224,8 @@ header, header.full, footer, footer.full, #sidebar {
 
 main {
 	position: fixed;
+	overflow: scroll;
+    overscroll-behavior: contain;
 	background-color: transparent;
 	height: 80vh;
 	width: 100vw;
@@ -231,7 +234,7 @@ main {
 header, header.full {
 	top: 0;
 	padding: @pad2/2 @pad2/2 @pad2/2 @pad2/2;
-	min-height: 48px;
+	min-height: 48px; // Fixed height so the #map top-padding can be fixed
 }
 
 #sidebar {
@@ -243,6 +246,7 @@ header, header.full {
 
 footer {
 	bottom: 0;
+	min-height: 128px; // Fixed height so the #map bottom-padding can be fixed
 }
 
 #research-bar, #menu-bar, #commands-panel {

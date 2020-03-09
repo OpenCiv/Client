@@ -1,5 +1,13 @@
+<style lang="less">
+@import url("../less/map.less");
+
+.active {
+   background: red;
+}
+</style>
+
 <script>
-import Unit from '../components/Unit.svelte';
+import { selected } from '../stores';
 
 export let mapdata;
 
@@ -10,17 +18,22 @@ function img_src(category, type) {
 function resource_quantity(resource) {
    return `${resource.type} (${Number.parseFloat(resource.quantity).toFixed(0)})`;
 }
-</script>
 
-<style lang="less">
-@import url("../less/map.less");
-</style>
+function select(e, unit) {
+   e.stopPropagation();
+   selected.set(unit);
+}
+
+function is_active(unit) {
+   return selected === unit;
+}
+</script>
 
 {#if mapdata}
    {#each mapdata as row}
       <div class="map_row">
          {#each row as tile}
-            <div class="{tile.type === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}">
+            <div class="{tile.type === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}" on:click={e => select(e, null)}>
                {#each tile.improvements as improvement}
                   <div class="improvement">
                      <img src={img_src('building', improvement.type)} alt={improvement.type}>
@@ -32,9 +45,8 @@ function resource_quantity(resource) {
                   </div>
                {/each}
                {#each tile.units as unit}
-                  <div class="improvement">
-                     <img src={img_src('unit', 'nordic')} alt={'nordic'}>
-                     <!-- <Unit {unit}/> -->
+                  <div class="unit">
+                     <img src={img_src('unit', 'nordic')} alt={'nordic'} class:active={unit === $selected} on:click={e => select(e, unit)}>
                   </div>
                {/each}
             </div>

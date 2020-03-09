@@ -96,7 +96,19 @@ onMount(async () => {
 });
 
 onDestroy(unsubscribe);
+
+async function key_pressed(event) {
+   if (!$selected) {
+      return;
+   }
+
+   console.log('key: ' + event.key);
+   console.log('keyCode: ' + event.keyCode);
+   // const moved = await backend('move', { id: $selected.id, direction });
+}
 </script>
+
+<svelte:window on:keydown={key_pressed}/>
 
 <header class="full">
    <div id="time-bar" class="fourth">

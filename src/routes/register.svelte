@@ -1,3 +1,7 @@
+<style lang="less">
+   @import url("../less/layout.less");
+</style>
+
 <script>
 import * as sapper from '@sapper/app';
 import { alerts, backend, busy } from '../stores';

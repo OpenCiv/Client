@@ -13,7 +13,6 @@ function resource_quantity(resource) {
 </script>
 
 <style lang="less">
-@import url("../less/layout.less");
 @import url("../less/map.less");
 </style>
 
@@ -34,7 +33,8 @@ function resource_quantity(resource) {
                {/each}
                {#each tile.units as unit}
                   <div class="improvement">
-                     <Unit {unit}/>
+                     <img src={img_src('unit', 'nordic')} alt={'nordic'}>
+                     <!-- <Unit {unit}/> -->
                   </div>
                {/each}
             </div>

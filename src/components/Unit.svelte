@@ -3,7 +3,7 @@ import { selected } from '../stores';
 
 export let unit = null;
 
-$: active = selected === unit;
+$: active = true;
 
 function select(e) {
    e.stopPropagation();
@@ -11,12 +11,12 @@ function select(e) {
 }
 </script>
 
-<style>
+<style lang="less">
+@import url("../less/map.less");
+
 .active {
    background: red;
 }
 </style>
 
-<div>
-   <img src="img/u_nordic.png" class:active alt="unit" on:click={e => select(e)}>
-</div>
+<img src="img/u_nordic.png" class:active={active} alt="unit" on:click={e => select(e)}>

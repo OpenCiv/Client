@@ -1,7 +1,10 @@
 <svelte:head>
-   <link rel="stylesheet" href="layout.css">
    <meta name="viewport" content="width=device-width, initial-scale=1">
 </svelte:head>
+
+<style lang="less">
+@import url("../../../less/layout.less");
+</style>
 
 <script>
 import { onMount, onDestroy } from 'svelte';

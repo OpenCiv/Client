@@ -46,7 +46,6 @@ function populateUnits(event) {
    timeBarYears = '29 000 BC';
    timeBarTurn = 'Turn ' + 2;
    researchBarResearch = 'Agriculture';
-   menuBarSelectedMenu = 'World view';
    accountBarAccountName = 'Laiska-Jaakko';
    sideBarUnits.unitOneName = 'Builder';
    sideBarUnits.unitOneDescription = 'Builds a lot';
@@ -67,7 +66,6 @@ function clearAllVariables(event) {
    timeBarYears = '';
    timeBarTurn = '';
    researchBarResearch = '';
-   menuBarSelectedMenu = '';
    accountBarAccountName = '';
    sideBarUnits.unitOneName = '';
    sideBarUnits.unitOneDescription = '';

@@ -12,9 +12,10 @@ function resource_quantity(resource) {
 }
 </script>
 
-<svelte:head>
-   <link rel="stylesheet" href="map.css">
-</svelte:head>
+<style lang="less">
+@import url("../less/layout.less");
+@import url("../less/map.less");
+</style>
 
 {#if mapdata}
    {#each mapdata as row}

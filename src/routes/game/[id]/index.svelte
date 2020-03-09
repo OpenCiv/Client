@@ -44,6 +44,8 @@ var commandsPanel = {
    commandFour: ''
 };
 
+var innerHeight;
+
 // For show purpose populate with bogus data.
 function populateUnits(event) {
    timeBarYears = '29 000 BC';
@@ -108,7 +110,7 @@ async function key_pressed(event) {
 }
 </script>
 
-<svelte:window on:keydown={key_pressed}/>
+<svelte:window bind:innerHeight on:keydown={key_pressed}/>
 
 <header class="full">
    <div id="time-bar" class="fourth">
@@ -128,7 +130,7 @@ async function key_pressed(event) {
       <p class="right">{accountBarAccountName || "No login information."}</p>
    </div>
 </header>
-<main>
+<main style="height: {innerHeight - 128}px;">
    <Map {mapdata}/>
    <div id="sidebar" class="third">
    <!-- Get values from variables or show defaults. -->

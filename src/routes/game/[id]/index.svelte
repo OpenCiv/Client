@@ -166,7 +166,6 @@ async function key_pressed(event) {
       mapdata[$selected.y][$selected.x]['units'].splice(old, 1);
       $selected.x = x;
       $selected.y = y;
-      selected.set($selected);
       mapdata[y][x]['units'].push($selected);
       mapdata = mapdata;
    }

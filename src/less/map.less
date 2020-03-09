@@ -20,10 +20,12 @@
 }
 
 #map {
+    width: 10 * @tile_side;
+    
     display: block;
     padding-top: 48px;
-    padding-bottom: 128px;
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: hidden;
     background-color: transparent;
 
     .clearfix;
@@ -46,6 +48,7 @@
     display: block;
     width: @tile_side;
     height: @tile_side;
+    box-sizing: border-box;
     float: left;
     position: relative;
 

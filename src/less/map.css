@@ -10,10 +10,11 @@
   clear: both;
 }
 #map {
+  width: 1280px;
   display: block;
   padding-top: 48px;
-  padding-bottom: 128px;
-  overflow: hidden;
+  overflow-y: hidden;
+  overflow-x: hidden;
   background-color: transparent;
   *zoom: 1;
 }

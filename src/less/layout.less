@@ -1,5 +1,7 @@
 /* LESS Document */
-@import url("normalize.less");
+
+// Normalize.less is no longer in use - the styles have been copied to global.css.
+// @import url("normalize.less");
 
 /* MIXINS */
 @vari1: #8b189b; /* Primary theme color */
@@ -41,25 +43,13 @@
 /* BODY */
 /* ======================================================== */
 
-body {
-	font-size: 0.85em;
-	font-family: @font1;
-	color: @vari3;
-	background-color: @vari5;
-	overflow-x: hidden;
-	-ms-overflow-x: hidden;
-	overflow: hidden;
-}
 
-@-ms-viewport{
-  width: device-width;
-}
 
 /* ======================================================== */
 /* HEADINGS */
 /* ======================================================== */
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5, h6 {
 	font-family: @font2;
 	font-style: italic;
 	color: @vari3;
@@ -137,7 +127,7 @@ ul li {
 
 a, a:visited, summary {
 	text-decoration: none;
-	color: @vari1;
+	color: lighten(@vari1,25%);
 	cursor: pointer;
 }
 
@@ -228,13 +218,16 @@ main {
     overscroll-behavior: contain;
 	background-color: transparent;
 	height: 80vh;
-	width: 100vw;
+	width: 100%;
+	
 }
 
 header, header.full {
 	top: 0;
-	padding: @pad2/2 @pad2/2 @pad2/2 @pad2/2;
-	min-height: 48px; // Fixed height so the #map top-padding can be fixed
+	padding: 0;
+	height: 48px; // Fixed height so the #map top-padding can be fixed
+	overflow: hidden;
+	box-sizing: border-box;
 }
 
 #sidebar {
@@ -246,7 +239,9 @@ header, header.full {
 
 footer {
 	bottom: 0;
-	min-height: 128px; // Fixed height so the #map bottom-padding can be fixed
+	height: 160px; // Fixed height so the #map bottom-padding can be fixed
+	overflow: hidden;
+	box-sizing: border-box;
 }
 
 #research-bar, #menu-bar, #commands-panel {

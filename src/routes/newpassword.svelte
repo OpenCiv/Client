@@ -1,3 +1,7 @@
+<style lang="less">
+   @import url("../less/layout.less");
+</style>
+
 <script>
 import Navbar from '../components/Navbar.svelte';
 import { alerts, backend, busy } from '../stores';

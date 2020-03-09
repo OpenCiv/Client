@@ -3,7 +3,7 @@
 </svelte:head>
 
 <style lang="less">
-@import url("../../../less/layout.less");
+   @import url("../../../less/layout.less");
 </style>
 
 <script>
@@ -119,7 +119,7 @@ async function key_pressed(event) {
    </div>
    <div id="research-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
-      <p class="center">Currently researching: {researchBarResearch || "No research."}</p>
+      <p class="center">Researching: {researchBarResearch || "No research."}</p>
    </div>
    <div id="menu-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
@@ -130,7 +130,7 @@ async function key_pressed(event) {
       <p class="right">{accountBarAccountName || "No login information."}</p>
    </div>
 </header>
-<main style="height: {innerHeight - 128}px;">
+<main style="height: {innerHeight - 160}px;">
    <Map {mapdata}/>
    <div id="sidebar" class="third">
    <!-- Get values from variables or show defaults. -->

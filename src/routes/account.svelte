@@ -1,3 +1,7 @@
+<style lang="less">
+   @import url("../less/layout.less");
+</style>
+
 <script>
 import { onMount } from 'svelte';
 import * as sapper from '@sapper/app';

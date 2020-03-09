@@ -104,9 +104,72 @@ async function key_pressed(event) {
       return;
    }
 
-   console.log('key: ' + event.key);
-   console.log('keyCode: ' + event.keyCode);
-   // const moved = await backend('move', { id: $selected.id, direction });
+   let direction = null;
+   let x = $selected.x;
+   let y = $selected.y;
+   switch (event.keyCode) {
+      case 97:
+         direction = 'downleft';
+         x--;
+         y++;
+      break;
+
+      case 98:
+         direction = 'down';
+         y++;
+      break;
+
+      case 99:
+         direction = 'downright';
+         x++;
+         y++;
+      break;
+
+      case 100:
+         direction = 'left';
+         x--;
+      break;
+
+      case 102:
+         direction = 'right';
+         x++;
+      break;
+
+      case 103:
+         direction = 'upleft';
+         x--;
+         y--;
+      break;
+
+      case 104:
+         direction = 'up';
+         y--;
+      break;
+      
+      case 105:
+         direction = 'upright';
+         x++;
+         y--;
+      break;
+
+      default:
+      return;
+   }
+
+   const moved = await backend('move', { id: $selected.id, direction });
+   if (moved) {
+      const old = mapdata[$selected.y][$selected.x]['units'].indexOf($selected);
+      if (old === -1) {
+         alerts.add('Error moving unit');
+      }
+
+      mapdata[$selected.y][$selected.x]['units'].splice(old, 1);
+      $selected.x = x;
+      $selected.y = y;
+      selected.set($selected);
+      mapdata[y][x]['units'].push($selected);
+      mapdata = mapdata;
+   }
 }
 </script>
 

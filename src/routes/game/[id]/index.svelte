@@ -129,9 +129,7 @@ async function key_pressed(event) {
    </div>
 </header>
 <main>
-   <div id="map" class="full">
-      <Map {mapdata}/>
-   </div>
+   <Map {mapdata}/>
    <div id="sidebar" class="third">
    <!-- Get values from variables or show defaults. -->
       <h2>{sideBarUnits.unitSelectUnitBuild || "Select a unit to build"}</h2>

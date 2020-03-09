@@ -18,19 +18,26 @@ async function logoff() {
    sapper.goto('login', { replace: true });
 }
 </script>
-<h2>Menu</h2>
+<h1>Menu</h1>
 <p>
-   <a href="newgame">New game</a><br>
+   <a href="newgame" class="button">New game</a><br>
 </p>
 <h3>Active games</h3>
+<p>
 {#if !Array.isArray(games)}
    <span>Loading...</span><br>
 {:else if games.length === 0}
    <span>None</span><br>
 {:else}
    {#each games as game (game.id)}
-      <a href={'/game/' + game.id}>{game.name}</a><br>
+      <a href={'/game/' + game.id} class="button">{game.name}</a><br>
    {/each}
-{/if}<br>
-<a href="/account">Account</a><br>
-<button disabled={$busy} on:click={logoff}>Log off</button>
+{/if}
+</p>
+<p>
+   <a href="/account" class="button">Account</a>
+</p>
+<p>
+   <button disabled={$busy} on:click={logoff}>Log off</button>
+</p>
+

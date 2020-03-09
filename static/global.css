@@ -176,7 +176,6 @@ html {
  th {
    padding: 0;
  }
- 
 
 
 
@@ -190,7 +189,6 @@ html {
 
 body {
 	font-size: 12px;
-	font-family: @font1;
 	color: #fff;
 	background-color: #333;
 	overflow-x: hidden;

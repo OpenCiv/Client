@@ -97,36 +97,42 @@ async function remove() {
 }
 </script>
 
+<h1>Account Settings</h1>
 <p>
    <a href="/menu">Menu</a>
 </p>
 {#if !user}
    <span>Loading...</span>
 {:else}
+   
+   <h2>Display name</h2>
    <p>
-      <label>Display name:</label>
       {#if editName}
          <input type=text disabled={$busy} bind:value={name} on:change={onChangeName} on:keydown={cancelName}>
       {:else}
-         {user.name}
+         <big>{user.name} </big> 
       {/if}
       <button on:click={() => { editName = !editName; }}>
-         <Icon data={edit} />
-      </button><br>
-      <label>E-mail address:</label>
+         <Icon data={edit} /> Change
+      </button>
+   </p>
+   <h2>E-mail address</h2>
+   <p>
       {#if editEmail}
          <input type=email disabled={$busy} bind:value={email} on:change={onChangeEmail} on:keydown={cancelEmail}>
       {:else}
-         {user.email}
+         <big>{user.email} </big>
       {/if}
       <button on:click={() => { editEmail = !editEmail; }}>
-         <Icon data={edit} />
+         <Icon data={edit} /> Change
       </button>
    </p>
    <p>
-      <a href="/changepassword">Change password</a>
+      <a href="/changepassword" class="button">Change password</a>
    </p>
-   <button disabled={$busy} on:click={remove}>Delete account</button>
+   <p>
+      <button disabled={$busy} on:click={remove}>Delete account</button>
+   </p>
    {#if !user.verified}
       <p div="unverified">
          <span>Your account has not been verified yet.</span><br>

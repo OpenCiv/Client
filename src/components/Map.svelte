@@ -67,7 +67,7 @@ function can_move(tile) {
 {#if mapdata}
    <div id="map" class="full">
       {#each mapdata as row}
-         <div class="map_row">
+         <div class="map_row" style="width: {mapdata[0].length * 128}px;">
             {#each row as tile}
                <!-- <div class="tile {tile.type === 'water' ? 'tile_ocean' : 'tile_plains'}" class:canmove={can_move(tile)} on:mousedown={e => tile_click(e, tile)}> -->
                <div class="tile {tile.type === 'water' ? 'tile_ocean' : 'tile_plains'}" on:mousedown={e => tile_click(e, tile)}>

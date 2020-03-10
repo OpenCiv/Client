@@ -5,7 +5,6 @@
 
 <style lang="less">
    @import url("../../../less/layout.less");
-   
 </style>
 
 <script>
@@ -86,8 +85,8 @@ function clearAllVariables(event) {
 }
 
 const unsubscribe = selected.subscribe(value => {
-   infoPanel.currentUnit = value ? 'Howdy' : 'None unit selected.';
-   infoPanel.information = value ? 'How are you doing?' : 'Please select a unit';
+   infoPanel.currentUnit = value ? 'Unit selected' : '';
+   infoPanel.information = value ? 'What orders?' : '';
 });
 
 onMount(async () => {
@@ -145,8 +144,8 @@ onDestroy(unsubscribe);
       </div>
       <div class="two-thirds non-responsive">
          <!-- Get values from variables or show defaults. -->
-         <h3>{infoPanel.currentUnit || "No unit selected"}</h3>
-         <p>{infoPanel.information || "Please select a unit."}</p>
+         <h3>{infoPanel.currentUnit}</h3>
+         <p>{infoPanel.information}</p>
       </div>
    </div>
    <div id="commands-panel" class="third">

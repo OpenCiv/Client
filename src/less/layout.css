@@ -48,7 +48,7 @@ h6 {
   color: #fff;
 }
 h1 {
-  margin: 0 25px 0.5em 25px;
+  margin: 0 24px 1em 24px;
   font-size: 3em;
   font-weight: 400;
   line-height: 110%;
@@ -56,33 +56,33 @@ h1 {
   text-align: left;
 }
 h2 {
-  margin: 0.25em 25px 30px 25px;
+  margin: 0.5em 24px 32px 24px;
   font-size: 2.2em;
   font-weight: 400;
   letter-spacing: 0px;
   line-height: 120%;
 }
 h3 {
-  margin: 0.5em 25px 0.25em 25px;
+  margin: 1em 24px 0.5em 24px;
   font-size: 1.5em;
   font-weight: 400;
   letter-spacing: 0em;
 }
 h4 {
-  margin: 0.75em 25px 0.5em 25px;
+  margin: 1.5em 24px 1em 24px;
   font-size: 1.1em;
   font-weight: 400;
   letter-spacing: 0.05em;
   line-height: 150%;
 }
 .no-bottom-margin {
-  margin-bottom: 0;
+  margin-bottom: -0.25em;
 }
 /* ======================================================== */
 /* BODY TEXT, LEIPÄTEKSTI */
 /* ======================================================== */
 p {
-  margin: 0.5em 25px 0.75em 25px;
+  margin: 1em 24px 1.5em 24px;
   font-size: 1em;
   font-weight: 400;
   line-height: 170%;
@@ -123,7 +123,7 @@ button:visited,
 .button:visited {
   background-color: #771585;
   border: 3px solid #8b189b;
-  padding: 6.25px 18.75px;
+  padding: 6px 18px;
   color: #fff;
   display: inline-block;
   font-size: 1em;
@@ -152,6 +152,11 @@ button:active,
   outline: none;
   transform: scale(1.1);
 }
+.closewindow {
+  float: right;
+  min-width: 0;
+  padding: 6px 10px;
+}
 /* ======================================================== */
 /* IMAGES */
 /* ======================================================== */
@@ -168,7 +173,7 @@ object {
   width: 100%;
   float: left;
   display: block;
-  padding: 25px 0;
+  padding: 24px 0;
   overflow-x: hidden;
   background-color: #ffffff;
 }
@@ -243,7 +248,8 @@ header.full {
   background-color: #444;
   height: auto;
   right: 0;
-  padding-top: 30px;
+  margin-top: 48px;
+  padding: 1em 0;
 }
 footer {
   bottom: 0;

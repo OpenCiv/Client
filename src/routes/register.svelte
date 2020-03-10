@@ -1,3 +1,8 @@
+<svelte:head>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link href="https://fonts.googleapis.com/css?family=Hind:400,600|Lora:400i&display=swap" rel="stylesheet">
+</svelte:head>
+
 <style lang="less">
    @import url("../less/layout.less");
 </style>
@@ -39,7 +44,7 @@ async function register() {
 </script>
 
 <Navbar/>
-<h2>Register</h2>
+<h1>Register</h1>
 <div>
    <label>Name</label>
    <input type=text disabled={$busy} placeholder="Nickname or real name..." bind:value={name}>

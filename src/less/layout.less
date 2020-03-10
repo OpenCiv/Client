@@ -64,7 +64,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-	margin: 0 @pad1 @pad2 @pad1;
+	margin: @pad2 @pad1 @pad2 @pad1;
 	font-size: 3em;
 	font-weight: 400;
 	line-height: 110%;
@@ -153,7 +153,7 @@ a:hover, a:active {
 button, .button, button:visited, .button:visited {
 	background-color: darken(@color_normal, 5%);
 	border: 3px solid @color_light;
-	padding: @pad1/4 0.75*@pad1;
+	padding: @pad1/4 0.75*@pad1 @pad1/4-2px 0.75*@pad1;
 	color: @color_buttontext;
 	display: inline-block;
 	font-size: 1em;
@@ -161,7 +161,7 @@ button, .button, button:visited, .button:visited {
 	font-family: @font1;
 	letter-spacing: 0.05em;
 	text-transform: uppercase;
-	text-shadow: 1px 2px 1px @color_light;
+	text-shadow: 0px 1px 1px @color_light;
 	outline: none;
 	
 	width:auto;
@@ -178,11 +178,16 @@ button, .button, button:visited, .button:visited {
 	transition: all .2s ease-in-out;
 
 	.box-shadow;
+
+	/* For some reason the following is not working... */
+	svg {
+		vertical-align: middle;
+	}
 }
 
 button:hover, button:active, .button:hover, .button:active {
 	background-color: darken(@color_normal, 10%);
-	text-shadow: 1px 2px 4px @color_dark;
+	text-shadow: 0px 1px 4px @color_dark;
 	/*.tausta-gradientti;*/
 	color: @vari4;
 	outline: none;

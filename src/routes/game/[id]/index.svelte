@@ -12,7 +12,7 @@
 import { onMount, onDestroy } from 'svelte';
 import { stores } from '@sapper/app';
 import Map from '../../../components/Map.svelte';
-import { alerts, selected, backend } from '../../../stores';
+import { alerts, selected, backend, player } from '../../../stores';
 
 const { page } = stores();
 
@@ -25,7 +25,6 @@ var mapdata = [];
 var timeBarYears = '';
 var timeBarTurn = '';
 var researchBarResearch = '';
-var accountBarAccountName = '';
 var sideBarUnits = {
    unitSelectUnitBuild: '',
    unitOneName: '',
@@ -53,7 +52,6 @@ function populateUnits(event) {
    timeBarYears = '29 000 BC';
    timeBarTurn = 'Turn ' + 2;
    researchBarResearch = 'Agriculture';
-   accountBarAccountName = 'Laiska-Jaakko';
    sideBarUnits.unitOneName = 'Builder';
    sideBarUnits.unitOneDescription = 'Builds a lot';
    sideBarUnits.unitTwoName = 'Monk';
@@ -73,7 +71,6 @@ function clearAllVariables(event) {
    timeBarYears = '';
    timeBarTurn = '';
    researchBarResearch = '';
-   accountBarAccountName = '';
    sideBarUnits.unitOneName = '';
    sideBarUnits.unitOneDescription = '';
    sideBarUnits.unitTwoName = '';
@@ -95,7 +92,7 @@ const unsubscribe = selected.subscribe(value => {
 
 onMount(async () => {
    let result = await backend('load', { game: $page.params.id });
-   accountBarAccountName = result.player.name;
+   player.set(result.player);
    mapdata = result.map;
 });
 
@@ -199,7 +196,7 @@ async function key_pressed(event) {
    </div>
    <div id="account-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
-      <p class="right">{accountBarAccountName || "No login information."}</p>
+      <p class="right">{$player ? $player.name : "No login information."}</p>
    </div>
 </header>
 <main style="height: {innerHeight - 160}px;">

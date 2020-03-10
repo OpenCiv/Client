@@ -4,10 +4,13 @@
 // @import url("normalize.less");
 
 /* MIXINS */
-@vari1: #8b189b; /* Primary theme color */
-@vari2: darken(@vari1, 20%); /* Secondary theme color */
+@color_normal: #F2D346; /* Primary theme color */
+@vari2: darken(@color_normal, 20%); /* Secondary theme color */
+@color_dark: #AB9D61;
+@color_light: #FFEC96;
 @vari3: #333333; /* Text color */
 @vari4: #fff; /* Negative text color */
+@color_buttontext: #806F25;
 @vari5: #fff; /* Background color */
 
 @font1: 'Lato', Arial, sans-serif; /* Body text font */
@@ -39,10 +42,15 @@
 	&:after { clear: both; }
 }
 
-/* ======================================================== */
-/* BODY */
-/* ======================================================== */
+.box-shadow {
+	-webkit-box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.25);
+	-moz-box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.25);
+	box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.25);
+}
 
+.back-stone {
+	background-image: url("../img/texture_stone1.png");
+}
 
 
 /* ======================================================== */
@@ -108,7 +116,7 @@ ul li {
 }
 
 ::selection, ::-moz-selection {
-	background: @vari1;
+	background: @color_normal;
 	color: #ffffff;
 }
 
@@ -126,7 +134,7 @@ ul li {
 
 a, a:visited, summary {
 	text-decoration: none;
-	color: lighten(@vari1,25%);
+	color: lighten(@color_normal,25%);
 	cursor: pointer;
 }
 
@@ -136,16 +144,17 @@ a:hover, a:active {
 }
 
 button, .button, button:visited, .button:visited {
-	background-color: darken(@vari1,5%);
-	border: 3px solid @vari1;
+	background-color: darken(@color_normal, 5%);
+	border: 3px solid @color_light;
 	padding: @pad1/4 0.75*@pad1;
-	color: @vari4;
+	color: @color_buttontext;
 	display: inline-block;
 	font-size: 1em;
 	font-weight: 700;
 	font-family: @font1;
 	letter-spacing: 0.05em;
 	text-transform: uppercase;
+	text-shadow: 1px 2px 1px @color_light;
 	outline: none;
 	
 	width:auto;
@@ -155,15 +164,18 @@ button, .button, button:visited, .button:visited {
 	text-align:center;
 	text-indent:0;
 	
-	border-radius: 0px;
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
 	
 	transition: all .2s ease-in-out;
+
+	.box-shadow;
 }
 
 button:hover, button:active, .button:hover, .button:active {
-	background-color: @vari1;
+	background-color: darken(@color_normal, 10%);
+	text-shadow: 1px 2px 4px @color_dark;
 	/*.tausta-gradientti;*/
 	color: @vari4;
 	outline: none;
@@ -172,9 +184,11 @@ button:hover, button:active, .button:hover, .button:active {
 }
 
 .closewindow {
-	float: right;
 	min-width: 0;
 	padding: 6px 10px;
+	position: absolute;
+	top: @pad2;
+	right: @pad1;
 }
 
 /* ======================================================== */
@@ -209,8 +223,8 @@ img, object {
 
 header, header.full, footer, footer.full, #sidebar {
 	background-color: #333;
+	.back-stone;
 	position: fixed;
-	z-index: 500;
 	display: block;
 	h1, h2, h3, h4, p {
 		color: @vari4;	
@@ -233,6 +247,7 @@ header, header.full {
 	height: 48px; // Fixed height so the #map top-padding can be fixed
 	overflow: hidden;
 	box-sizing: border-box;
+	z-index: 500;
 }
 
 #sidebar {
@@ -241,6 +256,7 @@ header, header.full {
 	right: 0;
 	margin-top: 48px;
 	padding: @pad2 0;
+	z-index: 500;
 }
 
 footer {
@@ -252,6 +268,7 @@ footer {
 
 #research-bar, #menu-bar, #commands-panel {
 	background-color: #444;
+	.back-stone;
 }
 
 /* ======================================================== */

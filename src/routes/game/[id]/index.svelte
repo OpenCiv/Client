@@ -198,8 +198,8 @@ async function key_pressed(event) {
    </div>
 </header>
 <main style="height: {innerHeight - 160}px;">
-   <div id="sidebar" class="third">
-   <!-- Get values from variables or show defaults. -->
+   <!-- <div id="sidebar" class="third">
+      // Get values from variables or show defaults. 
       <h2>{sideBarUnits.unitSelectUnitBuild || "Select a unit to build"}</h2>
       <a class="button closewindow" title="Close window">X</a>
       <h3 class="no-bottom-margin">{sideBarUnits.unitOneName||"No unit"}</h3>
@@ -208,12 +208,12 @@ async function key_pressed(event) {
       <p>{sideBarUnits.unitTwoDescription||"No description"}</p>
       <h3 class="no-bottom-margin">{sideBarUnits.unitThreeName||"No unit"}</h3>
       <p>{sideBarUnits.unitThreeDescription||"no description"}</p>
-      <!-- Test field input. -->
+      // Test field input. 
       <p>
          <button on:click={populateUnits}>Populate</button>
          <button on:click={clearAllVariables}>Clear</button>
       </p>
-   </div>
+   </div> -->
    <Map {mapdata}/>
 </main>
 <footer class="full">

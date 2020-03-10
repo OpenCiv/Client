@@ -31,9 +31,14 @@
 .clearfix:after {
   clear: both;
 }
-/* ======================================================== */
-/* BODY */
-/* ======================================================== */
+.box-shadow {
+  -webkit-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+}
+.back-stone {
+  background-image: url("../img/texture_stone1.png");
+}
 /* ======================================================== */
 /* HEADINGS */
 /* ======================================================== */
@@ -93,7 +98,7 @@ ul li {
 }
 ::selection,
 ::-moz-selection {
-  background: #8b189b;
+  background: #F2D346;
   color: #ffffff;
 }
 .center {
@@ -109,53 +114,60 @@ a,
 a:visited,
 summary {
   text-decoration: none;
-  color: #d24fe4;
+  color: #faefbd;
   cursor: pointer;
 }
 a:hover,
 a:active {
-  color: #9f1bb1;
+  color: #f4d95e;
   cursor: pointer;
 }
 button,
 .button,
 button:visited,
 .button:visited {
-  background-color: #771585;
-  border: 3px solid #8b189b;
+  background-color: #f0cd2e;
+  border: 3px solid #FFEC96;
   padding: 6px 18px;
-  color: #fff;
+  color: #806F25;
   display: inline-block;
   font-size: 1em;
   font-weight: 700;
   font-family: 'Lato', Arial, sans-serif;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  text-shadow: 1px 2px 1px #FFEC96;
   outline: none;
   width: auto;
   min-width: 6em;
   text-decoration: none;
   text-align: center;
   text-indent: 0;
-  border-radius: 0px;
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   transition: all 0.2s ease-in-out;
+  -webkit-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
 }
 button:hover,
 button:active,
 .button:hover,
 .button:active {
-  background-color: #8b189b;
+  background-color: #efc816;
+  text-shadow: 1px 2px 4px #AB9D61;
   /*.tausta-gradientti;*/
   color: #fff;
   outline: none;
   transform: scale(1.1);
 }
 .closewindow {
-  float: right;
   min-width: 0;
   padding: 6px 10px;
+  position: absolute;
+  top: 1em;
+  right: 24px;
 }
 /* ======================================================== */
 /* IMAGES */
@@ -197,8 +209,8 @@ footer,
 footer.full,
 #sidebar {
   background-color: #333;
+  background-image: url("../img/texture_stone1.png");
   position: fixed;
-  z-index: 500;
   display: block;
 }
 header h1,
@@ -243,6 +255,7 @@ header.full {
   height: 48px;
   overflow: hidden;
   box-sizing: border-box;
+  z-index: 500;
 }
 #sidebar {
   background-color: #444;
@@ -250,6 +263,7 @@ header.full {
   right: 0;
   margin-top: 48px;
   padding: 1em 0;
+  z-index: 500;
 }
 footer {
   bottom: 0;
@@ -261,6 +275,7 @@ footer {
 #menu-bar,
 #commands-panel {
   background-color: #444;
+  background-image: url("../img/texture_stone1.png");
 }
 /* ======================================================== */
 /* COLUMNS */

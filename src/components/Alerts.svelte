@@ -12,35 +12,36 @@ function remove(id) {
    width: 100%;
    position: absolute;
    bottom: 0;
-   text-align: center;
 }
 
 .container {
-   color: #804020;
-   width: 80%;
-   margin: 10px auto;
-   padding: 20px;
+   color: #fff;
+   max-width: 600px;
+   margin: 10px;
+   padding: 20px 20px;
    position: relative;
-   background: #D8D0C0;
-   border: 2px solid #402010;
+   background: #333;
+   border: 3px solid #F2D346;
 }
 
-.x {
-   cursor: default;
+.closewindow {
+   cursor: pointer;
    position: absolute;
    top: 10px;
    right: 10px;
-   color: #D8D0C0;
-   background: #804020;
-   border: 2px solid #402010;
+   background-color: #F2D346;
+	border: 3px solid #FFEC96;
+	padding: 6px 10px;
+	color: #333;
 }
+
 </style>
 
 <div class="messages">
    {#each $alerts as alrt (alrt.id)}
       <div class="container">
          <span>{@html alrt.message}</span>
-         <div class="x" on:click|stopPropagation={() => remove(alrt.id)}>x</div>
+         <div class="closewindow" on:click|stopPropagation={() => remove(alrt.id)}>X</div>
       </div>
    {/each}
 </div>

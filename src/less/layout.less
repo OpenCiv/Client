@@ -13,9 +13,9 @@
 @font1: 'Lato', Arial, sans-serif; /* Body text font */
 @font2: 'Lora', Times New Roman, serif; /* Headings font */
 
-@pad1: 25px; /* Sivuilla oleva yleinen väli */
-@pad2: 0.5em; /* Ylhäällä ja alhaalla oleva yleinen väli */
-@pad3: 30px; /* Ylhäällä ja alhaalla oleva isompi väli */
+@pad1: 24px; /* Sivuilla oleva yleinen väli */
+@pad2: 1em; /* Ylhäällä ja alhaalla oleva yleinen väli */
+@pad3: 32px; /* Ylhäällä ja alhaalla oleva isompi väli */
 @pad4: 2*@pad3; /* Ylhäällä ja alhaalla oleva isoin väli */
 
 @border1: 2px solid #ddd; // Yleinen reuna
@@ -88,7 +88,7 @@ h4 {
 }
 
 .no-bottom-margin {
-	margin-bottom: 0;
+	margin-bottom: -0.25em;
 }
 
 /* ======================================================== */
@@ -171,6 +171,12 @@ button:hover, button:active, .button:hover, .button:active {
 	transform: scale(1.1);
 }
 
+.closewindow {
+	float: right;
+	min-width: 0;
+	padding: 6px 10px;
+}
+
 /* ======================================================== */
 /* IMAGES */
 /* ======================================================== */
@@ -233,7 +239,8 @@ header, header.full {
 	background-color: #444;
 	height: auto;
 	right: 0;
-	padding-top: @pad3;
+	margin-top: 48px;
+	padding: @pad2 0;
 }
 
 footer {

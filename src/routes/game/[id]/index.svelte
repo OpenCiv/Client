@@ -201,20 +201,23 @@ async function key_pressed(event) {
    </div>
 </header>
 <main style="height: {innerHeight - 160}px;">
-   <Map {mapdata}/>
    <div id="sidebar" class="third">
    <!-- Get values from variables or show defaults. -->
       <h2>{sideBarUnits.unitSelectUnitBuild || "Select a unit to build"}</h2>
-      <h3>{sideBarUnits.unitOneName||"No unit"}</h3>
+      <a class="button closewindow" title="Close window">X</a>
+      <h3 class="no-bottom-margin">{sideBarUnits.unitOneName||"No unit"}</h3>
       <p>{sideBarUnits.unitOneDescription||"No description"}</p>
-      <h3>{sideBarUnits.unitTwoName||"No unit"}</h3>
+      <h3 class="no-bottom-margin">{sideBarUnits.unitTwoName||"No unit"}</h3>
       <p>{sideBarUnits.unitTwoDescription||"No description"}</p>
-      <h3>{sideBarUnits.unitThreeName||"No unit"}</h3>
+      <h3 class="no-bottom-margin">{sideBarUnits.unitThreeName||"No unit"}</h3>
       <p>{sideBarUnits.unitThreeDescription||"no description"}</p>
       <!-- Test field input. -->
-      <button on:click={populateUnits}>Populate</button>
-      <button on:click={clearAllVariables}>Clear</button>
+      <p>
+         <button on:click={populateUnits}>Populate</button>
+         <button on:click={clearAllVariables}>Clear</button>
+      </p>
    </div>
+   <Map {mapdata}/>
 </main>
 <footer class="full">
    <div id="info-panel" class="third">

@@ -95,89 +95,9 @@ onMount(async () => {
 });
 
 onDestroy(unsubscribe);
-
-async function key_pressed(event) {
-   if (!$selected) {
-      return;
-   }
-
-   let direction = null;
-   let x = $selected.x;
-   let y = $selected.y;
-   switch (event.keyCode) {
-      case 97:
-      case 90:
-         direction = 'downleft';
-         x--;
-         y++;
-      break;
-
-      case 98:
-      case 88:
-         direction = 'down';
-         y++;
-      break;
-
-      case 99:
-      case 67:
-         direction = 'downright';
-         x++;
-         y++;
-      break;
-
-      case 100:
-      case 65:
-         direction = 'left';
-         x--;
-      break;
-
-      case 102:
-      case 68:
-         direction = 'right';
-         x++;
-      break;
-
-      case 103:
-      case 81:
-         direction = 'upleft';
-         x--;
-         y--;
-      break;
-
-      case 104:
-      case 87:
-         direction = 'up';
-         y--;
-      break;
-      
-      case 105:
-      case 69:
-         direction = 'upright';
-         x++;
-         y--;
-      break;
-
-      default:
-      return;
-   }
-
-   const moved = await backend('move', { id: $selected.id, direction });
-   if (moved) {
-      const old = mapdata[$selected.y][$selected.x]['units'].indexOf($selected);
-      if (old === -1) {
-         alerts.add('Error moving unit');
-      }
-
-      mapdata[$selected.y][$selected.x]['units'].splice(old, 1);
-      $selected.x = x;
-      $selected.y = y;
-      mapdata[y][x]['units'].push($selected);
-      mapdata = mapdata;
-   }
-}
 </script>
 
-<svelte:window bind:innerHeight on:keydown={key_pressed}/>
+<svelte:window bind:innerHeight/>
 
 <header class="full">
    <div id="time-bar" class="fourth">

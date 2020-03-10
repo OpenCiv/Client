@@ -4,10 +4,17 @@
 .active {
    background: #FF000080;
 }
+
+/* .canmove {
+   &:hover {
+      background-image: none;
+      background-color: #FF8000;
+   }
+} */
 </style>
 
 <script>
-import { selected, player } from '../stores';
+import { backend, selected, player } from '../stores';
 
 export let mapdata;
 
@@ -19,7 +26,7 @@ function resource_quantity(resource) {
    return `${resource.type} (${Number.parseFloat(resource.quantity).toFixed(0)})`;
 }
 
-function tile_click(e, tile) {
+async function tile_click(e, tile) {
    e.stopPropagation();
    if (e.which === 1) {
       const unit = tile.units.find(u => u.player_id === $player.id);
@@ -27,9 +34,33 @@ function tile_click(e, tile) {
       return;
    }
 
-   if (e.which === 3 && $selected) {
-      
+   if (e.which !== 3 || !can_move(tile)) {
+      return;
    }
+
+   const moved = await backend('move', { id: $selected.id, x: tile.x, y: tile.y });
+   if (moved) {
+      const old = mapdata[$selected.y][$selected.x]['units'].indexOf($selected);
+      if (old === -1) {
+         alerts.add('Error moving unit');
+      }
+
+      mapdata[$selected.y][$selected.x]['units'].splice(old, 1);
+      $selected.x = tile.x;
+      $selected.y = tile.y;
+      tile.units.push($selected);
+      mapdata = mapdata;
+   }
+}
+
+function can_move(tile) {
+   if (tile.type === 'water' || !$selected) {
+      return false;
+   }
+
+   let x = Math.abs(tile.x - $selected.x);
+   let y = Math.abs(tile.y - $selected.y);
+   return x < 2 && y < 2 && x + y > 0;
 }
 </script>
 
@@ -38,7 +69,8 @@ function tile_click(e, tile) {
       {#each mapdata as row}
          <div class="map_row">
             {#each row as tile}
-               <div class="{tile.type === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}" on:mousedown={e => tile_click(e, tile)}>
+               <!-- <div class="tile {tile.type === 'water' ? 'tile_ocean' : 'tile_plains'}" class:canmove={can_move(tile)} on:mousedown={e => tile_click(e, tile)}> -->
+               <div class="tile {tile.type === 'water' ? 'tile_ocean' : 'tile_plains'}" on:mousedown={e => tile_click(e, tile)}>
                   {#each tile.improvements as improvement}
                      <div class="improvement">
                         <img src={img_src('building', improvement.type)} alt={improvement.type}>

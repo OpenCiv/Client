@@ -48,30 +48,31 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Lora', Times New Roman, serif;
-  font-style: italic;
-  color: #fff;
+  font-family: 'Hind', 'Futura', sans-serif;
+  text-transform: uppercase;
+  color: #FFEC96;
 }
 h1 {
   margin: 0 24px 1em 24px;
   font-size: 3em;
   font-weight: 400;
   line-height: 110%;
-  letter-spacing: 0px;
+  letter-spacing: 2px;
   text-align: left;
 }
 h2 {
   margin: 0.5em 24px 32px 24px;
-  font-size: 2.2em;
+  font-size: 2em;
   font-weight: 400;
-  letter-spacing: 0px;
-  line-height: 120%;
+  letter-spacing: 2px;
+  line-height: 110%;
 }
 h3 {
   margin: 1em 24px 0.5em 24px;
   font-size: 1.5em;
   font-weight: 400;
-  letter-spacing: 0em;
+  letter-spacing: 1px;
+  line-height: 110%;
 }
 h4 {
   margin: 1.5em 24px 1em 24px;
@@ -81,17 +82,18 @@ h4 {
   line-height: 150%;
 }
 .no-bottom-margin {
-  margin-bottom: -0.25em;
+  margin-bottom: -0.1em;
 }
 /* ======================================================== */
 /* BODY TEXT, LEIPÄTEKSTI */
 /* ======================================================== */
 p {
   margin: 1em 24px 1.5em 24px;
-  font-size: 1em;
+  font-size: 1.1em;
   font-weight: 400;
   line-height: 170%;
   text-align: left;
+  font-family: 'Hind', 'Futura', sans-serif;
 }
 ul li {
   line-height: 190%;
@@ -107,6 +109,9 @@ ul li {
 .right {
   text-align: right;
 }
+.research {
+  color: #96BFFF;
+}
 /* ======================================================== */
 /* LINKS */
 /* ======================================================== */
@@ -114,12 +119,13 @@ a,
 a:visited,
 summary {
   text-decoration: none;
-  color: #faefbd;
+  color: #F2D346;
   cursor: pointer;
+  font-family: 'Hind', 'Futura', sans-serif;
 }
 a:hover,
 a:active {
-  color: #f4d95e;
+  color: #FFEC96;
   cursor: pointer;
 }
 button,
@@ -133,7 +139,7 @@ button:visited,
   display: inline-block;
   font-size: 1em;
   font-weight: 700;
-  font-family: 'Lato', Arial, sans-serif;
+  font-family: 'Hind', 'Futura', sans-serif;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   text-shadow: 1px 2px 1px #FFEC96;
@@ -185,7 +191,7 @@ object {
   width: 100%;
   float: left;
   display: block;
-  padding: 24px 0;
+  padding: 1em 0;
   overflow-x: hidden;
   background-color: #ffffff;
 }
@@ -213,33 +219,6 @@ footer.full,
   position: fixed;
   display: block;
 }
-header h1,
-header.full h1,
-footer h1,
-footer.full h1,
-#sidebar h1,
-header h2,
-header.full h2,
-footer h2,
-footer.full h2,
-#sidebar h2,
-header h3,
-header.full h3,
-footer h3,
-footer.full h3,
-#sidebar h3,
-header h4,
-header.full h4,
-footer h4,
-footer.full h4,
-#sidebar h4,
-header p,
-header.full p,
-footer p,
-footer.full p,
-#sidebar p {
-  color: #fff;
-}
 main {
   position: fixed;
   overflow: scroll;
@@ -256,6 +235,14 @@ header.full {
   overflow: hidden;
   box-sizing: border-box;
   z-index: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+header p,
+header.full p {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 48px;
 }
 #sidebar {
   background-color: #444;

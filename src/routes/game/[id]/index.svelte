@@ -11,12 +11,12 @@
 import { onMount, onDestroy } from 'svelte';
 import { stores } from '@sapper/app';
 import Map from '../../../components/Map.svelte';
-import { alerts, selected, backend, player } from '../../../stores';
+import { alerts, selected, backend, player, game } from '../../../stores';
 
 const { page } = stores();
 
 // Obtained from the server and passed on to the map component
-var mapdata = [];
+let mapdata;
 
 // Init values for information on divs.
 // Variables are exposed globally at the moment.
@@ -91,6 +91,7 @@ const unsubscribe = selected.subscribe(value => {
 
 onMount(async () => {
    let result = await backend('load', { game: $page.params.id });
+   game.set(result.game);
    player.set(result.player);
    mapdata = result.map;
 });
@@ -135,7 +136,9 @@ onDestroy(unsubscribe);
          <button on:click={clearAllVariables}>Clear</button>
       </p>
    </div> -->
-   <Map {mapdata}/>
+   {#if mapdata}
+      <Map {mapdata}/>
+   {/if}
 </main>
 <footer class="full">
    <div id="info-panel" class="third">

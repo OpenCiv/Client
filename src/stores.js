@@ -3,8 +3,9 @@ import axios from 'axios';
 import * as sapper from '@sapper/app';
 
 export const alerts = createAlerts();
-export const selected = writable(null);
+export const selected = writable(undefined);
 export const busy = writable(false);
+export const player = writable(undefined);
 
 export async function backend (address, request) {
    busy.set(true);
@@ -43,12 +44,12 @@ export async function backend (address, request) {
          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
          // http.ClientRequest in node.js
          alerts.add('No response from the server');
-         console.log(error.request);
+         console.error(error.request);
       }
       else {
          // Something happened in setting up the request that triggered an Error
          alerts.add('An unknown error occurred');
-         console.log('Error: ', error.message);
+         console.error(error.message);
          console.log(error.config);
       }
 

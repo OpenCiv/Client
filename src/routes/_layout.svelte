@@ -6,5 +6,7 @@ import Alerts from '../components/Alerts.svelte';
 	<title>Open Civ</title>
 </svelte:head>
 
+<!-- <svelte:window on:contextmenu|preventDefault/> -->
+
 <slot/>
 <Alerts/>

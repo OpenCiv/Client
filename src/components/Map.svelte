@@ -2,30 +2,34 @@
 @import url("../less/map.less");
 
 .active {
-   background: red;
+   background: #FF000080;
 }
 </style>
 
 <script>
-import { selected } from '../stores';
+import { selected, player } from '../stores';
 
 export let mapdata;
 
 function img_src(category, type) {
-   return `img/${category.charAt(0)}_` + type + '.png';
+   return `img/${category.charAt(0)}_${type}.png`;
 }
 
 function resource_quantity(resource) {
    return `${resource.type} (${Number.parseFloat(resource.quantity).toFixed(0)})`;
 }
 
-function select(e, unit) {
+function tile_click(e, tile) {
    e.stopPropagation();
-   selected.set(unit);
-}
+   if (e.which === 1) {
+      const unit = tile.units.find(u => u.player_id === $player.id);
+      selected.set(unit);
+      return;
+   }
 
-function is_active(unit) {
-   return selected === unit;
+   if (e.which === 3 && $selected) {
+      
+   }
 }
 </script>
 
@@ -34,7 +38,7 @@ function is_active(unit) {
       {#each mapdata as row}
          <div class="map_row">
             {#each row as tile}
-               <div class="{tile.type === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}" on:click={e => select(e, null)}>
+               <div class="{tile.type === 'water' ? 'tile tile_ocean' : 'tile tile_plains'}" on:mousedown={e => tile_click(e, tile)}>
                   {#each tile.improvements as improvement}
                      <div class="improvement">
                         <img src={img_src('building', improvement.type)} alt={improvement.type}>
@@ -47,7 +51,7 @@ function is_active(unit) {
                   {/each}
                   {#each tile.units as unit}
                      <div class="unit">
-                        <img src={img_src('unit', 'nordic')} alt={'nordic'} class:active={unit === $selected} on:click={e => select(e, unit)}>
+                        <img src={img_src('unit', 'nordic')} alt={'nordic'} class:active={unit === $selected}>
                      </div>
                   {/each}
                </div>

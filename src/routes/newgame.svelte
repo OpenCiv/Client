@@ -6,3 +6,11 @@
 <style lang="less">
    @import url("../less/layout.less");
 </style>
+<div class="menuwrapper">
+   <p>
+      The game is still in the early development stage.<br>
+      We aim to have a prototype by the end of 2020.
+   </p>
+   <a href="/menu" class="button cancel">Back</a>
+</div>
+

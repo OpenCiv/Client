@@ -5,8 +5,6 @@
 <script>
 import { onMount } from 'svelte';
 import * as sapper from '@sapper/app';
-import Icon from 'svelte-awesome/components/Icon.svelte';
-import { edit } from 'svelte-awesome/icons';
 import { alerts, backend, busy } from '../stores';
 
 const { page } = sapper.stores();
@@ -113,9 +111,7 @@ async function remove() {
             {/if}
          </div>
          <div class="half">
-            <button on:click={() => { editName = !editName; }}>
-               <Icon data={edit} /> Change
-            </button>
+            <button on:click={() => { editName = !editName; }}>Change</button>
          </div>
       </div>
       
@@ -129,9 +125,7 @@ async function remove() {
             {/if}
          </div>
          <div class="half">
-            <button on:click={() => { editEmail = !editEmail; }}>
-               <Icon data={edit} /> Change
-            </button>
+            <button on:click={() => { editEmail = !editEmail; }}>Change</button>
          </div>
       </div>
       

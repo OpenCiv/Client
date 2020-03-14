@@ -43,7 +43,6 @@ async function register() {
 }
 </script>
 
-<Navbar/>
 <div class="menuwrapper">
    <h1>Register</h1>
    <div class="row">
@@ -80,4 +79,5 @@ async function register() {
       </div>
    </div>
    <button {disabled} on:click={register}>Register</button>
+   <a href="/login" class="button cancel">Back</a>
 </div>

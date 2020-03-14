@@ -29,7 +29,7 @@ async function login() {
    password = '';
 }
 </script>
-<Navbar/>
+
 <div class="menuwrapper">
    <h1>Login</h1>
    <div class="row">
@@ -49,4 +49,12 @@ async function login() {
       </div>
    </div>
    <button {disabled} on:click={login}>Log in</button>
+   <div class="row">
+      <div class="half">
+         <a href="/register" class="button">Register</a>
+      </div>
+      <div class="half">
+         <a href="/newpassword" class="button">Forgot password</a>
+      </div>
+   </div>
 </div>

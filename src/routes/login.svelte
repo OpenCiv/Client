@@ -30,13 +30,23 @@ async function login() {
 }
 </script>
 <Navbar/>
-<h1>Login</h1>
-<div>
-   <label>E-mail address</label>
-   <input type=email disabled={$busy} bind:value={email}>
+<div class="menuwrapper">
+   <h1>Login</h1>
+   <div class="row">
+      <div class="third left">
+         <label>E-mail address</label>
+      </div>
+      <div class="two-thirds">
+         <input type=email disabled={$busy} bind:value={email}>
+      </div>
+   </div>
+   <div class="row">
+      <div class="third left">
+         <label>Password</label>
+      </div>
+      <div class="two-thirds">
+         <input type=password disabled={$busy} bind:value={password}>
+      </div>
+   </div>
+   <button {disabled} on:click={login}>Log in</button>
 </div>
-<div>
-   <label>Password</label>
-   <input type=password disabled={$busy} bind:value={password}>
-</div>
-<button {disabled} on:click={login}>Log in</button>

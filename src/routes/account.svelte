@@ -97,46 +97,52 @@ async function remove() {
 }
 </script>
 
-<h1>Account Settings</h1>
-<p>
-   <a href="/menu">Menu</a>
-</p>
-{#if !user}
-   <span>Loading...</span>
-{:else}
-   
-   <h2>Display name</h2>
-   <p>
-      {#if editName}
-         <input type=text disabled={$busy} bind:value={name} on:change={onChangeName} on:keydown={cancelName}>
-      {:else}
-         <big>{user.name} </big> 
-      {/if}
-      <button on:click={() => { editName = !editName; }}>
-         <Icon data={edit} /> Change
-      </button>
-   </p>
-   <h2>E-mail address</h2>
-   <p>
-      {#if editEmail}
-         <input type=email disabled={$busy} bind:value={email} on:change={onChangeEmail} on:keydown={cancelEmail}>
-      {:else}
-         <big>{user.email} </big>
-      {/if}
-      <button on:click={() => { editEmail = !editEmail; }}>
-         <Icon data={edit} /> Change
-      </button>
-   </p>
-   <p>
+<div class="menuwrapper">
+   <h1>Account Settings</h1>
+   {#if !user}
+      <span>Loading...</span>
+   {:else}
+      
+      <h2>Display name</h2>
+      <div class="row">
+         <div class="half">
+            {#if editName}
+               <input type=text disabled={$busy} bind:value={name} on:change={onChangeName} on:keydown={cancelName}>
+            {:else}
+               <label>{user.name} </label> 
+            {/if}
+         </div>
+         <div class="half">
+            <button on:click={() => { editName = !editName; }}>
+               <Icon data={edit} /> Change
+            </button>
+         </div>
+      </div>
+      
+      <h2>E-mail address</h2>
+      <div class="row">
+         <div class="half">
+            {#if editEmail}
+               <input type=email disabled={$busy} bind:value={email} on:change={onChangeEmail} on:keydown={cancelEmail}>
+            {:else}
+               <label>{user.email} </label>
+            {/if}
+         </div>
+         <div class="half">
+            <button on:click={() => { editEmail = !editEmail; }}>
+               <Icon data={edit} /> Change
+            </button>
+         </div>
+      </div>
+      
       <a href="/changepassword" class="button">Change password</a>
-   </p>
-   <p>
       <button disabled={$busy} on:click={remove}>Delete account</button>
-   </p>
-   {#if !user.verified}
-      <p div="unverified">
-         <span>Your account has not been verified yet.</span><br>
-         <button disabled={$busy} on:click={resend}>Resend verification e-mail</button>
-      </p>
+      {#if !user.verified}
+         <p div="unverified">
+            <span>Your account has not been verified yet.</span><br>
+            <button disabled={$busy} on:click={resend}>Resend verification e-mail</button>
+         </p>
+      {/if}
    {/if}
-{/if}
+   <a href="/menu" class="button cancel">Back</a>
+</div>

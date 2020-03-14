@@ -16,7 +16,7 @@
   clear: both;
   margin-left: 0;
   margin-bottom: 0;
-  padding: 0 auto;
+  padding: 0;
   float: left;
   display: block;
 }
@@ -58,25 +58,24 @@ h1 {
   font-weight: 400;
   line-height: 110%;
   letter-spacing: 2px;
-  text-align: left;
 }
 h2 {
-  margin: 0.5em 24px 32px 24px;
-  font-size: 2em;
+  margin: 1em 24px 1em 24px;
+  font-size: 1.8em;
   font-weight: 400;
   letter-spacing: 2px;
   line-height: 110%;
 }
 h3 {
   margin: 1em 24px 0.5em 24px;
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: 400;
   letter-spacing: 1px;
   line-height: 110%;
 }
 h4 {
   margin: 1.5em 24px 1em 24px;
-  font-size: 1.1em;
+  font-size: 1em;
   font-weight: 400;
   letter-spacing: 0.05em;
   line-height: 150%;
@@ -106,6 +105,9 @@ ul li {
 .center {
   text-align: center;
 }
+.left {
+  text-align: left;
+}
 .right {
   text-align: right;
 }
@@ -131,7 +133,8 @@ a:active {
 button,
 .button,
 button:visited,
-.button:visited {
+.button:visited,
+input[type=submit] {
   background-color: #f0cd2e;
   border: 3px solid #FFEC96;
   padding: 6px 18px 4px 18px;
@@ -158,22 +161,43 @@ button:visited,
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
   /* For some reason the following is not working... */
 }
+button.cancel,
+.button.cancel,
+button:visited.cancel,
+.button:visited.cancel,
+input[type=submit].cancel {
+  background-color: #f04f2e;
+  border: 3px solid #FFA896;
+  text-shadow: 0px 1px 1px #FFA896;
+  color: #803425;
+}
 button svg,
 .button svg,
 button:visited svg,
-.button:visited svg {
+.button:visited svg,
+input[type=submit] svg {
   vertical-align: middle;
 }
 button:hover,
 button:active,
 .button:hover,
-.button:active {
+.button:active,
+input[type=submit]:hover {
   background-color: #efc816;
   text-shadow: 0px 1px 4px #AB9D61;
   /*.tausta-gradientti;*/
   color: #fff;
   outline: none;
-  transform: scale(1.1);
+  transform: scale(1.05);
+}
+button:hover.cancel,
+button:active.cancel,
+.button:hover.cancel,
+.button:active.cancel,
+input[type=submit]:hover.cancel {
+  background-color: #ef3b16;
+  text-shadow: 0px 1px 4px #AB6E61;
+  color: #fff;
 }
 .closewindow {
   min-width: 0;
@@ -181,6 +205,37 @@ button:active,
   position: absolute;
   top: 1em;
   right: 24px;
+}
+/* ======================================================== */
+/* FORMS */
+/* ======================================================== */
+input[type=text],
+input[type=password],
+input[type=email] {
+  display: block;
+  width: 100%;
+  min-height: 36px;
+  box-sizing: border-box;
+  font-size: 1.1em;
+  color: #333333;
+  background-color: #cccccc;
+  padding: 6px 18px 4px 18px;
+  border: 0px none;
+  outline: none;
+}
+label {
+  padding: 6px 18px 4px 18px;
+  font-size: 1.2em;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 110%;
+  font-family: 'Hind', 'Futura', sans-serif;
+  text-transform: uppercase;
+  color: #FFEC96;
+  display: block;
+  width: 100%;
+  min-height: 36px;
+  box-sizing: border-box;
 }
 /* ======================================================== */
 /* IMAGES */
@@ -202,6 +257,17 @@ object {
   overflow-x: hidden;
   background-color: #ffffff;
 }
+.row {
+  *zoom: 1;
+}
+.row:before,
+.row:after {
+  content: "";
+  display: table;
+}
+.row:after {
+  clear: both;
+}
 .wrapper {
   width: 94%;
   display: block;
@@ -215,6 +281,22 @@ object {
 }
 .wrapper:after {
   clear: both;
+}
+.menuwrapper {
+  max-width: 500px;
+  margin: 32px auto;
+  padding: 1em 24px;
+  text-align: center;
+  box-sizing: border-box;
+  background-image: url("../img/texture_stone1.png");
+}
+.menuwrapper .button,
+.menuwrapper button,
+.menuwrapper input,
+.menuwrapper label {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 1em 0 1em 0;
 }
 header,
 header.full,
@@ -283,7 +365,7 @@ footer {
   clear: both;
   margin-left: 0;
   margin-bottom: 0;
-  padding: 0 auto;
+  padding: 0;
   float: left;
   display: block;
   width: 100%;
@@ -294,7 +376,7 @@ footer {
   clear: both;
   margin-left: 0;
   margin-bottom: 0;
-  padding: 0 auto;
+  padding: 0;
   float: left;
   display: block;
   width: 50%;
@@ -305,7 +387,7 @@ footer {
   clear: both;
   margin-left: 0;
   margin-bottom: 0;
-  padding: 0 auto;
+  padding: 0;
   float: left;
   display: block;
   width: 66.66%;
@@ -316,7 +398,7 @@ footer {
   clear: both;
   margin-left: 0;
   margin-bottom: 0;
-  padding: 0 auto;
+  padding: 0;
   float: left;
   display: block;
   width: 33.333%;
@@ -327,7 +409,7 @@ footer {
   clear: both;
   margin-left: 0;
   margin-bottom: 0;
-  padding: 0 auto;
+  padding: 0;
   float: left;
   display: block;
   width: 25%;
@@ -338,7 +420,7 @@ footer {
   clear: both;
   margin-left: 0;
   margin-bottom: 0;
-  padding: 0 auto;
+  padding: 0;
   float: left;
   display: block;
   width: 33.333%;
@@ -353,7 +435,7 @@ footer {
     clear: both;
     margin-left: 0;
     margin-bottom: 0;
-    padding: 0 auto;
+    padding: 0;
     float: left;
     display: block;
     width: 50%;
@@ -364,7 +446,7 @@ footer {
     clear: both;
     margin-left: 0;
     margin-bottom: 0;
-    padding: 0 auto;
+    padding: 0;
     float: left;
     display: block;
     width: 66.66%;
@@ -375,7 +457,7 @@ footer {
     clear: both;
     margin-left: 0;
     margin-bottom: 0;
-    padding: 0 auto;
+    padding: 0;
     float: left;
     display: block;
     width: 33.333%;
@@ -386,7 +468,7 @@ footer {
     clear: both;
     margin-left: 0;
     margin-bottom: 0;
-    padding: 0 auto;
+    padding: 0;
     float: left;
     display: block;
     width: 25%;
@@ -397,7 +479,7 @@ footer {
     clear: both;
     margin-left: 0;
     margin-bottom: 0;
-    padding: 0 auto;
+    padding: 0;
     float: left;
     display: block;
     width: 33.333%;

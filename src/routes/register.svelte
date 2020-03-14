@@ -44,21 +44,40 @@ async function register() {
 </script>
 
 <Navbar/>
-<h1>Register</h1>
-<div>
-   <label>Name</label>
-   <input type=text disabled={$busy} placeholder="Nickname or real name..." bind:value={name}>
+<div class="menuwrapper">
+   <h1>Register</h1>
+   <div class="row">
+      <div class="third left">
+         <label>Name</label>
+      </div>
+      <div class="two-thirds">
+         <input type=text disabled={$busy} placeholder="Nickname or real name..." bind:value={name}>
+      </div>
+   </div>
+   
+   <div class="row">
+      <div class="third left">
+         <label>E-mail address</label>
+      </div>
+      <div class="two-thirds">
+         <input type=email disabled={$busy} placeholder="name@domain.com" bind:value={email}>
+      </div>
+   </div>
+   <div class="row">
+      <div class="third left">
+         <label>Password</label>
+      </div>
+      <div class="two-thirds">
+         <input type=password disabled={$busy} bind:value={password}>
+      </div>
+   </div>
+   <div class="row">
+      <div class="third left">
+         <label>Repeat password</label>
+      </div>
+      <div class="two-thirds">
+         <input type=password disabled={$busy} bind:value={repeat}>
+      </div>
+   </div>
+   <button {disabled} on:click={register}>Register</button>
 </div>
-<div>
-   <label>E-mail address</label>
-   <input type=email disabled={$busy} placeholder="name@domain.com" bind:value={email}>
-</div>
-<div>
-   <label>Password</label>
-   <input type=password disabled={$busy} bind:value={password}>
-</div>
-<div>
-   <label>Repeat password</label>
-   <input type=password disabled={$busy} bind:value={repeat}>
-</div>
-<button {disabled} on:click={register}>Register</button>

@@ -34,12 +34,33 @@ async function submitPassword() {
 }
 </script>
 
-<h2>Change password</h2>
-<label>Current password:</label>
-<input type=password disabled={$busy} bind:value={oldpass}><br>
-<label>New password:</label>
-<input type=password disabled={$busy} bind:value={newpass}><br>
-<label>Repeat password:</label>
-<input type=password disabled={$busy} bind:value={repeat}><br>
-<button {disabled} on:click={submitPassword}>Submit</button><br>
-<a href="/account">Back</a>
+<div class="menuwrapper">
+   <h1>Change password</h1>
+   <div class="row">
+      <div class="third left">
+         <label>Current password</label>
+      </div>
+      <div class="two-thirds">
+         <input type=password disabled={$busy} bind:value={oldpass}>
+      </div>
+   </div>
+   <div class="row">
+      <div class="third left">
+         <label>New password</label>
+      </div>
+      <div class="two-thirds">
+         <input type=password disabled={$busy} bind:value={newpass}>
+      </div>
+   </div>
+   <div class="row">
+      <div class="third left">
+         <label>Repeat password</label>
+      </div>
+      <div class="two-thirds">
+         <input type=password disabled={$busy} bind:value={repeat}>
+      </div>
+   </div>
+   <button {disabled} on:click={submitPassword}>Submit</button>
+   <a href="/account" class="button cancel">Back</a>
+</div>
+

@@ -28,7 +28,7 @@
 	clear: both;
 	margin-left: 0;
 	margin-bottom: 0;
-	padding: 0 auto;
+	padding: 0;
 	float: left;
 	display: block;
 }
@@ -69,12 +69,11 @@ h1 {
 	font-weight: 400;
 	line-height: 110%;
 	letter-spacing: 2px;
-	text-align: left;
 }
 
 h2 {
-	margin: 0.5*@pad2 @pad1 @pad3 @pad1;
-	font-size: 2em;
+	margin: @pad2 @pad1 @pad2 @pad1;
+	font-size: 1.8em;
 	font-weight:400;	
 	letter-spacing: 2px;
 	line-height:110%;
@@ -82,7 +81,7 @@ h2 {
 
 h3 {
 	margin: @pad2 @pad1 @pad2/2 @pad1;
-	font-size: 1.5em;
+	font-size: 1.2em;
 	font-weight:400;
 	letter-spacing: 1px;
 	line-height: 110%;
@@ -90,7 +89,7 @@ h3 {
 
 h4 {
 	margin: 1.5*@pad2 @pad1 @pad2 @pad1;
-	font-size: 1.1em;
+	font-size: 1em;
 	font-weight:400;
 	letter-spacing:0.05em;
 	line-height:150%;
@@ -126,6 +125,10 @@ ul li {
 	text-align: center;
 }
 
+.left {
+	text-align: left;
+}
+
 .right {
 	text-align: right;
 }
@@ -150,7 +153,7 @@ a:hover, a:active {
 	cursor: pointer;
 }
 
-button, .button, button:visited, .button:visited {
+button, .button, button:visited, .button:visited, input[type=submit] {
 	background-color: darken(@color_normal, 5%);
 	border: 3px solid @color_light;
 	padding: @pad1/4 0.75*@pad1 @pad1/4-2px 0.75*@pad1;
@@ -164,8 +167,8 @@ button, .button, button:visited, .button:visited {
 	text-shadow: 0px 1px 1px @color_light;
 	outline: none;
 	
-	width:auto;
-	min-width:6em;
+	width: auto;
+	min-width: 6em;
 	
 	text-decoration:none;
 	text-align:center;
@@ -179,20 +182,35 @@ button, .button, button:visited, .button:visited {
 
 	.box-shadow;
 
+	&.cancel {
+		background-color: darken(#F26346, 5%);
+		border: 3px solid #FFA896;
+		text-shadow: 0px 1px 1px #FFA896;
+		color: #803425;
+	}
+
 	/* For some reason the following is not working... */
 	svg {
 		vertical-align: middle;
 	}
 }
 
-button:hover, button:active, .button:hover, .button:active {
+
+
+button:hover, button:active, .button:hover, .button:active, input[type=submit]:hover {
 	background-color: darken(@color_normal, 10%);
 	text-shadow: 0px 1px 4px @color_dark;
 	/*.tausta-gradientti;*/
 	color: @vari4;
 	outline: none;
 	
-	transform: scale(1.1);
+	transform: scale(1.05);
+
+	&.cancel {
+		background-color: darken(#F26346, 10%);
+		text-shadow: 0px 1px 4px #AB6E61;
+		color: @vari4;
+	}
 }
 
 .closewindow {
@@ -201,6 +219,41 @@ button:hover, button:active, .button:hover, .button:active {
 	position: absolute;
 	top: @pad2;
 	right: @pad1;
+}
+
+/* ======================================================== */
+/* FORMS */
+/* ======================================================== */
+
+input[type=text], input[type=password], input[type=email] {
+	display: block;
+	width: 100%;
+	min-height: 36px;
+	box-sizing: border-box;
+
+	font-size: 1.1em;
+	color: @vari3;
+
+	background-color: #cccccc;
+	padding: @pad1/4 0.75*@pad1 @pad1/4-2px 0.75*@pad1;
+	border: 0px none;
+	outline: none;
+}
+
+label {
+	padding: @pad1/4 0.75*@pad1 @pad1/4-2px 0.75*@pad1;
+	font-size: 1.2em;
+	font-weight:400;
+	letter-spacing: 1px;
+	line-height: 110%;
+	font-family: @font1;
+	text-transform: uppercase;
+	color: @color_light;
+	
+	display: block;
+	width: 100%;
+	min-height: 36px;
+	box-sizing: border-box;
 }
 
 /* ======================================================== */
@@ -226,11 +279,30 @@ img, object {
 	background-color: #ffffff;
 }
 
+.row {
+	.clearfix;
+}
+
 .wrapper {
 	width: 94%;
 	display: block;
 	margin: 0 3%;
 	.clearfix;
+}
+
+.menuwrapper {
+	max-width: 500px;
+	margin: @pad3 auto;
+	padding: @pad2 @pad1;
+	text-align: center;
+	box-sizing: border-box;
+	.back-stone;
+
+	.button, button, input, label {
+		width: 100%;
+		box-sizing: border-box;
+		margin: @pad2 0 @pad2 0;
+	}
 }
 
 header, header.full, footer, footer.full, #sidebar {

@@ -14,9 +14,11 @@
 </style>
 
 <script>
-import { backend, selected, player, game } from '../stores';
+import { backend, selected, player } from '../stores';
 
 export let mapdata;
+
+export let mapsize;
 
 function img_src(category, type) {
    return `img/${category.charAt(0)}_${type}.png`;
@@ -65,9 +67,9 @@ function can_move(tile) {
 </script>
 
 {#if mapdata}
-   <div id="map" class="full" style="width: {$game.x * 128}px;">
+   <div id="map" class="full" style="width: {mapsize.x * 128}px;">
       {#each mapdata as row}
-         <div class="map_row" style="width: {$game.x * 128}px;">
+         <div class="map_row" style="width: {mapsize.x * 128}px;">
             {#each row as tile}
                <!-- <div class="tile {tile.type === 'water' ? 'tile_ocean' : 'tile_plains'}" class:canmove={can_move(tile)} on:mousedown={e => tile_click(e, tile)}> -->
                <div class="tile {tile.type === 'water' ? 'tile_ocean' : 'tile_plains'}" on:mousedown={e => tile_click(e, tile)}>

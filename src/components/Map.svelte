@@ -41,18 +41,20 @@ async function tile_click(e, tile) {
    }
 
    const moved = await backend('move', { id: $selected.id, x: tile.x, y: tile.y });
-   if (moved) {
-      const old = mapdata[$selected.y][$selected.x]['units'].indexOf($selected);
-      if (old === -1) {
-         alerts.add('Error moving unit');
-      }
-
-      mapdata[$selected.y][$selected.x]['units'].splice(old, 1);
-      $selected.x = tile.x;
-      $selected.y = tile.y;
-      tile.units.push($selected);
-      mapdata = mapdata;
+   if (!moved) {
+      return;
    }
+
+   const old = mapdata[$selected.y][$selected.x]['units'].indexOf($selected);
+   if (old === -1) {
+      alerts.add('Error moving unit');
+   }
+
+   mapdata[$selected.y][$selected.x]['units'].splice(old, 1);
+   $selected.x = tile.x;
+   $selected.y = tile.y;
+   tile.units.push($selected);
+   mapdata = mapdata;
 }
 
 function can_move(tile) {

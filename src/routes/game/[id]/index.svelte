@@ -91,6 +91,11 @@ const unsubscribe = selected.subscribe(value => {
 
 onMount(async () => {
    let result = await backend('load', { game: $page.params.id });
+   if (!result) {
+      alerts.add('The data could not be loaded');
+      return;
+   }
+
    player.set(result.player);
    mapdata = result.map;
    mapsize = {x: result.game.x, y: result.game.y};

@@ -9,7 +9,6 @@
 
 <script>
 import * as sapper from '@sapper/app';
-import Navbar from '../components/Navbar.svelte';
 import { alerts, backend, busy } from '../stores';
 
 let email = '';

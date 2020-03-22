@@ -8,7 +8,6 @@
 </style>
 
 <script>
-import Navbar from '../components/Navbar.svelte';
 import { alerts, backend, busy } from '../stores';
 
 let email = '';

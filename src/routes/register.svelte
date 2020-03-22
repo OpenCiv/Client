@@ -10,7 +10,6 @@
 <script>
 import * as sapper from '@sapper/app';
 import { alerts, backend, busy } from '../stores';
-import Navbar from '../components/Navbar.svelte';
 
 let name = '';
 let email = '';

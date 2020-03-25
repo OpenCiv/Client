@@ -22,6 +22,7 @@
 @pad4: 2*@pad3; /* Ylhäällä ja alhaalla oleva isoin väli */
 
 @border1: 6px double #777; // Yleinen reuna
+@border2: 2px solid #777; // Yleinen reuna 2
 
 .col {
 	width: 100%;
@@ -54,6 +55,7 @@
 
 .border-stone {
 	border: @border1;
+	border-right-color: #555;
     border-bottom-color: #222;
     border-left-color: #555;
     border-top-color: #777;
@@ -297,9 +299,11 @@ img, object {
 .separator {
 	width: 100%;
 	height: 1px;
-	border-bottom: @border1;
+	border-top: @border2;
+	border-top-color: #222;
+	border-bottom: @border2;
 	display: block;
-	margin: @pad2/2 0 @pad2 0;
+	margin: @pad2 0 @pad3 0;
 }
 
 .wrapper {

@@ -104,6 +104,10 @@ h4 {
 	line-height:150%;
 }
 
+.no-top-margin {
+	margin-top: 0.2em;
+}
+
 .no-bottom-margin {
 	margin-bottom: -0.1em;
 }
@@ -208,8 +212,6 @@ button, .button, button:visited, .button:visited, input[type=submit] {
 	}
 }
 
-
-
 button:hover, button:active, .button:hover, .button:active, input[type=submit]:hover {
 	background-color: darken(@color_normal, 10%);
 	text-shadow: 0px 1px 4px @color_dark;
@@ -232,6 +234,20 @@ button:hover, button:active, .button:hover, .button:active, input[type=submit]:h
 	position: absolute;
 	top: @pad2;
 	right: @pad1;
+}
+
+.deactivate-fullscreen-button {
+	display: none;
+}
+
+:-webkit-full-screen .activate-fullscreen-button, :-moz-full-screen .activate-fullscreen-button, :fullscreen .activate-fullscreen-button {
+//.activate-fullscreen-button:-webkit-full-screen, .activate-fullscreen-button:-moz-full-screen, .activate-fullscreen-button:fullscreen {
+	display: none;
+}
+
+:-webkit-full-screen .deactivate-fullscreen-button, :-moz-full-screen .deactivate-fullscreen-button, :fullscreen .deactivate-fullscreen-button {
+//.deactivate-fullscreen-button:-webkit-full-screen, .deactivate-fullscreen-button:-moz-full-screen, .deactivate-fullscreen-button:fullscreen {
+	display: inline-block;
 }
 
 /* ======================================================== */
@@ -289,7 +305,6 @@ img, object {
 	display: block;
 	padding: @pad2 0;
 	overflow-x: hidden;
-	background-color: #ffffff;
 }
 
 .row {
@@ -315,7 +330,7 @@ img, object {
 
 .menuwrapper {
 	max-width: 500px;
-	margin: @pad3 auto;
+	margin: @pad2 @pad1;
 	padding: @pad2 @pad1 @pad3 @pad1;
 	text-align: center;
 	box-sizing: border-box;
@@ -331,9 +346,10 @@ img, object {
 	}
 }
 
-header, header.full, footer, footer.full, #sidebar {
+header, footer, #sidebar {
 	background-color: #333;
 	.back-stone;
+	.border-stone;
 	position: fixed;
 	display: block;
 }
@@ -351,17 +367,19 @@ main {
 header, header.full {
 	top: 0;
 	padding: 0;
-	height: 48px; // Fixed height so the #map top-padding can be fixed
+	height: 42px; // Fixed height so the #map top-padding can be fixed
 	overflow: hidden;
 	box-sizing: border-box;
 	z-index: 500;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 
+	border-top: 0px none;
+
 	p {
 		margin-top: 0;
 		margin-bottom: 0;
-		line-height: 48px;
+		line-height: 42px;
 	}
 }
 
@@ -376,9 +394,11 @@ header, header.full {
 
 footer {
 	bottom: 0;
-	height: 160px; // Fixed height so the #map bottom-padding can be fixed
+	height: 128px; // Fixed height so the #map bottom-padding can be fixed
 	overflow: hidden;
 	box-sizing: border-box;
+
+	border-bottom: 0px none;
 }
 
 #research-bar, #menu-bar, #commands-panel {
@@ -434,6 +454,10 @@ footer {
 /* DESKTOPS & BIGGER SCREENS */
 /* ======================================================== */
 @media only screen and (min-width: 640px) {
+
+	.menuwrapper {
+		margin: @pad3 auto;
+	}
 
 	.half, .two-thirds, .third, .fourth, .sixth {
 		padding-right: @pad1/2;

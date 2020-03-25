@@ -20,6 +20,7 @@ async function newgame(e) {
 </script>
 
 <div class="menuwrapper">
+   <h1>New Game</h1>
    <p>
       The game is still in the early development stage.<br>
       We aim to have a prototype by the end of 2020.

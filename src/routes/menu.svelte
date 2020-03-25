@@ -25,21 +25,32 @@ async function logoff() {
 </script>
 <div class="menuwrapper">
    <h1>Menu</h1>
-   <a href="newgame" class="button">New game</a>
    
-   <h3>Active games</h3>
+   
+   <div class="separator"></div>
+   <h2>Active games</h2>
 
    {#if !Array.isArray(games)}
       <span>Loading...</span><br>
    {:else if games.length === 0}
       <span>None</span><br>
    {:else}
+   
       {#each games as game (game.id)}
-         <a href={'/game/' + game.id} class="button">{game.name}</a>
-      {/each}
+      <div class="row">
+         <div class="two-thirds non-responsive">
+            <p class="label">{game.name}</p>
+         </div>
+         <div class="third non-responsive">
+            <a href={'/game/' + game.id} class="button">Join <span class="hide-mobile">game</span></a>
+         </div>
+      </div> 
+      {/each} 
+   <div class="separator"></div> 
    {/if}
 
-   <a href="/account" class="button">Account</a>
+   <a href="newgame" class="button">New game</a>
+   <a href="/account" class="button">Account <span class="hide-mobile">Settings</span></a>
 
    <button disabled={$busy} on:click={logoff} class="cancel">Log off</button>
 </div>

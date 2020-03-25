@@ -21,7 +21,7 @@
 @pad3: 32px; /* Ylhäällä ja alhaalla oleva isompi väli */
 @pad4: 2*@pad3; /* Ylhäällä ja alhaalla oleva isoin väli */
 
-@border1: 2px solid #ddd; // Yleinen reuna
+@border1: 6px double #777; // Yleinen reuna
 
 .col {
 	width: 100%;
@@ -50,6 +50,13 @@
 
 .back-stone {
 	background-image: url("../img/texture_stone1.png");
+}
+
+.border-stone {
+	border: @border1;
+    border-bottom-color: #222;
+    border-left-color: #555;
+    border-top-color: #777;
 }
 
 
@@ -156,22 +163,26 @@ a:hover, a:active {
 button, .button, button:visited, .button:visited, input[type=submit] {
 	background-color: darken(@color_normal, 5%);
 	border: 3px solid @color_light;
-	padding: @pad1/4 0.75*@pad1 @pad1/4-2px 0.75*@pad1;
+	padding: @pad1/2-2px 0.75*@pad1 @pad1/3 0.75*@pad1;
 	color: @color_buttontext;
 	display: inline-block;
+  	align-items: center;
 	font-size: 1em;
 	font-weight: 700;
 	font-family: @font1;
 	letter-spacing: 0.05em;
+	line-height: 95%;
 	text-transform: uppercase;
 	text-shadow: 0px 1px 1px @color_light;
 	outline: none;
 	
 	width: auto;
 	min-width: 6em;
+	min-height: 36px;
 	
 	text-decoration:none;
 	text-align:center;
+	align-items: flex-start;
 	text-indent:0;
 	
 	border-radius: 3px;
@@ -240,7 +251,7 @@ input[type=text], input[type=password], input[type=email] {
 	outline: none;
 }
 
-label {
+label, .label {
 	padding: @pad1/4 0.75*@pad1 @pad1/4-2px 0.75*@pad1;
 	font-size: 1.2em;
 	font-weight:400;
@@ -283,6 +294,14 @@ img, object {
 	.clearfix;
 }
 
+.separator {
+	width: 100%;
+	height: 1px;
+	border-bottom: @border1;
+	display: block;
+	margin: @pad2/2 0 @pad2 0;
+}
+
 .wrapper {
 	width: 94%;
 	display: block;
@@ -299,11 +318,7 @@ img, object {
 	
 	.back-stone;
 	.box-shadow;
-
-	border: 6px double #555;
-    border-bottom-color: #222;
-    border-left-color: #555;
-    border-top-color: #777;
+	.border-stone;
 
 	.button, button, input, label {
 		width: 100%;
@@ -367,6 +382,10 @@ footer {
 	.back-stone;
 }
 
+.hide-mobile {
+	display: none;
+}
+
 /* ======================================================== */
 /* COLUMNS */
 /* ======================================================== */
@@ -412,34 +431,47 @@ footer {
 /* ======================================================== */
 @media only screen and (min-width: 640px) {
 
+	.half, .two-thirds, .third, .fourth, .sixth {
+		padding-right: @pad1/2;
+		padding-left: @pad1/2;
+		box-sizing: border-box;
+	}
+
+	.row > :last-child {
+		padding-right: 0;
+	}
+
+	.row > :first-child {
+		padding-left: 0;
+	}
+
 	.half {
-		.col;
 		width: 50.00%;
 		clear: none;
 	}
 	
 	.two-thirds {
-		.col;
 		width: 66.66%;
 		clear: none;
 	}
 	
 	.third {
-		.col;
 		width: 33.333%;
 		clear: none;
 	}
 	
 	.fourth {
-		.col;
 		width: 25%;
 		clear: none;
 	}
 	
 	.sixth {
-		.col;
 		width: 33.333%;
 		clear: none;
+	}
+
+	.hide-mobile {
+		display: inherit;
 	}
 
 }

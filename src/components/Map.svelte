@@ -28,6 +28,9 @@ function resource_quantity(resource) {
    return `${resource.type} (${Number.parseFloat(resource.quantity).toFixed(0)})`;
 }
 
+/**
+ * Selects or moves a unit.
+ */
 async function tile_click(e, tile) {
    e.stopPropagation();
    if (e.which === 1) {
@@ -40,11 +43,14 @@ async function tile_click(e, tile) {
       return;
    }
 
-   const moved = await backend('move', { id: $selected.id, x: tile.x, y: tile.y });
-   if (!moved) {
+   const action = await backend('move', { id: $selected.id, x: tile.x, y: tile.y });
+   if (!action) {
       return;
    }
 
+   $selected.action = action;
+
+   /*
    const old = mapdata[$selected.y][$selected.x]['units'].indexOf($selected);
    if (old === -1) {
       alerts.add('Error moving unit');
@@ -55,8 +61,12 @@ async function tile_click(e, tile) {
    $selected.y = tile.y;
    tile.units.push($selected);
    mapdata = mapdata;
+   */
 }
 
+/**
+ * Returns whether the selected units is allowed to move to the tile.
+ */
 function can_move(tile) {
    if (tile.type === 'water' || !$selected) {
       return false;

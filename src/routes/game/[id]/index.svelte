@@ -24,15 +24,6 @@ let mapdata, mapsize;
 var timeBarYears = '';
 var timeBarTurn = '';
 var researchBarResearch = '';
-var sideBarUnits = {
-   unitSelectUnitBuild: '',
-   unitOneName: '',
-   unitOneDescription: '',
-   unitTwoName: '',
-   unitTwoDescription: '',
-   unitThreeName: '',
-   unitThreeDescription: ''
-};
 var infoPanel = {
    currentUnit: '',
    information: '',
@@ -45,44 +36,6 @@ var commandsPanel = {
 };
 
 var innerHeight;
-
-// For show purpose populate with bogus data.
-function populateUnits(event) {
-   timeBarYears = '29 000 BC';
-   timeBarTurn = 'Turn ' + 2;
-   researchBarResearch = 'Agriculture';
-   sideBarUnits.unitOneName = 'Builder';
-   sideBarUnits.unitOneDescription = 'Builds a lot';
-   sideBarUnits.unitTwoName = 'Monk';
-   sideBarUnits.unitTwoDescription = 'Prays a lot'
-   sideBarUnits.unitThreeName = 'Warrior';
-   sideBarUnits.unitThreeDescription = 'Fights a lot';
-   infoPanel.currentUnit = 'Builder';
-   infoPanel.information = 'Currenlty building an iron mine.';
-   commandsPanel.commandOne = ' [Build] ';
-   commandsPanel.commandTwo = ' [Move] ';
-   commandsPanel.commandThree = ' [Destroy] ';
-   commandsPanel.commandFour = ' [Cancel] ';
-}
-
-// For clearing variables
-function clearAllVariables(event) {
-   timeBarYears = '';
-   timeBarTurn = '';
-   researchBarResearch = '';
-   sideBarUnits.unitOneName = '';
-   sideBarUnits.unitOneDescription = '';
-   sideBarUnits.unitTwoName = '';
-   sideBarUnits.unitTwoDescription = ''
-   sideBarUnits.unitThreeName = '';
-   sideBarUnits.unitThreeDescription = '';
-   infoPanel.currentUnit = '';
-   infoPanel.information = '';
-   commandsPanel.commandOne = ' - ';
-   commandsPanel.commandTwo = ' - ';
-   commandsPanel.commandThree = ' - ';
-   commandsPanel.commandFour = ' - ';
-}
 
 const unsubscribe = selected.subscribe(value => {
    infoPanel.currentUnit = value ? 'Unit selected' : '';
@@ -98,10 +51,12 @@ onMount(async () => {
 
    player.set(result.player);
    mapdata = result.map;
-   mapsize = {x: result.game.x, y: result.game.y};
+   mapsize = { x: result.game.x, y: result.game.y };
 });
 
-onDestroy(unsubscribe);
+onDestroy(() => {
+   unsubscribe();
+});
 </script>
 
 <svelte:window bind:innerHeight/>
@@ -125,22 +80,6 @@ onDestroy(unsubscribe);
    </div>
 </header>
 <main style="height: {innerHeight - 160}px;">
-   <!-- <div id="sidebar" class="third">
-      // Get values from variables or show defaults. 
-      <h2>{sideBarUnits.unitSelectUnitBuild || "Select a unit to build"}</h2>
-      <a class="button closewindow" title="Close window">X</a>
-      <h3 class="no-bottom-margin">{sideBarUnits.unitOneName||"No unit"}</h3>
-      <p>{sideBarUnits.unitOneDescription||"No description"}</p>
-      <h3 class="no-bottom-margin">{sideBarUnits.unitTwoName||"No unit"}</h3>
-      <p>{sideBarUnits.unitTwoDescription||"No description"}</p>
-      <h3 class="no-bottom-margin">{sideBarUnits.unitThreeName||"No unit"}</h3>
-      <p>{sideBarUnits.unitThreeDescription||"no description"}</p>
-      // Test field input. 
-      <p>
-         <button on:click={populateUnits}>Populate</button>
-         <button on:click={clearAllVariables}>Clear</button>
-      </p>
-   </div> -->
    <Map {mapdata} {mapsize}/>
 </main>
 <footer class="full">

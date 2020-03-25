@@ -26,7 +26,6 @@ async function logoff() {
 <div class="menuwrapper">
    <h1>Menu</h1>
    
-   
    <div class="separator"></div>
    <h2>Active games</h2>
 
@@ -35,7 +34,6 @@ async function logoff() {
    {:else if games.length === 0}
       <span>None</span><br>
    {:else}
-   
       {#each games as game (game.id)}
       <div class="row">
          <div class="two-thirds non-responsive">
@@ -46,8 +44,8 @@ async function logoff() {
          </div>
       </div> 
       {/each} 
-   <div class="separator"></div> 
    {/if}
+   <div class="separator"></div> 
 
    <a href="newgame" class="button">New game</a>
    <a href="/account" class="button">Account <span class="hide-mobile">Settings</span></a>

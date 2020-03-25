@@ -54,9 +54,34 @@ onMount(async () => {
    mapsize = { x: result.game.x, y: result.game.y };
 });
 
-onDestroy(() => {
-   unsubscribe();
-});
+onDestroy(unsubscribe);
+
+// Full screen buttons
+const elem = document.documentElement;
+
+function openFullscreen() {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) { /* Firefox */
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    elem.msRequestFullscreen();
+  }
+}
+
+function closeFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen();
+  }
+}
 </script>
 
 <svelte:window bind:innerHeight/>
@@ -76,10 +101,14 @@ onDestroy(() => {
    </div>
    <div id="account-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
-      <p class="right">{$player ? $player.name : "No login information."}</p>
+      <p class="right">
+         {$player ? $player.name : "No login information."}
+         <button title="Enable fullscreen" class="activate-fullscreen-button" on:click={openFullscreen}>Full</button>
+         <button title="Deactivate fullscreen" class="deactivate-fullscreen-button" on:click={closeFullscreen}>Close</button>
+      </p>
    </div>
 </header>
-<main style="height: {innerHeight - 160}px;">
+<main style="height: {innerHeight - 128}px;">
    <Map {mapdata} {mapsize}/>
 </main>
 <footer class="full">
@@ -94,12 +123,13 @@ onDestroy(() => {
       </div>
    </div>
    <div id="commands-panel" class="third">
-      <p class="left">Command options</p>
+      <h3 class="left">Command options</h3>
       <!-- Get values from variables or show defaults. -->
       <p class="center" id="command-buttons">{commandsPanel.commandOne || " - "}{commandsPanel.commandTwo || " - "}{commandsPanel.commandThree || " - "}{commandsPanel.commandTwo || " - "}</p>
    </div>
    <div id="status-panel" class="third">
-      <h2 class="center no-bottom-margin">Turn complete</h2>
+      <h2 class="center no-bottom-margin no-top-margin">Turn complete</h2>
       <p class="center"><button id="end-turn">End Turn</button></p>
    </div>
 </footer>
+

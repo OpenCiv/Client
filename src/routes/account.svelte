@@ -100,37 +100,43 @@ async function remove() {
    {#if !user}
       <span>Loading...</span>
    {:else}
+
+   <div class="separator"></div>
       
-      <h2>Display name</h2>
-      <div class="row">
-         <div class="half">
-            {#if editName}
-               <input type=text disabled={$busy} bind:value={name} on:change={onChangeName} on:keydown={cancelName}>
-            {:else}
-               <label>{user.name} </label> 
-            {/if}
-         </div>
-         <div class="half">
-            <button on:click={() => { editName = !editName; }}>Change</button>
-         </div>
+   <h2>Display name</h2>
+   <div class="row">
+      <div class="half">
+         {#if editName}
+            <input type=text disabled={$busy} bind:value={name} on:change={onChangeName} on:keydown={cancelName}>
+         {:else}
+            <label>{user.name} </label> 
+         {/if}
       </div>
-      
-      <h2>E-mail address</h2>
-      <div class="row">
-         <div class="half">
-            {#if editEmail}
-               <input type=email disabled={$busy} bind:value={email} on:change={onChangeEmail} on:keydown={cancelEmail}>
-            {:else}
-               <label>{user.email} </label>
-            {/if}
-         </div>
-         <div class="half">
-            <button on:click={() => { editEmail = !editEmail; }}>Change</button>
-         </div>
+      <div class="half">
+         <button on:click={() => { editName = !editName; }}>Change</button>
       </div>
+   </div>
+
+   <div class="separator"></div>
       
-      <a href="/changepassword" class="button">Change password</a>
-      <button disabled={$busy} on:click={remove}>Delete account</button>
+   <h2>E-mail address</h2>
+   <div class="row">
+      <div class="half">
+         {#if editEmail}
+            <input type=email disabled={$busy} bind:value={email} on:change={onChangeEmail} on:keydown={cancelEmail}>
+         {:else}
+            <label>{user.email} </label>
+         {/if}
+      </div>
+      <div class="half">
+         <button on:click={() => { editEmail = !editEmail; }}>Change</button>
+      </div>
+   </div>
+
+   <div class="separator"></div>
+      
+   <a href="/changepassword" class="button">Change password</a>
+   <button disabled={$busy} on:click={remove}>Delete account</button>
       {#if !user.verified}
          <p div="unverified">
             <span>Your account has not been verified yet.</span><br>

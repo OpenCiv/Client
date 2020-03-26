@@ -105,7 +105,7 @@ h4 {
 }
 
 .no-top-margin {
-	margin-top: 0.2em;
+	margin-top: 0;
 }
 
 .no-bottom-margin {
@@ -295,6 +295,19 @@ img, object {
     height: auto;
 }
 
+.tiny-icon {
+	height: 1.1em;
+	display: inline-block;
+	margin-bottom: -0.2em;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+}
+
+a:hover .tiny-icon {
+	filter: brightness(1.15);
+	-webkit-filter: brightness(1.15);
+}
+
 /* ======================================================== */
 /* STRUCTURE */
 /* ======================================================== */
@@ -302,8 +315,6 @@ img, object {
 .full {
 	width: 100%;
 	float: left;
-	display: block;
-	padding: @pad2 0;
 	overflow-x: hidden;
 }
 
@@ -350,6 +361,7 @@ header, footer, #sidebar {
 	background-color: #333;
 	.back-stone;
 	.border-stone;
+	.box-shadow;
 	position: fixed;
 	display: block;
 }
@@ -377,8 +389,7 @@ header, header.full {
 	border-top: 0px none;
 
 	p {
-		margin-top: 0;
-		margin-bottom: 0;
+		margin: 0;
 		line-height: 42px;
 	}
 }
@@ -399,6 +410,12 @@ footer {
 	box-sizing: border-box;
 
 	border-bottom: 0px none;
+
+	display: flex;
+}
+
+#info-panel, #commands-panel, #status-panel {
+	padding: @pad2;
 }
 
 #research-bar, #menu-bar, #commands-panel {
@@ -414,7 +431,7 @@ footer {
 /* COLUMNS */
 /* ======================================================== */
 
-.whole, .half, .two-thirds, .third, .fourth, .sixth {
+.whole, .half, .two-thirds, .third, .fourth, .sixth, .three-fours {
 	.col;
 	width: 100.00%;
 	clear: none;
@@ -441,6 +458,12 @@ footer {
 .fourth.non-responsive {
 	.col;
 	width: 25%;
+	clear: none;
+}
+
+.three-fours.non-responsive {
+	.col;
+	width: 75%;
 	clear: none;
 }
 
@@ -490,6 +513,11 @@ footer {
 	
 	.fourth {
 		width: 25%;
+		clear: none;
+	}
+
+	.three-fours {
+		width: 75%;
 		clear: none;
 	}
 	

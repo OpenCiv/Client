@@ -87,24 +87,40 @@ function closeFullscreen() {
 <svelte:window bind:innerHeight/>
 
 <header class="full">
-   <div id="time-bar" class="fourth">
+   <div id="account-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
-      <p>{timeBarTurn || "Turn 1"} - {timeBarYears || "30 000 BC"}</p>
+      <div class="fourth">
+         <img src="img/icon_flag.png" alt="Flag">
+      </div>
+      <div class="three-fours">
+         <p>
+            
+            {$player ? $player.name : "No login information."}
+         </p>
+      </div>
    </div>
    <div id="research-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
       <p class="center"><span class="research">&sext; Researching</span> {researchBarResearch || "No research"}</p>
    </div>
+   <div id="time-bar" class="fourth">
+      <!-- Get values from variables or show defaults. -->
+      <p class="center">
+         {timeBarTurn || "Turn 1"} - {timeBarYears || "30 000 BC"}
+      </p>
+   </div>
    <div id="menu-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
-      <p class="center"><a href="/menu">Menu</a></p>
-   </div>
-   <div id="account-bar" class="fourth">
-      <!-- Get values from variables or show defaults. -->
       <p class="right">
-         {$player ? $player.name : "No login information."}
-         <button title="Enable fullscreen" class="activate-fullscreen-button" on:click={openFullscreen}>Full</button>
-         <button title="Deactivate fullscreen" class="deactivate-fullscreen-button" on:click={closeFullscreen}>Close</button>
+         <a title="Enable fullscreen" class="activate-fullscreen-button" on:click={openFullscreen}>
+            <img class="tiny-icon" src="img/icon_fullscreen.png" alt="Full">
+         </a>
+         <a title="Deactivate fullscreen" class="deactivate-fullscreen-button" on:click={closeFullscreen}>
+            <img class="tiny-icon" src="img/icon_disablefullscreen.png" alt="Minimize">
+         </a>
+         <a href="/menu">
+            <img class="tiny-icon" src="img/icon_menu.png" alt="Main"> Menu
+         </a>
       </p>
    </div>
 </header>
@@ -118,12 +134,12 @@ function closeFullscreen() {
       </div>
       <div class="two-thirds non-responsive">
          <!-- Get values from variables or show defaults. -->
-         <h3>{infoPanel.currentUnit}</h3>
+         <h3 class="no-top-margin">{infoPanel.currentUnit}</h3>
          <p>{infoPanel.information}</p>
       </div>
    </div>
    <div id="commands-panel" class="third">
-      <h3 class="left">Command options</h3>
+      <h3 class="left no-top-margin">Command options</h3>
       <!-- Get values from variables or show defaults. -->
       <p class="center" id="command-buttons">{commandsPanel.commandOne || " - "}{commandsPanel.commandTwo || " - "}{commandsPanel.commandThree || " - "}{commandsPanel.commandTwo || " - "}</p>
    </div>

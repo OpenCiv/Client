@@ -5,13 +5,11 @@
 
 /* MIXINS */
 @color_normal: #F2D346; /* Primary theme color */
-@vari2: darken(@color_normal, 20%); /* Secondary theme color */
 @color_dark: #AB9D61;
 @color_light: #FFEC96;
-@vari3: #333333; /* Text color */
-@vari4: #fff; /* Negative text color */
+@color_negatext: #333333; /* Text color */
+@color_text: #f5f5f5; /* Negative text color */
 @color_buttontext: #806F25;
-@vari5: #fff; /* Background color */
 
 @font1: 'Hind', 'Futura', sans-serif; /* Body text font */
 @font2: 'Lora', 'Times New Roman', serif; /* Headings font */
@@ -81,7 +79,7 @@ h1 {
 }
 
 h2 {
-	margin: @pad2 @pad1 @pad2 @pad1;
+	margin: @pad2 @pad1 @pad2/2 @pad1;
 	font-size: 1.8em;
 	font-weight:400;	
 	letter-spacing: 2px;
@@ -212,11 +210,23 @@ button, .button, button:visited, .button:visited, input[type=submit] {
 	}
 }
 
+.iconbutton, .iconbutton:visited, .iconbutton:hover {
+	height: 36px;
+	width: 36px;
+	min-height: 36px;
+	min-width: 36px;
+	padding: 0px;
+	border-color: @color_text;
+	color: @color_negatext;
+	background-color: darken(@color_text,10%);
+	letter-spacing: 0px;
+}
+
 button:hover, button:active, .button:hover, .button:active, input[type=submit]:hover {
 	background-color: darken(@color_normal, 10%);
 	text-shadow: 0px 1px 4px @color_dark;
 	/*.tausta-gradientti;*/
-	color: @vari4;
+	color: @color_text;
 	outline: none;
 	
 	transform: scale(1.05);
@@ -224,7 +234,7 @@ button:hover, button:active, .button:hover, .button:active, input[type=submit]:h
 	&.cancel {
 		background-color: darken(#F26346, 10%);
 		text-shadow: 0px 1px 4px #AB6E61;
-		color: @vari4;
+		color: @color_text;
 	}
 }
 
@@ -261,7 +271,7 @@ input[type=text], input[type=password], input[type=email] {
 	box-sizing: border-box;
 
 	font-size: 1.1em;
-	color: @vari3;
+	color: @color_negatext;
 
 	background-color: #cccccc;
 	padding: @pad1/4 0.75*@pad1 @pad1/4-2px 0.75*@pad1;

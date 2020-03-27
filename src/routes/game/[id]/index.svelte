@@ -150,7 +150,12 @@ function closeFullscreen() {
    <div id="commands-panel" class="third">
       <h3 class="left no-top-margin">Command options</h3>
       <!-- Get values from variables or show defaults. -->
-      <p class="center" id="command-buttons">{commandsPanel.commandOne || " - "}{commandsPanel.commandTwo || " - "}{commandsPanel.commandThree || " - "}{commandsPanel.commandTwo || " - "}</p>
+      <p id="command-buttons">
+         <button class="iconbutton">BLD</button>
+         <button class="iconbutton">WAIT</button>
+         <button class="iconbutton">MOV</button>
+         {commandsPanel.commandOne || " - "}{commandsPanel.commandTwo || " - "}{commandsPanel.commandThree || " - "}{commandsPanel.commandTwo || " - "}
+      </p>
    </div>
    <div id="status-panel" class="third">
       <h2 class="center no-bottom-margin no-top-margin">Turn complete</h2>

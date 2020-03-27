@@ -90,11 +90,6 @@ function can_move(tile) {
                         <img src={img_src('building', improvement.type)} alt={improvement.type}>
                      </div>
                   {/each}
-                  {#each tile.resources as resource}
-                     <div class="resource">
-                        <img src={img_src('resource', resource.type)} alt={resource_quantity(resource)}>
-                     </div>
-                  {/each}
                   {#each tile.units as unit}
                      <div class="unit">
                         <div class="player-banner">
@@ -109,6 +104,15 @@ function can_move(tile) {
                            </svg>
                         </div>
                         <img src={img_src('unit', 'nordic')} alt={'nordic'} class:active={unit === $selected}>
+                     </div>
+                  {/each}
+                  {#each tile.resources as resource}
+                     <div class="resource">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" preserveAspectRatio="none">
+                           <polygon fill="#f5f5f5" points="2,2 64,2 64,64 2,64"/>
+                           <circle cx="50%" cy="50%" r="75" stroke="#f5f5f5" stroke-width="8" fill="#cccccc" />
+                        </svg>
+                        <img src={img_src('resource', resource.type)} alt={resource_quantity(resource)}>
                      </div>
                   {/each}
                </div>

@@ -95,10 +95,10 @@ function can_move(tile) {
                         <div class="player-banner">
                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150" preserveAspectRatio="none">
                               <!-- The fill of this polygon should be adjusted to be players primary color. -->
-                              <polygon fill="white" points="0,0 100,0 100,100 50,120 0,100"/>
+                              <polygon fill="#F2D346" points="0,0 100,0 100,100 50,120 0,100"/>
 
                               <!-- The fill of this polygon should be adjusted to be players secondary color. -->
-                              <polygon fill="gold" points="0,0 100,0 100,10 0,10"/>
+                              <polygon fill="#FFEC96" points="0,0 100,0 100,10 0,10"/>
 
                               <!-- To be added: player custom icon, also with secondary color -->
                            </svg>
@@ -109,8 +109,8 @@ function can_move(tile) {
                   {#each tile.resources as resource}
                      <div class="resource">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" preserveAspectRatio="none">
-                           <polygon fill="#f5f5f5" points="2,2 64,2 64,64 2,64"/>
-                           <circle cx="50%" cy="50%" r="75" stroke="#f5f5f5" stroke-width="8" fill="#cccccc" />
+                           <polygon fill="#777777" points="0,0 64,0 64,64 0,64"/>
+                           <circle cx="50%" cy="50%" r="75" stroke="#777777" stroke-width="8" fill="#444444" />
                         </svg>
                         <img src={img_src('resource', resource.type)} alt={resource_quantity(resource)}>
                      </div>

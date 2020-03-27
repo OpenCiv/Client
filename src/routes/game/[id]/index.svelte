@@ -93,10 +93,10 @@ function closeFullscreen() {
          <div class="player-banner">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 110" preserveAspectRatio="none">
                <!-- The fill of this polygon should be adjusted to be players primary color. -->
-               <polygon fill="white" points="0,0 100,0 100,85 50,105 0,85"/>
+               <polygon fill="#F2D346" points="0,0 100,0 100,85 50,105 0,85"/>
 
                <!-- The fill of this polygon should be adjusted to be players secondary color. -->
-               <polygon fill="gold" points="0,0 100,0 100,10 0,10"/>
+               <polygon fill="#FFEC96" points="0,0 100,0 100,10 0,10"/>
 
                <!-- To be added: player custom icon, also with secondary color -->
             </svg>
@@ -151,9 +151,9 @@ function closeFullscreen() {
       <h3 class="left no-top-margin">Command options</h3>
       <!-- Get values from variables or show defaults. -->
       <p id="command-buttons">
-         <button class="iconbutton">BLD</button>
-         <button class="iconbutton">WAIT</button>
-         <button class="iconbutton">MOV</button>
+         <button class="iconbutton" title="Build"><img src="img/r_production.svg" alt="BLD"></button>
+         <button class="iconbutton" title="Wait">WAIT</button>
+         <button class="iconbutton" title="Move">MOV</button>
          {commandsPanel.commandOne || " - "}{commandsPanel.commandTwo || " - "}{commandsPanel.commandThree || " - "}{commandsPanel.commandTwo || " - "}
       </p>
    </div>

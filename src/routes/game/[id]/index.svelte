@@ -90,11 +90,20 @@ function closeFullscreen() {
    <div id="account-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
       <div class="fourth">
-         <img src="img/icon_flag.png" alt="Flag">
+         <div class="player-banner">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 110" preserveAspectRatio="none">
+               <!-- The fill of this polygon should be adjusted to be players primary color. -->
+               <polygon fill="white" points="0,0 100,0 100,85 50,105 0,85"/>
+
+               <!-- The fill of this polygon should be adjusted to be players secondary color. -->
+               <polygon fill="gold" points="0,0 100,0 100,10 0,10"/>
+
+               <!-- To be added: player custom icon, also with secondary color -->
+            </svg>
+         </div>
       </div>
       <div class="three-fours">
          <p>
-            
             {$player ? $player.name : "No login information."}
          </p>
       </div>

@@ -97,6 +97,17 @@ function can_move(tile) {
                   {/each}
                   {#each tile.units as unit}
                      <div class="unit">
+                        <div class="player-banner">
+                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150" preserveAspectRatio="none">
+                              <!-- The fill of this polygon should be adjusted to be players primary color. -->
+                              <polygon fill="white" points="0,0 100,0 100,100 50,120 0,100"/>
+
+                              <!-- The fill of this polygon should be adjusted to be players secondary color. -->
+                              <polygon fill="gold" points="0,0 100,0 100,10 0,10"/>
+
+                              <!-- To be added: player custom icon, also with secondary color -->
+                           </svg>
+                        </div>
                         <img src={img_src('unit', 'nordic')} alt={'nordic'} class:active={unit === $selected}>
                      </div>
                   {/each}

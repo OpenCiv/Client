@@ -121,15 +121,15 @@ function closeFullscreen() {
    <div id="menu-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
       <p class="right">
-         <a title="Enable fullscreen" class="activate-fullscreen-button" on:click={openFullscreen}>
+         <button title="Enable fullscreen" class="activate-fullscreen-button" on:click={openFullscreen}>
             <img class="tiny-icon" src="img/icon_fullscreen.png" alt="Full">
-         </a>
-         <a title="Deactivate fullscreen" class="deactivate-fullscreen-button" on:click={closeFullscreen}>
+         </button>
+         <button title="Deactivate fullscreen" class="deactivate-fullscreen-button" on:click={closeFullscreen}>
             <img class="tiny-icon" src="img/icon_disablefullscreen.png" alt="Minimize">
-         </a>
-         <a href="/menu">
+         </button>
+         <button href="/menu">
             <img class="tiny-icon" src="img/icon_menu.png" alt="Main"> Menu
-         </a>
+         </button>
       </p>
    </div>
 </header>
@@ -138,9 +138,6 @@ function closeFullscreen() {
 </main>
 <footer class="full">
    <div id="info-panel" class="third">
-      <div class="third non-responsive">
-         <img src="" alt="Unit image">
-      </div>
       <div class="two-thirds non-responsive">
          <!-- Get values from variables or show defaults. -->
          <h3 class="no-top-margin">{infoPanel.currentUnit}</h3>
@@ -151,10 +148,9 @@ function closeFullscreen() {
       <h3 class="left no-top-margin">Command options</h3>
       <!-- Get values from variables or show defaults. -->
       <p id="command-buttons">
-         <button class="iconbutton" title="Build"><img src="img/r_production.svg" alt="BLD"></button>
+         <button class="iconbutton" title="Build"><img src="img/resources/production.svg" alt="BLD"></button>
          <button class="iconbutton" title="Wait">WAIT</button>
          <button class="iconbutton" title="Move">MOV</button>
-         {commandsPanel.commandOne || " - "}{commandsPanel.commandTwo || " - "}{commandsPanel.commandThree || " - "}{commandsPanel.commandTwo || " - "}
       </p>
    </div>
    <div id="status-panel" class="third">

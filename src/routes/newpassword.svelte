@@ -37,6 +37,6 @@ async function submit() {
       Please fill in your e-mail address. A new password will be sent to the address if it has an account.
    </p>
    <input type=email disabled={$busy} bind:value={email} placeholder="name@domain.com">
-   <button {disabled} on:click={submit}>Send new password</button>
+   <button class="button" {disabled} on:click={submit}>Send new password</button>
    <a href="/login" class="button cancel">Back</a>
 </div>

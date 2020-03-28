@@ -113,7 +113,7 @@ async function remove() {
          {/if}
       </div>
       <div class="half">
-         <button on:click={() => { editName = !editName; }}>Change</button>
+         <button class="button" on:click={() => { editName = !editName; }}>Change</button>
       </div>
    </div>
 
@@ -129,18 +129,18 @@ async function remove() {
          {/if}
       </div>
       <div class="half">
-         <button on:click={() => { editEmail = !editEmail; }}>Change</button>
+         <button class="button" on:click={() => { editEmail = !editEmail; }}>Change</button>
       </div>
    </div>
 
    <div class="separator"></div>
       
    <a href="/changepassword" class="button">Change password</a>
-   <button disabled={$busy} on:click={remove}>Delete account</button>
+   <button class="button" disabled={$busy} on:click={remove}>Delete account</button>
       {#if !user.verified}
          <p div="unverified">
             <span>Your account has not been verified yet.</span><br>
-            <button disabled={$busy} on:click={resend}>Resend verification e-mail</button>
+            <button class="button" disabled={$busy} on:click={resend}>Resend verification e-mail</button>
          </p>
       {/if}
    {/if}

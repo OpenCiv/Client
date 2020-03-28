@@ -30,7 +30,7 @@ async function newgame(e) {
          <input type=text disabled={$busy} bind:value={name}>
       </div>
       <div class="third">
-         <button disabled={$busy} on:click={newgame}>Create game</button>
+         <button class="button" disabled={$busy} on:click={newgame}>Create game</button>
       </div>
    </div>
    <a href="/menu" class="button cancel">Back</a>

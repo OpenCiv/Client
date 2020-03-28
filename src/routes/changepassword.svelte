@@ -60,7 +60,7 @@ async function submitPassword() {
          <input type=password disabled={$busy} bind:value={repeat}>
       </div>
    </div>
-   <button {disabled} on:click={submitPassword}>Submit</button>
+   <button class="button" {disabled} on:click={submitPassword}>Submit</button>
    <a href="/account" class="button cancel">Back</a>
 </div>
 

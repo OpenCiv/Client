@@ -30,6 +30,7 @@
 	padding: 0;
 	float: left;
 	display: block;
+	max-height: inherit;
 }
 
 .clearfix { 
@@ -152,19 +153,25 @@ ul li {
 /* LINKS */
 /* ======================================================== */
 
-a, a:visited, summary {
+a, a:visited, summary, .hyperlink {
 	text-decoration: none;
 	color: @color_normal;
 	cursor: pointer;
 	font-family: @font1;
 }
 
-a:hover, a:active {
+a:hover, a:active, .hyperlink:hover, .hyperlink:active {
 	color: @color_light;
 	cursor: pointer;
 }
 
-button, .button, button:visited, .button:visited, input[type=submit] {
+button.hyperlink {
+	background-color: transparent;
+	-webkit-appearance: none;
+	border: 0 none transparent;
+}
+
+.button, .button:visited {
 	background-color: darken(@color_normal, 5%);
 	border: 3px solid @color_light;
 	padding: @pad1/2-2px 0.75*@pad1 @pad1/3 0.75*@pad1;
@@ -222,7 +229,7 @@ button, .button, button:visited, .button:visited, input[type=submit] {
 	letter-spacing: 0px;
 }
 
-button:hover, button:active, .button:hover, .button:active, input[type=submit]:hover {
+.button:hover, .button:active {
 	background-color: darken(@color_normal, 10%);
 	text-shadow: 0px 1px 4px @color_dark;
 	/*.tausta-gradientti;*/
@@ -250,12 +257,16 @@ button:hover, button:active, .button:hover, .button:active, input[type=submit]:h
 	display: none;
 }
 
-:-webkit-full-screen .activate-fullscreen-button, :-moz-full-screen .activate-fullscreen-button, :fullscreen .activate-fullscreen-button {
+:-webkit-full-screen .activate-fullscreen-button,
+:-moz-full-screen .activate-fullscreen-button,
+:fullscreen .activate-fullscreen-button {
 //.activate-fullscreen-button:-webkit-full-screen, .activate-fullscreen-button:-moz-full-screen, .activate-fullscreen-button:fullscreen {
 	display: none;
 }
 
-:-webkit-full-screen .deactivate-fullscreen-button, :-moz-full-screen .deactivate-fullscreen-button, :fullscreen .deactivate-fullscreen-button {
+:-webkit-full-screen .deactivate-fullscreen-button,
+:-moz-full-screen .deactivate-fullscreen-button,
+:fullscreen .deactivate-fullscreen-button {
 //.deactivate-fullscreen-button:-webkit-full-screen, .deactivate-fullscreen-button:-moz-full-screen, .deactivate-fullscreen-button:fullscreen {
 	display: inline-block;
 }
@@ -299,7 +310,7 @@ label, .label {
 /* IMAGES */
 /* ======================================================== */
 
-img, object {
+img, object, svg {
 	display: block;
 	max-width: 100%;
     height: auto;
@@ -313,7 +324,7 @@ img, object {
 	margin-right: 0.2em;
 }
 
-a:hover .tiny-icon {
+a:hover .tiny-icon, button:hover .tiny-icon {
 	filter: brightness(1.15);
 	-webkit-filter: brightness(1.15);
 }
@@ -431,6 +442,10 @@ footer {
 #research-bar, #menu-bar, #commands-panel {
 	background-color: #444;
 	.back-stone;
+}
+
+.account-banner {
+	height: auto;
 }
 
 .hide-mobile {

@@ -47,7 +47,7 @@ async function login() {
          <input type=password disabled={$busy} bind:value={password}>
       </div>
    </div>
-   <button {disabled} on:click={login}>Log in</button>
+   <button class="button" {disabled} on:click={login}>Log in</button>
    <div class="row">
       <div class="half">
          <a href="/register" class="button">Register</a>

@@ -77,6 +77,6 @@ async function register() {
          <input type=password disabled={$busy} bind:value={repeat}>
       </div>
    </div>
-   <button {disabled} on:click={register}>Register</button>
+   <button class="button" {disabled} on:click={register}>Register</button>
    <a href="/login" class="button cancel">Back</a>
 </div>

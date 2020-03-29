@@ -84,7 +84,7 @@ function closeFullscreen() {
    <div id="account-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
       <div class="fourth">
-         <div class="player-banner">
+         <div class="account-banner">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 110" preserveAspectRatio="none">
                <!-- The fill of this polygon should be adjusted to be players primary color. -->
                <polygon fill="#F2D346" points="0,0 100,0 100,85 50,105 0,85"/>
@@ -115,15 +115,15 @@ function closeFullscreen() {
    <div id="menu-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
       <p class="right">
-         <button title="Enable fullscreen" class="activate-fullscreen-button" on:click={openFullscreen}>
+         <button title="Enable fullscreen" class="hyperlink activate-fullscreen-button" on:click={openFullscreen}>
             <img class="tiny-icon" src="img/icon_fullscreen.png" alt="Full">
          </button>
-         <button title="Deactivate fullscreen" class="deactivate-fullscreen-button" on:click={closeFullscreen}>
+         <button title="Deactivate fullscreen" class="hyperlink deactivate-fullscreen-button" on:click={closeFullscreen}>
             <img class="tiny-icon" src="img/icon_disablefullscreen.png" alt="Minimize">
          </button>
-         <button href="/menu">
+         <a href="/menu">
             <img class="tiny-icon" src="img/icon_menu.png" alt="Main"> Menu
-         </button>
+         </a>
       </p>
    </div>
 </header>
@@ -142,13 +142,13 @@ function closeFullscreen() {
       <h3 class="left no-top-margin">Command options</h3>
       <!-- Get values from variables or show defaults. -->
       <p id="command-buttons">
-         <button class="iconbutton" title="Build"><img src="img/actions/production.svg" alt="BLD"></button>
-         <button class="iconbutton" title="Wait">WAIT</button>
-         <button class="iconbutton" title="Move">MOV</button>
+         <button class="button iconbutton" title="Build"><img src="img/actions/production.svg" alt="BLD"></button>
+         <button class="button iconbutton" title="Wait">WAIT</button>
+         <button class="button iconbutton" title="Move">MOV</button>
       </p>
    </div>
    <div id="status-panel" class="third">
       <h2 class="center no-bottom-margin no-top-margin">Turn complete</h2>
-      <p class="center"><button id="end-turn">End Turn</button></p>
+      <p class="center"><button class="button" id="end-turn">End Turn</button></p>
    </div>
 </footer>

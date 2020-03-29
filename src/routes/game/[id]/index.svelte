@@ -21,18 +21,12 @@ let mapdata, mapsize;
 // Init values for information on divs.
 // Variables are exposed globally at the moment.
 // You can access the variables out of this scope
-var timeBarYears = '';
-var timeBarTurn = '';
-var researchBarResearch = '';
+var timeBarYears = '5000 BC';
+var timeBarTurn = 'Turn 1';
+var researchBarResearch = 'No research';
 var infoPanel = {
    currentUnit: '',
    information: '',
-};
-var commandsPanel = {
-   commandOne: '',
-   commandTwo: '',
-   commandThree: '',
-   commandFour: ''
 };
 
 var innerHeight;
@@ -110,12 +104,12 @@ function closeFullscreen() {
    </div>
    <div id="research-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
-      <p class="center"><span class="research">&sext; Researching</span> {researchBarResearch || "No research"}</p>
+      <p class="center"><span class="research">&sext; Researching</span> {researchBarResearch}</p>
    </div>
    <div id="time-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
       <p class="center">
-         {timeBarTurn || "Turn 1"} - {timeBarYears || "30 000 BC"}
+         {timeBarTurn} - {timeBarYears}
       </p>
    </div>
    <div id="menu-bar" class="fourth">
@@ -148,7 +142,7 @@ function closeFullscreen() {
       <h3 class="left no-top-margin">Command options</h3>
       <!-- Get values from variables or show defaults. -->
       <p id="command-buttons">
-         <button class="iconbutton" title="Build"><img src="img/resources/production.svg" alt="BLD"></button>
+         <button class="iconbutton" title="Build"><img src="img/actions/production.svg" alt="BLD"></button>
          <button class="iconbutton" title="Wait">WAIT</button>
          <button class="iconbutton" title="Move">MOV</button>
       </p>
@@ -158,4 +152,3 @@ function closeFullscreen() {
       <p class="center"><button id="end-turn">End Turn</button></p>
    </div>
 </footer>
-

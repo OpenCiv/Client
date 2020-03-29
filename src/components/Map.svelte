@@ -39,7 +39,7 @@ async function tile_click(e, tile) {
       return;
    }
 
-   if (e.which !== 3 || !can_move(tile)) {
+   if (e.which !== 3) {
       return;
    }
 

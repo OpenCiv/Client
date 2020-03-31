@@ -67,7 +67,7 @@ async function tile_click(e, tile) {
                               <polygon fill="#F2D346" points="0,0 100,0 100,100 50,120 0,100"/>
 
                               <!-- The fill of this polygon should be adjusted to be player's secondary color. -->
-                              <polygon fill="#FFEC96" points="0,0 100,0 100,10 0,10"/>
+                              <polygon fill="#FFEC96" points="0,0 100,0 100,12.5 0,12.5"/>
 
                               <!-- To be added: player custom icon, also with secondary color -->
                            </svg>

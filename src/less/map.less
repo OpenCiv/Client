@@ -43,6 +43,10 @@
     background-size: contain;
 }
 
+// -----------------------------------------------
+// TILES
+// -----------------------------------------------
+
 // Base settings for one tile in map
 .tile {
     display: block;
@@ -69,11 +73,11 @@
     }
 }
 
-// Plains tile specific settings
-.tile_plains {
+// All ground tiles
+.tile_ground {
     //background-color: #30BF58;
     background-color: transparent;
-    background-image: url(../img/terrain/grass.png);
+    background-image: url(../img/terrain/grass1.png);
 
     // Cliff at bottom
     height: @tile_side + @tile_land_padding_top + @tile_land_padding_bottom;
@@ -89,7 +93,31 @@
     }
 }
 
-// Improvement
+// Plains
+.tile_plains {
+    //background-color: #30BF58;
+    background-color: transparent;
+    background-image: url(../img/terrain/grass1.png);
+}
+
+// Desert
+.tile_desert {
+    //background-color: #30BF58;
+    background-color: transparent;
+    background-image: url(../img/terrain/desert1.png);
+}
+
+// Tundra
+.tile_tundra {
+    //background-color: #30BF58;
+    background-color: transparent;
+    background-image: url(../img/terrain/tundra1.png);
+}
+
+// -----------------------------------------------
+// IMPROVEMENT
+// -----------------------------------------------
+
 .improvement {
     display: block;
     z-index: 10;
@@ -101,7 +129,10 @@
     }
 }
 
-// Unit
+// -----------------------------------------------
+// UNIT
+// -----------------------------------------------
+
 .unit {
     display: block;
     z-index: 15;
@@ -124,7 +155,10 @@
     }
 }
 
-// Resource icon
+// -----------------------------------------------
+// RESOURCES
+// -----------------------------------------------
+
 .resource {
     display: block;
     padding: 0px;

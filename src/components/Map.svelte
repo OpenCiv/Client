@@ -53,7 +53,7 @@ async function tile_click(e, tile) {
       {#each mapdata as row}
          <div class="map_row" style="width: {mapsize.x * 128}px;">
             {#each row as tile}
-               <div class="tile {tile.type === 'water' ? 'tile_ocean' : 'tile_plains'}" on:mousedown={e => tile_click(e, tile)}>
+               <div class="tile {tile.type === 'water' ? 'tile_ocean' : 'tile_ground tile_plains'}" on:mousedown={e => tile_click(e, tile)}>
                   {#each tile.improvements as improvement}
                      <div class="improvement">
                         <img src="img/improvements/{improvement.type}.png" alt={improvement.type}>

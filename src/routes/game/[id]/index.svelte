@@ -49,12 +49,16 @@ onMount(async () => {
 
 onDestroy(unsubscribe);
 
+let fullscreen = false;
+
 function openFullscreen() {
    document.documentElement.requestFullscreen();
+   fullscreen = true;
 }
 
 function closeFullscreen() {
    document.exitFullscreen();
+   fullscreen = false;
 }
 </script>
 
@@ -95,12 +99,16 @@ function closeFullscreen() {
    <div id="menu-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
       <p class="right">
-         <button title="Enable fullscreen" class="hyperlink activate-fullscreen-button" on:click={openFullscreen}>
-            <img class="tiny-icon" src="img/icon_fullscreen.png" alt="Full">
-         </button>
-         <button title="Deactivate fullscreen" class="hyperlink deactivate-fullscreen-button" on:click={closeFullscreen}>
-            <img class="tiny-icon" src="img/icon_disablefullscreen.png" alt="Minimize">
-         </button>
+         {#if !fullscreen}
+            <button title="Enable fullscreen" class="hyperlink" on:click={openFullscreen}>
+               <img class="tiny-icon" src="img/icon_fullscreen.png" alt="Full">
+            </button>
+         {/if}
+         {#if fullscreen}
+            <button title="Deactivate fullscreen" class="hyperlink" on:click={closeFullscreen}>
+               <img class="tiny-icon" src="img/icon_disablefullscreen.png" alt="Minimize">
+            </button>
+         {/if}
          <a href="/menu">
             <img class="tiny-icon" src="img/icon_menu.png" alt="Main"> Menu
          </a>

@@ -15,21 +15,25 @@ import { alerts, selected, backend, player } from '../../../stores';
 
 const { page } = stores();
 
-// Obtained from the server and passed on to the map component
-let mapdata, mapsize, map;
+// The map component
+let map;
+
+// True if the browser is in full screen mode
+let fullscreen = false;
+
+// The window's inner height
+let innerHeight;
 
 // Init values for information on divs.
 // Variables are exposed globally at the moment.
 // You can access the variables out of this scope
-var timeBarYears = '5000 BC';
-var timeBarTurn = 'Turn 1';
-var researchBarResearch = 'No research';
-var infoPanel = {
+let timeBarYears = '5000 BC';
+let timeBarTurn = 'Turn 1';
+let researchBarResearch = 'No research';
+const infoPanel = {
    currentUnit: '',
    information: '',
 };
-
-var innerHeight;
 
 const unsubscribe = selected.subscribe(value => {
    infoPanel.currentUnit = value ? 'Unit selected' : '';
@@ -44,12 +48,11 @@ onMount(async () => {
    }
 
    player.set(result.player);
-   map.setData(result.map, { x: result.game.x, y: result.game.y });
+   const mapsize = { x: result.game.x, y: result.game.y };
+   map.setData(result.map, mapsize);
 });
 
 onDestroy(unsubscribe);
-
-let fullscreen = false;
 
 function openFullscreen() {
    document.documentElement.requestFullscreen();

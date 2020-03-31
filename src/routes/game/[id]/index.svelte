@@ -16,7 +16,7 @@ import { alerts, selected, backend, player } from '../../../stores';
 const { page } = stores();
 
 // Obtained from the server and passed on to the map component
-let mapdata, mapsize;
+let mapdata, mapsize, map;
 
 // Init values for information on divs.
 // Variables are exposed globally at the moment.
@@ -44,37 +44,17 @@ onMount(async () => {
    }
 
    player.set(result.player);
-   mapdata = result.map;
-   mapsize = { x: result.game.x, y: result.game.y };
+   map.setData(result.map, { x: result.game.x, y: result.game.y });
 });
 
 onDestroy(unsubscribe);
 
-// Full screen buttons
-const elem = document.documentElement;
-
 function openFullscreen() {
-  if (elem.requestFullscreen) {
-    elem.requestFullscreen();
-  } else if (elem.mozRequestFullScreen) { /* Firefox */
-    elem.mozRequestFullScreen();
-  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-    elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) { /* IE/Edge */
-    elem.msRequestFullscreen();
-  }
+   document.documentElement.requestFullscreen();
 }
 
 function closeFullscreen() {
-  if (document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if (document.mozCancelFullScreen) {
-    document.mozCancelFullScreen();
-  } else if (document.webkitExitFullscreen) {
-    document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) {
-    document.msExitFullscreen();
-  }
+   document.exitFullscreen();
 }
 </script>
 
@@ -128,7 +108,7 @@ function closeFullscreen() {
    </div>
 </header>
 <main style="height: {innerHeight - 128}px;">
-   <Map {mapdata} {mapsize}/>
+   <Map bind:this={map}/>
 </main>
 <footer class="full">
    <div id="info-panel" class="third">

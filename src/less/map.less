@@ -56,29 +56,20 @@
     float: left;
     position: relative;
 
-    // border: 1px solid rgba(255,255,255,0.15);
     box-sizing: border-box;
-    background-color: #ccc;
+    background-color: transparent;
     background-size: cover;
 
     overflow: visible;
 }
 
 // Ocean tile specific settings
-.tile_ocean {
-    background-color: transparent;
-
-    &:hover {
-        background-color: lighten(#409AFF, 5%);
-    }
+.water:hover {
+    background-color: lighten(#409AFF, 5%);
 }
 
 // All ground tiles
-.tile_ground {
-    //background-color: #30BF58;
-    background-color: transparent;
-    background-image: url(../img/terrain/grass1.png);
-
+.ground {
     // Cliff at bottom
     height: @tile_side + @tile_land_padding_top + @tile_land_padding_bottom;
     width: @tile_side + @tile_land_padding_left + @tile_land_padding_right;
@@ -86,32 +77,45 @@
     margin-top: -1 * @tile_land_padding_top;
     margin-left: -1 * @tile_land_padding_left;
     margin-right: -1 * @tile_land_padding_right;
-
-    &:hover {
-        //background-color: lighten(#30BF58, 5%);
-        background-color: transparent;
-    }
 }
 
-// Plains
-.tile_plains {
-    //background-color: #30BF58;
-    background-color: transparent;
+// Grass
+.grass1 {
     background-image: url(../img/terrain/grass1.png);
 }
 
+.grass2 {
+    background-image: url(../img/terrain/grass2.png);
+}
+
+.grass3 {
+    background-image: url(../img/terrain/grass3.png);
+}
+
 // Desert
-.tile_desert {
-    //background-color: #30BF58;
-    background-color: transparent;
+.desert1 {
     background-image: url(../img/terrain/desert1.png);
 }
 
+.desert2 {
+    background-image: url(../img/terrain/desert2.png);
+}
+
+.desert3 {
+    background-image: url(../img/terrain/desert3.png);
+}
+
 // Tundra
-.tile_tundra {
-    //background-color: #30BF58;
-    background-color: transparent;
+.tundra1 {
     background-image: url(../img/terrain/tundra1.png);
+}
+
+.tundra2 {
+    background-image: url(../img/terrain/tundra2.png);
+}
+
+.tundra3 {
+    background-image: url(../img/terrain/tundra3.png);
 }
 
 // -----------------------------------------------

@@ -16,12 +16,13 @@
 <script>
 import { alerts, backend, selected, player } from '../stores';
 
-export let mapdata;
+let mapdata;
+let mapsize;
 
-export let mapsize;
-
-function img_src(category, type) {
-   return `img/${category}/${type}.png`;
+export function setData(map, size) {
+   mapdata = map;
+   mapdata.forEach(y => y.forEach(x => { x.random = Math.floor(Math.random() * 3 + 1); }));
+   mapsize = size;
 }
 
 function resource_quantity(resource) {
@@ -48,12 +49,12 @@ async function tile_click(e, tile) {
 }
 </script>
 
-{#if mapdata}
+{#if mapdata && mapsize}
    <div id="map" class="full" style="width: {mapsize.x * 128}px;">
       {#each mapdata as row}
          <div class="map_row" style="width: {mapsize.x * 128}px;">
             {#each row as tile}
-               <div class="tile {tile.type === 'water' ? 'tile_ocean' : 'tile_ground tile_plains'}" on:mousedown={e => tile_click(e, tile)}>
+               <div class="tile {tile.type === 'water' ? 'water' : ('ground ' + tile.type + tile.random)}" on:mousedown={e => tile_click(e, tile)}>
                   {#each tile.improvements as improvement}
                      <div class="improvement">
                         <img src="img/improvements/{improvement.type}.png" alt={improvement.type}>

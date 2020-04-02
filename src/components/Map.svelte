@@ -4,13 +4,6 @@
 .active {
    background: #FF000080;
 }
-
-/* .canmove {
-   &:hover {
-      background-image: none;
-      background-color: #FF8000;
-   }
-} */
 </style>
 
 <script>

@@ -12,6 +12,7 @@ import { onMount, onDestroy } from 'svelte';
 import { stores } from '@sapper/app';
 import Map from '../../../components/Map.svelte';
 import { alerts, selected, backend, player } from '../../../stores';
+import { capitalize } from '../../../utilities';
 
 const { page } = stores();
 
@@ -24,6 +25,13 @@ let fullscreen = false;
 // The window's inner height
 let innerHeight;
 
+let actions = [];
+
+const imgFolder = {
+   group: 'actions',
+   build: 'improvements'
+}
+
 // Init values for information on divs.
 // Variables are exposed globally at the moment.
 // You can access the variables out of this scope
@@ -35,9 +43,16 @@ const infoPanel = {
    information: '',
 };
 
-const unsubscribe = selected.subscribe(value => {
-   infoPanel.currentUnit = value ? 'Unit selected' : '';
-   infoPanel.information = value ? 'What orders?' : '';
+const unsubscribe = selected.subscribe(unit => {
+   if (unit) {
+      infoPanel.currentUnit = 'Unit selected';
+      infoPanel.information = 'What orders?';
+      actions = getActions(unit);
+   } else {
+      infoPanel.currentUnit = null;
+      infoPanel.information = null;
+      actions = [];
+   }
 });
 
 onMount(async () => {
@@ -53,6 +68,50 @@ onMount(async () => {
 });
 
 onDestroy(unsubscribe);
+
+function getActions(unit) {
+   const acts = unit ? [
+      { type: 'group', parameter: 'move' },
+      { type: 'group', parameter: 'build' }
+   ] : null;
+   return acts;
+}
+
+async function act(action) {
+   console.log(action);
+   switch (action.type) {
+      case 'group':
+         switch (action.parameter) {
+            case 'build':
+               actions = [
+                  { type: 'build', parameter: 'castle' },
+                  { type: 'build', parameter: 'library' },
+                  { type: 'build', parameter: 'market' },
+                  { type: 'build', parameter: 'temple' }
+               ];
+               break;
+
+            default:
+               actions = getActions($selected);
+               break;
+         }
+
+         break;
+
+      case 'build':
+         const result = await backend('build', { id: $selected.id, improvement: action.parameter });
+         if (result) {
+            alert('yay');
+         }
+
+         actions = getActions($selected);
+         break;
+
+      default:
+         actions = getActions($selected);
+         break;
+   }
+}
 
 function openFullscreen() {
    document.documentElement.requestFullscreen();
@@ -133,9 +192,11 @@ function closeFullscreen() {
       <h3 class="left no-top-margin">Command options</h3>
       <!-- Get values from variables or show defaults. -->
       <p id="command-buttons">
-         <button class="button iconbutton" title="Build"><img src="img/actions/production.svg" alt="BLD"></button>
-         <button class="button iconbutton" title="Wait">WAIT</button>
-         <button class="button iconbutton" title="Move">MOV</button>
+         {#each actions as action}
+            <button class="button iconbutton" title={capitalize(action.parameter)} on:click={() => act(action)}>
+               <img src="img/{imgFolder[action.type]}/{action.parameter}.svg" alt={action.parameter.slice(0, 3).toUpperCase()}>
+            </button>
+         {/each}
       </p>
    </div>
    <div id="status-panel" class="third">

@@ -34,7 +34,6 @@ function remove(id) {
 	padding: 6px 10px;
 	color: #333;
 }
-
 </style>
 
 <div class="messages">

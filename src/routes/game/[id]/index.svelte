@@ -19,7 +19,7 @@ import { capitalize } from '../../../utilities';
 const { page } = stores();
 
 // The map component
-let map;
+let map, unitInfo;
 
 // True if the browser is in full screen mode
 let fullscreen = false;
@@ -115,11 +115,11 @@ function closeFullscreen() {
    </div>
 </header>
 <main style="height: {innerHeight - 128}px;">
-   <Map bind:this={map}/>
+   <Map bind:this={map} on:newAction={e => unitInfo.addAction(e.detail.action)}/>
 </main>
 <footer class="full">
-   <UnitInfo />
-   <CommandOptions />
+   <UnitInfo bind:this={unitInfo} />
+   <CommandOptions on:newAction={e => unitInfo.addAction(e.detail.action)} />
    <div id="status-panel" class="third">
       <h2 class="center no-bottom-margin no-top-margin">Turn complete</h2>
       <p class="center"><button class="button" id="end-turn">End Turn</button></p>

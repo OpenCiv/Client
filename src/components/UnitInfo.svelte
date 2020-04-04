@@ -5,27 +5,56 @@
 <script>
 import { onDestroy } from 'svelte';
 import { selected, backend } from '../stores';
+import { capitalize, imgFolder } from '../utilities';
 
-let currentUnit = '';
-let information = '';
+let actions = [];
 
-const unsubscribe = selected.subscribe(unit => {
+function setDescription(action) {
+   action.description = action.type === 'move' ? action.type : action.parameter;
+}
+
+export function addAction(action) {
+   setDescription(action);
+   actions = [...actions, action];
+}
+
+const unsubscribe = selected.subscribe(async unit => {
    if (unit) {
-      currentUnit = 'Unit selected';
-      information = 'What orders?';
+      const acts = await backend('getactions', { id: unit.id });
+      acts.forEach(action => {
+         setDescription(action);
+      });
+      actions = acts;
    } else {
-      currentUnit = '';
-      information = '';
+      actions = [];
    }
 });
 
 onDestroy(unsubscribe);
+
+async function removeAction(action) {
+   await backend('removeaction', { id: $selected.id, order: action.order });
+   actions = actions.filter(a => a !== action);
+   actions.forEach(act => {
+      if (act.order > action.order) {
+         act.order--;
+      }
+   });
+}
 </script>
 
 <div id="info-panel" class="third">
    <div class="two-thirds non-responsive">
-      <!-- Get values from variables or show defaults. -->
-      <h3 class="no-top-margin">{currentUnit}</h3>
-      <p>{information}</p>
+      <h3 class="no-top-margin">{$selected ? 'Current orders' : ''}</h3>
+      <p>
+         {#if $selected && actions.length === 0}
+            <span>None</span>
+         {/if}
+         {#each actions as action}
+            <button class="button iconbutton" title={capitalize(action.description)} on:click={() => removeAction(action)}>
+               <img src="img/{imgFolder[action.type]}/{action.description}.svg" alt={action.description.slice(0, 3).toUpperCase()}>
+            </button>
+         {/each}
+      </p>
    </div>
 </div>

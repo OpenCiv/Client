@@ -7,7 +7,10 @@
 </style>
 
 <script>
+import { createEventDispatcher } from 'svelte';
 import { alerts, backend, selected, player } from '../stores';
+
+const dispatch = createEventDispatcher();
 
 let mapdata;
 let mapsize;
@@ -37,8 +40,12 @@ async function tile_click(e, tile) {
       return;
    }
 
-   const action = await backend('move', { id: $selected.id, x: tile.x, y: tile.y });
-   alerts.add(JSON.stringify(action));
+   const order = await backend('move', { id: $selected.id, x: tile.x, y: tile.y });
+   dispatch('newAction', { action: {
+      type: 'move',
+      parameter: tile.x + ',' + tile.y,
+      order
+   }});
 }
 </script>
 

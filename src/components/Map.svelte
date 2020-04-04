@@ -41,11 +41,13 @@ async function tile_click(e, tile) {
    }
 
    const order = await backend('move', { id: $selected.id, x: tile.x, y: tile.y });
-   dispatch('newAction', { action: {
-      type: 'move',
-      parameter: tile.x + ',' + tile.y,
-      order
-   }});
+   if (order) {
+      dispatch('newAction', { action: {
+         type: 'move',
+         parameter: tile.x + ',' + tile.y,
+         order
+      }});
+   }
 }
 </script>
 

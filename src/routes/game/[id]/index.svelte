@@ -27,16 +27,35 @@ let fullscreen = false;
 // The window's inner height
 let innerHeight;
 
-// Init values for information on divs.
-// Variables are exposed globally at the moment.
-// You can access the variables out of this scope
-let timeBarYears = '5000 BC';
-let timeBarTurn = 'Turn 1';
+let turnAndYear = '';
 let researchBarResearch = 'No research';
-const infoPanel = {
-   currentUnit: '',
-   information: '',
-};
+
+function setTurnAndYear(turn) {
+   let date;
+   if (turn < 61) {
+      date = (5050 - 50 * turn) + ' BC';
+   } else if (turn < 96) {
+      date = (4440 - 40 * turn) + ' BC';
+   } else if (turn < 120) {
+      date = (3000 - 25 * turn) + ' BC';
+   } else if (turn === 120) {
+      date = '1 AD';
+   } else if (turn < 180) {
+      date = (20 * turn - 2400) + ' AD';
+   } else if (turn < 220) {
+      date = (10 * turn - 600) + ' AD';
+   } else if (turn < 260) {
+      date = (5 * turn + 500) + ' AD';
+   } else if (turn < 310) {
+      date = (2 * turn + 1280) + ' AD';
+   } else if (turn < 420) {
+      date = (turn + 1590) + ' AD';
+   } else {
+      date = (turn % 2 === 0 ? 'Spring ' : 'Autumn ') + (Math.floor(turn / 2) + 1800) + ' AD';
+   }
+
+   turnAndYear = `Turn ${turn} - ${date}`;
+}
 
 onMount(async () => {
    let result = await backend('load', { game: $page.params.id });
@@ -45,6 +64,7 @@ onMount(async () => {
       return;
    }
 
+   setTurnAndYear(result.game.turn);
    player.set(result.player);
    const mapsize = { x: result.game.x, y: result.game.y };
    map.setData(result.map, mapsize);
@@ -92,7 +112,7 @@ function closeFullscreen() {
    <div id="time-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
       <p class="center">
-         {timeBarTurn} - {timeBarYears}
+         {turnAndYear}
       </p>
    </div>
    <div id="menu-bar" class="fourth">
@@ -118,8 +138,12 @@ function closeFullscreen() {
    <Map bind:this={map} on:newAction={e => unitInfo.addAction(e.detail.action)}/>
 </main>
 <footer class="full">
-   <UnitInfo bind:this={unitInfo} />
-   <CommandOptions on:newAction={e => unitInfo.addAction(e.detail.action)} />
+   <div id="info-panel" class="third">
+      <UnitInfo bind:this={unitInfo} />
+   </div>
+   <div id="commands-panel" class="third">
+      <CommandOptions on:newAction={e => unitInfo.addAction(e.detail.action)} />
+   </div>
    <div id="status-panel" class="third">
       <h2 class="center no-bottom-margin no-top-margin">Turn complete</h2>
       <p class="center"><button class="button" id="end-turn">End Turn</button></p>

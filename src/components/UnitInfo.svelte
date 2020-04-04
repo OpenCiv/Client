@@ -43,18 +43,16 @@ async function removeAction(action) {
 }
 </script>
 
-<div id="info-panel" class="third">
-   <div class="two-thirds non-responsive">
-      <h3 class="no-top-margin">{$selected ? 'Current orders' : ''}</h3>
-      <p>
-         {#if $selected && actions.length === 0}
-            <span>None</span>
-         {/if}
-         {#each actions as action}
-            <button class="button iconbutton" title={capitalize(action.description)} on:click={() => removeAction(action)}>
-               <img src="img/{imgFolder[action.type]}/{action.description}.svg" alt={action.description.slice(0, 3).toUpperCase()}>
-            </button>
-         {/each}
-      </p>
-   </div>
+<div class="two-thirds non-responsive">
+   <h3 class="no-top-margin">{$selected ? 'Current orders' : ''}</h3>
+   <p>
+      {#if $selected && actions.length === 0}
+         <span>None</span>
+      {/if}
+      {#each actions as action}
+         <button class="button iconbutton" title={capitalize(action.description)} on:click={() => removeAction(action)}>
+            <img src="img/{imgFolder[action.type]}/{action.description}.svg" alt={action.description.slice(0, 3).toUpperCase()}>
+         </button>
+      {/each}
+   </p>
 </div>

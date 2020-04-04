@@ -8,10 +8,12 @@
 </style>
 
 <script>
-import { onMount, onDestroy } from 'svelte';
+import { onMount } from 'svelte';
 import { stores } from '@sapper/app';
 import Map from '../../../components/Map.svelte';
-import { alerts, selected, backend, player } from '../../../stores';
+import CommandOptions from '../../../components/CommandOptions.svelte';
+import UnitInfo from '../../../components/UnitInfo.svelte';
+import { alerts, backend, player } from '../../../stores';
 import { capitalize } from '../../../utilities';
 
 const { page } = stores();
@@ -25,13 +27,6 @@ let fullscreen = false;
 // The window's inner height
 let innerHeight;
 
-let actions = [];
-
-const imgFolder = {
-   group: 'actions',
-   build: 'improvements'
-}
-
 // Init values for information on divs.
 // Variables are exposed globally at the moment.
 // You can access the variables out of this scope
@@ -42,18 +37,6 @@ const infoPanel = {
    currentUnit: '',
    information: '',
 };
-
-const unsubscribe = selected.subscribe(unit => {
-   if (unit) {
-      infoPanel.currentUnit = 'Unit selected';
-      infoPanel.information = 'What orders?';
-      actions = getActions(unit);
-   } else {
-      infoPanel.currentUnit = null;
-      infoPanel.information = null;
-      actions = [];
-   }
-});
 
 onMount(async () => {
    let result = await backend('load', { game: $page.params.id });
@@ -66,52 +49,6 @@ onMount(async () => {
    const mapsize = { x: result.game.x, y: result.game.y };
    map.setData(result.map, mapsize);
 });
-
-onDestroy(unsubscribe);
-
-function getActions(unit) {
-   const acts = unit ? [
-      { type: 'group', parameter: 'move' },
-      { type: 'group', parameter: 'build' }
-   ] : null;
-   return acts;
-}
-
-async function act(action) {
-   console.log(action);
-   switch (action.type) {
-      case 'group':
-         switch (action.parameter) {
-            case 'build':
-               actions = [
-                  { type: 'build', parameter: 'castle' },
-                  { type: 'build', parameter: 'library' },
-                  { type: 'build', parameter: 'market' },
-                  { type: 'build', parameter: 'temple' }
-               ];
-               break;
-
-            default:
-               actions = getActions($selected);
-               break;
-         }
-
-         break;
-
-      case 'build':
-         const result = await backend('build', { id: $selected.id, improvement: action.parameter });
-         if (result) {
-            alert('yay');
-         }
-
-         actions = getActions($selected);
-         break;
-
-      default:
-         actions = getActions($selected);
-         break;
-   }
-}
 
 function openFullscreen() {
    document.documentElement.requestFullscreen();
@@ -181,24 +118,8 @@ function closeFullscreen() {
    <Map bind:this={map}/>
 </main>
 <footer class="full">
-   <div id="info-panel" class="third">
-      <div class="two-thirds non-responsive">
-         <!-- Get values from variables or show defaults. -->
-         <h3 class="no-top-margin">{infoPanel.currentUnit}</h3>
-         <p>{infoPanel.information}</p>
-      </div>
-   </div>
-   <div id="commands-panel" class="third">
-      <h3 class="left no-top-margin">Command options</h3>
-      <!-- Get values from variables or show defaults. -->
-      <p id="command-buttons">
-         {#each actions as action}
-            <button class="button iconbutton" title={capitalize(action.parameter)} on:click={() => act(action)}>
-               <img src="img/{imgFolder[action.type]}/{action.parameter}.svg" alt={action.parameter.slice(0, 3).toUpperCase()}>
-            </button>
-         {/each}
-      </p>
-   </div>
+   <UnitInfo />
+   <CommandOptions />
    <div id="status-panel" class="third">
       <h2 class="center no-bottom-margin no-top-margin">Turn complete</h2>
       <p class="center"><button class="button" id="end-turn">End Turn</button></p>

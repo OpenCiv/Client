@@ -70,7 +70,9 @@
 
 // All ground tiles
 .ground {
-    // Cliff at bottom
+    position: relative;
+
+   // Cliff at bottom
     height: @tile_side + @tile_land_padding_top + @tile_land_padding_bottom;
     width: @tile_side + @tile_land_padding_left + @tile_land_padding_right;
     margin-bottom: -1 * @tile_land_padding_bottom;
@@ -123,6 +125,7 @@
 // -----------------------------------------------
 
 .improvement {
+    position: absolute;
     display: block;
     z-index: 10;
 
@@ -138,6 +141,7 @@
 // -----------------------------------------------
 
 .unit {
+    position: absolute;
     display: block;
     z-index: 15;
 

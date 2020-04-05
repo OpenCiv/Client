@@ -14,10 +14,26 @@ const dispatch = createEventDispatcher();
 
 let mapdata;
 let mapsize;
+let randomized = null;
 
 export function setData(map, size) {
+   if (!randomized) {
+      randomized = [];
+      for (let x = 0; x < size.x; x++) {
+         randomized[x] = [];
+         for (let y = 0; y < size.y; y++) {
+            randomized[x][y] = Math.floor(Math.random() * 3 + 1);
+         }
+      }
+   }
+
    mapdata = map;
-   mapdata.forEach(y => y.forEach(x => { x.random = Math.floor(Math.random() * 3 + 1); }));
+   for (let x = 0; x < size.x; x++) {
+      for (let y = 0; y < size.y; y++) {
+         mapdata[y][x].random = randomized[x][y];
+      }
+   }
+
    mapsize = size;
 }
 
@@ -59,7 +75,7 @@ async function tile_click(e, tile) {
                <div class="tile {tile.type === 'water' ? 'water' : ('ground ' + tile.type + tile.random)}" on:mousedown={e => tile_click(e, tile)}>
                   {#each tile.improvements as improvement}
                      <div class="improvement">
-                        <img src="img/improvements/{improvement.type}.png" alt={improvement.type}>
+                        <img src="img/improvements/{improvement.type}.png" alt={improvement.type} style="opacity: {improvement.completion}">
                      </div>
                   {/each}
                   {#each tile.units as unit}

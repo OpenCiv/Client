@@ -13,7 +13,7 @@ import { stores } from '@sapper/app';
 import Map from '../../../components/Map.svelte';
 import CommandOptions from '../../../components/CommandOptions.svelte';
 import UnitInfo from '../../../components/UnitInfo.svelte';
-import { alerts, backend, player } from '../../../stores';
+import { alerts, backend, selected, player } from '../../../stores';
 import { capitalize } from '../../../utilities';
 
 const { page } = stores();
@@ -27,7 +27,10 @@ let fullscreen = false;
 // The window's inner height
 let innerHeight;
 
+// The displayed turn and year
 let turnAndYear = '';
+
+// The current research
 let researchBarResearch = 'No research';
 
 function setTurnAndYear(turn) {
@@ -57,7 +60,9 @@ function setTurnAndYear(turn) {
    turnAndYear = `Turn ${turn} - ${date}`;
 }
 
-onMount(async () => {
+onMount(refresh);
+
+async function refresh() {
    let result = await backend('load', { game: $page.params.id });
    if (!result) {
       alerts.add('The data could not be loaded');
@@ -68,7 +73,7 @@ onMount(async () => {
    player.set(result.player);
    const mapsize = { x: result.game.x, y: result.game.y };
    map.setData(result.map, mapsize);
-});
+}
 
 function openFullscreen() {
    document.documentElement.requestFullscreen();
@@ -78,6 +83,14 @@ function openFullscreen() {
 function closeFullscreen() {
    document.exitFullscreen();
    fullscreen = false;
+}
+
+async function endTurn() {
+   selected.set(null);
+   const result = await backend('endturn');
+   if (result) {
+      refresh();
+   }
 }
 </script>
 
@@ -146,6 +159,8 @@ function closeFullscreen() {
    </div>
    <div id="status-panel" class="third">
       <h2 class="center no-bottom-margin no-top-margin">Turn complete</h2>
-      <p class="center"><button class="button" id="end-turn">End Turn</button></p>
+      <p class="center">
+         <button class="button" id="end-turn" on:click={endTurn}>End Turn</button>
+      </p>
    </div>
 </footer>

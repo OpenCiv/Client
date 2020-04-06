@@ -17,7 +17,7 @@ let password = '';
 $: disabled = $busy || !email || !password;
 
 async function login() {
-   const result = await backend('login', { username: email, password });
+   const result = await backend('account/login', { username: email, password });
    if (result === true) {
       sapper.goto('menu', { replace: true });
    } else {

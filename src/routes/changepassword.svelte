@@ -24,7 +24,7 @@ async function submitPassword() {
       return;
    }
 
-   const result = await backend('changepassword', { oldpass, newpass });
+   const result = await backend('account/changepassword', { oldpass, newpass });
    if (result) {
       alerts.add('Password successfully changed');
       sapper.goto('account', { replace: true });

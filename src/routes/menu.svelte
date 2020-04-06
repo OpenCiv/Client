@@ -15,11 +15,11 @@ import { backend, busy } from '../stores';
 let games = null;
 
 onMount(async () => {
-   games = await backend('getgames');
+   games = await backend('account/getgames');
 });
 
 async function logoff() {
-   await backend('logoff');
+   await backend('account/logoff');
    sapper.goto('login', { replace: true });
 }
 </script>

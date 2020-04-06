@@ -21,7 +21,7 @@ async function submit() {
       return;
    }
 
-   let result = await backend('newpassword', { email });
+   let result = await backend('account/newpassword', { email });
    if (result) {
       alerts.add(`A new password is sent to ${email}`);
       email = '';

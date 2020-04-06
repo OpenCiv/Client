@@ -56,7 +56,7 @@ async function tile_click(e, tile) {
       return;
    }
 
-   const order = await backend('move', { id: $selected.id, x: tile.x, y: tile.y });
+   const order = await backend('game/move', { id: $selected.id, x: tile.x, y: tile.y });
    if (order) {
       dispatch('newAction', { action: {
          type: 'move',

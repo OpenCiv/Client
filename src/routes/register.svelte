@@ -30,7 +30,7 @@ async function register() {
       return;
    }
 
-   let result = await backend('register', { name, email, password });
+   let result = await backend('account/register', { name, email, password });
    if (!result) {
       sapper.goto('menu', { replace: true });
    } else {

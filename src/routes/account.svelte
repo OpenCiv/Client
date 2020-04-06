@@ -25,7 +25,7 @@ onMount(async () => {
    name = user.name;
    email = user.email;
    if ($page.query.token && !user.verified) {
-      let success = await backend('verify', { token: $page.query.token });
+      let success = await backend('account/verify', { token: $page.query.token });
       alerts.add(success ? 'Your account is now verified.' : 'Verification failed.');
       if (success) {
          sapper.goto('menu', { replace: true });
@@ -34,11 +34,11 @@ onMount(async () => {
 });
 
 async function refresh() {
-   user = await backend('getuser');
+   user = await backend('account/getuser');
 }
 
 async function onChangeName() {
-   let result = await backend('changename', { name });
+   let result = await backend('account/changename', { name });
    editName = false;
    if (result === true) {
       user.name = name;
@@ -50,7 +50,7 @@ async function onChangeName() {
 }
 
 async function onChangeEmail() {
-   let result = await backend('changeemail', { email });
+   let result = await backend('account/changeemail', { email });
    editEmail = false;
    if (result === true) {
       user.email = email;
@@ -63,7 +63,7 @@ async function onChangeEmail() {
 }
 
 async function resend() {
-   let result = await backend('resend');
+   let result = await backend('account/resend');
    if (result) {
       alerts.add(`A verification e-mail is sent to ${user.email}.<br>Please click on the link in that e-mail to verify your account.`);
    } else {
@@ -87,8 +87,8 @@ function cancelEmail(event) {
 }
 
 async function remove() {
-   if (confirm("Are you sure you want to delete your account?")) {
-      await backend('remove');
+   if (confirm('Are you sure you want to delete your account?')) {
+      await backend('account/remove');
       sapper.goto('login', { replace: true });
       alerts.add('Your account has been deleted.');
    }

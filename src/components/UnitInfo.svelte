@@ -20,7 +20,7 @@ export function addAction(action) {
 
 const unsubscribe = selected.subscribe(async unit => {
    if (unit) {
-      const acts = await backend('getactions', { id: unit.id });
+      const acts = await backend('game/getactions', { id: unit.id });
       acts.forEach(action => {
          setDescription(action);
       });
@@ -33,7 +33,7 @@ const unsubscribe = selected.subscribe(async unit => {
 onDestroy(unsubscribe);
 
 async function removeAction(action) {
-   await backend('removeaction', { id: $selected.id, order: action.order });
+   await backend('game/removeaction', { id: $selected.id, order: action.order });
    actions = actions.filter(a => a !== action);
    actions.forEach(act => {
       if (act.order > action.order) {

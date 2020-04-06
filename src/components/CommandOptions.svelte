@@ -46,7 +46,7 @@ async function addAction(action) {
          break;
 
       case 'build':
-         const order = await backend('build', { id: $selected.id, improvement: action.parameter });
+         const order = await backend('game/build', { id: $selected.id, improvement: action.parameter });
          if (order !== false) {
             action.order = order;
             dispatch('newAction', { action });

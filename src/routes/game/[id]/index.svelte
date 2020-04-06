@@ -63,7 +63,7 @@ function setTurnAndYear(turn) {
 onMount(refresh);
 
 async function refresh() {
-   let result = await backend('load', { game: $page.params.id });
+   let result = await backend('game/load', { game: $page.params.id });
    if (!result) {
       alerts.add('The data could not be loaded');
       return;
@@ -87,7 +87,7 @@ function closeFullscreen() {
 
 async function endTurn() {
    selected.set(null);
-   const result = await backend('endturn');
+   const result = await backend('game/endturn');
    if (result) {
       refresh();
    }

@@ -65,7 +65,7 @@ async function addAction(action) {
 <h3 class="left no-top-margin">Command options</h3>
 <p>
    {#each actions as action}
-      <button class="button iconbutton" title={capitalize(action.parameter)} on:click={() => addAction(action)}>
+      <button class="iconbutton" title={capitalize(action.parameter)} on:click={() => addAction(action)}>
          <img src="img/{imgFolder[action.type]}/{action.parameter}.svg" alt={action.parameter.slice(0, 3).toUpperCase()}>
       </button>
    {/each}

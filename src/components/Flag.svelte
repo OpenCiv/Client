@@ -1,7 +1,7 @@
 <script>
 export let primary;
 export let secondary;
-// export let icon;
+export let icon;
 
 const celticcross = '<path d="m53 33.85h-17.01v-19.29h-7.99v19.29h-17v7.99h17v26.6h7.99v-26.6h17.01z"/><path d="m32 22a16 16 0 1 0 16 16 16 16 0 0 0 -16-16zm0 25.85a9.85 9.85 0 1 1 9.85-9.85 9.85 9.85 0 0 1 -9.85 9.85z"/>';
 </script>
@@ -14,6 +14,12 @@ const celticcross = '<path d="m53 33.85h-17.01v-19.29h-7.99v19.29h-17v7.99h17v26
 
    <!-- Player custom icon, to be also filled with secondary color -->
    <svg viewBox="0 0 64 80" xmlns="http://www.w3.org/2000/svg">
-      {@html celticcross}
+      {#if icon="celticcross"}
+         <path fill={secondary} d="m53 33.85h-17.01v-19.29h-7.99v19.29h-17v7.99h17v26.6h7.99v-26.6h17.01z"/><path fill={secondary} d="m32 22a16 16 0 1 0 16 16 16 16 0 0 0 -16-16zm0 25.85a9.85 9.85 0 1 1 9.85-9.85 9.85 9.85 0 0 1 -9.85 9.85z"/>
+      {:else if icon="celticcross"}
+         <path fill={secondary} d="m32 15.61 6.3 12.77 14.08 2.04-10.19 9.94 2.41 14.03-12.6-6.63-12.6 6.63 2.41-14.03-10.19-9.94 14.08-2.04z"/>
+      {:else} <!-- divided -->
+         <path fill={secondary} d="m32 0h32v81h-32z"/>
+      {/if}
    </svg>
 </svg>

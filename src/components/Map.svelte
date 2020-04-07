@@ -57,7 +57,7 @@ async function tile_click(e, tile) {
       return;
    }
 
-   const order = await backend('game/move', { id: $selected.id, x: tile.x, y: tile.y });
+   const order = await backend('game/action', { id: $selected.id, type: 'move', parameter: `${tile.x},${tile.y}` });
    if (order) {
       dispatch('newAction', { action: {
          type: 'move',
@@ -82,7 +82,7 @@ async function tile_click(e, tile) {
                   {#each tile.units as unit}
                      <div class="unit">
                         <div class="player-banner">
-                           <Flag primary="#D45722" secondary="#FFEC96" icon="celticcross" />
+                           <Flag color={$player.color} icon={$player.icon} />
                         </div>
                         <img src="img/units/nordic.png" alt="nordic" class:active={unit === $selected}>
                      </div>

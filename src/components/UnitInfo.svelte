@@ -6,6 +6,7 @@
 import { onDestroy } from 'svelte';
 import { selected, backend } from '../stores';
 import { capitalize, imgFolder } from '../utilities';
+import IconButton from './IconButton.svelte';
 
 let actions = [];
 
@@ -50,9 +51,12 @@ async function removeAction(action) {
          <span>None</span>
       {/if}
       {#each actions as action}
-         <button class="button iconbutton" title={capitalize(action.description)} on:click={() => removeAction(action)}>
-            <img src="img/{imgFolder[action.type]}/{action.description}.svg" alt={action.description.slice(0, 3).toUpperCase()}>
-         </button>
+         <IconButton
+            title={capitalize(action.description)}
+            on:click={() => removeAction(action)}
+            img="img/{imgFolder[action.type]}/{action.description}.svg"
+            alt={action.description.slice(0, 3).toUpperCase()}
+         />
       {/each}
    </p>
 </div>

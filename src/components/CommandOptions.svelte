@@ -6,7 +6,7 @@
 import { onDestroy, createEventDispatcher } from 'svelte';
 import { selected, backend, busy } from '../stores';
 import { capitalize, imgFolder } from '../utilities';
-import ActionButton from './ActionButton.svelte';
+import IconButton from './IconButton.svelte';
 
 const dispatch = createEventDispatcher();
 
@@ -78,7 +78,7 @@ async function addAction(action) {
 <h3 class="left no-top-margin">Command options</h3>
 <p>
    {#each actions as action}
-      <ActionButton
+      <IconButton
          title={capitalize(action.parameter)}
          on:click={() => addAction(action)}
          img="img/{imgFolder[action.type]}/{action.parameter}.svg"

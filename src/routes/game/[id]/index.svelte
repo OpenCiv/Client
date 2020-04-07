@@ -13,7 +13,7 @@ import { stores } from '@sapper/app';
 import Map from '../../../components/Map.svelte';
 import CommandOptions from '../../../components/CommandOptions.svelte';
 import UnitInfo from '../../../components/UnitInfo.svelte';
-import { alerts, backend, selected, player } from '../../../stores';
+import { alerts, backend, selected, player, busy } from '../../../stores';
 import { capitalize } from '../../../utilities';
 
 const { page } = stores();
@@ -160,7 +160,7 @@ async function endTurn() {
    <div id="status-panel" class="third">
       <h2 class="center no-bottom-margin no-top-margin">Turn complete</h2>
       <p class="center">
-         <button class="button" id="end-turn" on:click={endTurn}>End Turn</button>
+         <button disabled={$busy} class="button" id="end-turn" on:click={endTurn}>End Turn</button>
       </p>
    </div>
 </footer>

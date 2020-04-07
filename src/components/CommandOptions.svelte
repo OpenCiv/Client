@@ -4,7 +4,7 @@
 
 <script>
 import { onDestroy, createEventDispatcher } from 'svelte';
-import { selected, backend } from '../stores';
+import { selected, backend, busy } from '../stores';
 import { capitalize, imgFolder } from '../utilities';
 
 const dispatch = createEventDispatcher();
@@ -20,7 +20,8 @@ onDestroy(unsubscribe);
 function getActions(unit) {
    const acts = unit ? [
       { type: 'group', parameter: 'move' },
-      { type: 'group', parameter: 'build' }
+      { type: 'group', parameter: 'build' },
+      { type: 'group', parameter: 'settle' }
    ] : [];
    return acts;
 }
@@ -31,11 +32,22 @@ async function addAction(action) {
          switch (action.parameter) {
             case 'build':
                actions = [
+                  { type: 'group', parameter: 'back' },
                   { type: 'build', parameter: 'castle' },
                   { type: 'build', parameter: 'library' },
                   { type: 'build', parameter: 'market' },
                   { type: 'build', parameter: 'temple' }
                ];
+               break;
+
+            case 'settle':
+               const order = await backend('game/settle', { id: $selected.id });
+               if (order !== false) {
+                  action.order = order;
+                  dispatch('newAction', { action });
+               }
+
+               selected.set(null);
                break;
 
             default:
@@ -65,7 +77,7 @@ async function addAction(action) {
 <h3 class="left no-top-margin">Command options</h3>
 <p>
    {#each actions as action}
-      <button class="iconbutton" title={capitalize(action.parameter)} on:click={() => addAction(action)}>
+      <button disabled={$busy} class="iconbutton" title={capitalize(action.parameter)} on:click={() => addAction(action)}>
          <img src="img/{imgFolder[action.type]}/{action.parameter}.svg" alt={action.parameter.slice(0, 3).toUpperCase()}>
       </button>
    {/each}

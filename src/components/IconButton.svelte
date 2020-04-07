@@ -1,7 +1,7 @@
 <style lang="less">
 @import url("../less/layout.less");
 
-button {
+.iconbutton, .iconbutton:visited, .iconbutton:hover {
 	height: 36px;
 	width: 36px;
 	min-height: 36px;

@@ -42,7 +42,7 @@ async function addAction(action) {
                break;
 
             case 'settle':
-               const order = await backend('game/settle', { id: $selected.id });
+               const order = await backend('game/action', { id: $selected.id, type: 'settle', parameter: '' });
                if (order !== false) {
                   action.order = order;
                   dispatch('newAction', { action });
@@ -59,7 +59,7 @@ async function addAction(action) {
          break;
 
       case 'build':
-         const order = await backend('game/build', { id: $selected.id, improvement: action.parameter });
+         const order = await backend('game/action', { id: $selected.id, type: 'settle', parameter: action.parameter });
          if (order !== false) {
             action.order = order;
             dispatch('newAction', { action });

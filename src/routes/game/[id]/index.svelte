@@ -110,7 +110,7 @@ async function endTurn() {
             <image x="0" y="0" width="100%" height="100%" href="img/flagsymbols/americanstar.svg" />
          </svg>
          <p>
-            {$player ? $player.name : "No login information."}
+            {$player ? $player.name : "No login information"}
          </p>
    </div>
    <div id="research-bar" class="fourth">

@@ -82,7 +82,7 @@ async function tile_click(e, tile) {
                   {#each tile.units as unit}
                      <div class="unit">
                         <div class="player-banner">
-                           <Flag primary="#F2D346" secondary="#FFEC96" icon="celticcross" />
+                           <Flag color={$player.color} icon={$player.icon} />
                         </div>
                         <img src="img/units/nordic.png" alt="nordic" class:active={unit === $selected}>
                      </div>

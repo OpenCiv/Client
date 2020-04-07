@@ -88,7 +88,8 @@ async function tile_click(e, tile) {
                               <!-- The fill of this polygon should be adjusted to be player's secondary color. -->
                               <polygon fill="#FFEC96" points="0,0 100,0 100,12.5 0,12.5"/>
 
-                              <!-- To be added: player custom icon, also with secondary color -->
+                              <!-- Player custom icon, to be also filled with secondary color -->
+                              <image x="0" y="0" width="100" height="120" xlink:href="img/flagsymbols/divided.svg" />
                            </svg>
                         </div>
                         <img src="img/units/nordic.png" alt="nordic" class:active={unit === $selected}>

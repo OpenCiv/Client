@@ -99,24 +99,19 @@ async function endTurn() {
 <header class="full">
    <div id="account-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->
-      <div class="fourth">
-         <div class="account-banner">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 110" preserveAspectRatio="none">
-               <!-- The fill of this polygon should be adjusted to be players primary color. -->
-               <polygon fill="#F2D346" points="0,0 100,0 100,85 50,105 0,85"/>
+         <svg xmlns="http://www.w3.org/2000/svg" height="42px" viewBox="0 0 100 150" preserveAspectRatio="none">
+            <!-- The fill of this polygon should be adjusted to be player's primary color. -->
+            <polygon fill="#F2D346" points="0,0 100,0 100,100 50,120 0,100"/>
 
-               <!-- The fill of this polygon should be adjusted to be players secondary color. -->
-               <polygon fill="#FFEC96" points="0,0 100,0 100,10 0,10"/>
+            <!-- The fill of this polygon should be adjusted to be player's secondary color. -->
+            <polygon fill="#FFEC96" points="0,0 100,0 100,12.5 0,12.5"/>
 
-               <!-- To be added: player custom icon, also with secondary color -->
-            </svg>
-         </div>
-      </div>
-      <div class="three-fours">
+            <!-- Player custom icon, to be also filled with secondary color -->
+            <image x="0" y="0" width="100%" height="100%" href="img/flagsymbols/americanstar.svg" />
+         </svg>
          <p>
             {$player ? $player.name : "No login information."}
          </p>
-      </div>
    </div>
    <div id="research-bar" class="fourth">
       <!-- Get values from variables or show defaults. -->

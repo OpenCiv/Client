@@ -9,6 +9,7 @@
 <script>
 import { createEventDispatcher } from 'svelte';
 import { alerts, backend, selected, player } from '../stores';
+import Flag from './Flag.svelte';
 
 const dispatch = createEventDispatcher();
 
@@ -81,16 +82,7 @@ async function tile_click(e, tile) {
                   {#each tile.units as unit}
                      <div class="unit">
                         <div class="player-banner">
-                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150" preserveAspectRatio="none">
-                              <!-- The fill of this polygon should be adjusted to be player's primary color. -->
-                              <polygon fill="#F2D346" points="0,0 100,0 100,100 50,120 0,100"/>
-
-                              <!-- The fill of this polygon should be adjusted to be player's secondary color. -->
-                              <polygon fill="#FFEC96" points="0,0 100,0 100,12.5 0,12.5"/>
-
-                              <!-- Player custom icon, to be also filled with secondary color -->
-                              <image x="0" y="0" width="100" height="120" xlink:href="img/flagsymbols/divided.svg" />
-                           </svg>
+                           <Flag primary="#F2D346" secondary="#FFEC96"/>
                         </div>
                         <img src="img/units/nordic.png" alt="nordic" class:active={unit === $selected}>
                      </div>

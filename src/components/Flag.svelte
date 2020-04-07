@@ -13,10 +13,10 @@ export let color;
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150" preserveAspectRatio="none">
    <!-- The fill of this polygon should be adjusted to be player's primary color. -->
-   <polygon fill={primary} points="0,0 100,0 100,110 50,130 0,110"/>
+   <polygon fill={Colors.getPrimaryColor(color)} points="0,0 100,0 100,110 50,130 0,110"/>
 
    <!-- The fill of this polygon should be adjusted to be player's secondary color. -->
-   <polygon fill={secondary} points="0,0 100,0 100,9.375 0,9.375"/>
+   <polygon fill={Colors.getSecondaryColor(color)} points="0,0 100,0 100,9.375 0,9.375"/>
 
    <!-- Player custom icon, to be also filled with secondary color -->
 

@@ -76,7 +76,7 @@ async function tile_click(e, tile) {
                <div class="tile {tile.type === 'water' ? 'water' : ('ground ' + tile.type + tile.random)}" on:mousedown={e => tile_click(e, tile)}>
                   {#each tile.improvements as improvement}
                      <div class="improvement">
-                        <img src="img/improvements/{improvement.type}.png" alt={improvement.type} style="opacity: {improvement.completion}">
+                        <img src="img/improvements/{improvement.type}.svg" alt={improvement.type} style="opacity: {improvement.completion}">
                      </div>
                   {/each}
                   {#each tile.units as unit}

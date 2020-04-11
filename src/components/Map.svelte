@@ -75,8 +75,14 @@ async function tile_click(e, tile) {
             {#each row as tile}
                <div class="tile {tile.type === 'water' ? 'water' : ('ground ' + tile.type + tile.random)}" on:mousedown={e => tile_click(e, tile)}>
                   {#each tile.improvements as improvement}
+                     <div class="improvement-back">
+                        <img src="img/improvements/forest_back.svg"> <!-- Background improvement: forests, walls... -->
+                     </div>
                      <div class="improvement">
                         <img src="img/improvements/{improvement.type}.svg" alt={improvement.type} style="opacity: {improvement.completion}">
+                     </div>
+                     <div class="improvement-front">
+                        <img src="img/improvements/forest_front.svg"> <!-- Front improvement: forests, walls... -->
                      </div>
                   {/each}
                   {#each tile.units as unit}

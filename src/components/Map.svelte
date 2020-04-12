@@ -111,8 +111,8 @@ function show_path() {
             to += 'E';
          }
 
-         mapdata[startY][startX].path.push(from);
-         mapdata[step.y][step.x].path.push(to);
+         mapdata[startY][startX].path.push(to);
+         mapdata[step.y][step.x].path.push(from);
          startX = step.x;
          startY = step.y;
       });

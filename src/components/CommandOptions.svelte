@@ -45,7 +45,7 @@ async function addAction(action) {
                const order = await backend('game/action', { id: $selected.id, type: 'settle', parameter: '' });
                if (order !== false) {
                   action.order = order;
-                  dispatch('newAction', { action });
+                  dispatch('addAction', { action });
                }
 
                selected.set(null);

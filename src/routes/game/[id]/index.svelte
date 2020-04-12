@@ -108,17 +108,14 @@ async function endTurn() {
       </p>
    </div>
    <div id="research-bar" class="fourth">
-      <!-- Get values from variables or show defaults. -->
       <p class="center"><span class="research">&sext; Researching</span> {researchBarResearch}</p>
    </div>
    <div id="time-bar" class="fourth">
-      <!-- Get values from variables or show defaults. -->
       <p class="center">
          {turnAndYear}
       </p>
    </div>
    <div id="menu-bar" class="fourth">
-      <!-- Get values from variables or show defaults. -->
       <p class="right">
          {#if !fullscreen}
             <button title="Enable fullscreen" class="hyperlink" on:click={openFullscreen}>
@@ -137,14 +134,14 @@ async function endTurn() {
    </div>
 </header>
 <main style="height: {innerHeight - 128}px;">
-   <Map bind:this={map} on:newAction={e => unitInfo.addAction(e.detail.action)}/>
+   <Map bind:this={map} />
 </main>
 <footer class="full">
    <div id="info-panel" class="third">
-      <UnitInfo bind:this={unitInfo} />
+      <UnitInfo />
    </div>
    <div id="commands-panel" class="third">
-      <CommandOptions on:newAction={e => unitInfo.addAction(e.detail.action)} />
+      <CommandOptions />
    </div>
    <div id="status-panel" class="third">
       <h2 class="center no-bottom-margin no-top-margin">Turn complete</h2>

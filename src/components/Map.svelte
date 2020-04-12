@@ -7,9 +7,10 @@
 </style>
 
 <script>
-import { createEventDispatcher } from 'svelte';
+import { createEventDispatcher, onDestroy } from 'svelte';
 import { alerts, backend, selected, player } from '../stores';
 import Flag from './Flag.svelte';
+import Path from './Path.svelte';
 
 const dispatch = createEventDispatcher();
 
@@ -32,6 +33,7 @@ export function setData(map, size) {
    for (let x = 0; x < size.x; x++) {
       for (let y = 0; y < size.y; y++) {
          mapdata[y][x].random = randomized[x][y];
+         mapdata[y][x].path = [];
       }
    }
 
@@ -49,7 +51,12 @@ async function tile_click(e, tile) {
    e.stopPropagation();
    if (e.which === 1) {
       const unit = tile.units.find(u => u.player_id === $player.id);
+      if (unit) {
+         show_path(unit.x, unit.y, unit.actions.filter(action => action.type === 'move'));
+      }
+
       selected.set(unit);
+      show_path();
       return;
    }
 
@@ -57,14 +64,61 @@ async function tile_click(e, tile) {
       return;
    }
 
-   const order = await backend('game/action', { id: $selected.id, type: 'move', parameter: `${tile.x},${tile.y}` });
-   if (order) {
-      dispatch('newAction', { action: {
-         type: 'move',
-         parameter: tile.x + ',' + tile.y,
-         order
-      }});
+   const action = await backend('game/action', { id: $selected.id, type: 'move', parameter: `${tile.x},${tile.y}` });
+   if (action) {
+      $selected.actions.push(action);
+      show_path($selected);
+      dispatch('addAction', { action });
    }
+}
+
+function show_path() {
+   for (let x = 0; x < mapsize.x; x++) {
+      for (let y = 0; y < mapsize.y; y++) {
+         mapdata[y][x].path = [];
+      }
+   }
+
+   if (!$selected) {
+      return;
+   }
+
+   let startX = $selected.x;
+   let startY = $selected.y;
+   $selected.actions.forEach(action => {
+      if (action.type !== 'move') {
+         return;
+      }
+
+      action.parameter.forEach(step => {
+         const changeX = step.x - startX;
+         const changeY = step.y - startY;
+         let from = 'from';
+         let to = 'to';
+         if (changeY === -1) {
+            from += 'S';
+            to += 'N';
+         } else if (changeY === 1) {
+            from += 'N';
+            to += 'S';
+         }
+
+         if (changeX === -1) {
+            from += 'E';
+            to += 'W';
+         } else if (changeX === 1) {
+            from += 'W';
+            to += 'E';
+         }
+
+         mapdata[startY][startX].path.push(from);
+         mapdata[step.y][step.x].path.push(to);
+         startX = step.x;
+         startY = step.y;
+      });
+   });
+
+   mapdata = mapdata;
 }
 </script>
 
@@ -76,13 +130,13 @@ async function tile_click(e, tile) {
                <div class="tile {tile.type === 'water' ? 'water' : ('ground ' + tile.type + tile.random)}" on:mousedown={e => tile_click(e, tile)}>
                   {#each tile.improvements as improvement}
                      <div class="improvement-back">
-                        <img src="img/improvements/forest_back.svg"> <!-- Background improvement: forests, walls... -->
+                        <img src="img/improvements/forest_back.svg" alt=""> <!-- Background improvement: forests, walls... -->
                      </div>
                      <div class="improvement">
                         <img src="img/improvements/{improvement.type}.svg" alt={improvement.type} style="opacity: {improvement.completion}">
                      </div>
                      <div class="improvement-front">
-                        <img src="img/improvements/forest_front.svg"> <!-- Front improvement: forests, walls... -->
+                        <img src="img/improvements/forest_front.svg" alt=""> <!-- Front improvement: forests, walls... -->
                      </div>
                   {/each}
                   {#each tile.units as unit}
@@ -100,6 +154,11 @@ async function tile_click(e, tile) {
                            <circle cx="50%" cy="50%" r="75" stroke="#777777" stroke-width="8" fill="#444444" />
                         </svg>
                         <img src="img/resources/{resource.type}.svg" alt={resource_quantity(resource)}>
+                     </div>
+                  {/each}
+                  {#each tile.path as direction}
+                     <div class="unit">
+                        <Path {direction} />
                      </div>
                   {/each}
                </div>

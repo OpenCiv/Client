@@ -157,7 +157,7 @@ async function tile_click(e, tile) {
                      </div>
                   {/each}
                   {#each tile.path as direction}
-                     <div class="unit">
+                     <div class="path">
                         <Path {direction} />
                      </div>
                   {/each}

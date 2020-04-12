@@ -139,10 +139,12 @@ async function tile_click(e, tile) {
                   {/each}
                   {#each tile.units as unit}
                      <div class="unit">
-                        <div class="player-banner">
+                        <!-- <div class="player-banner">
                            <Flag color={$player.color} icon={$player.icon} />
                         </div>
-                        <img src="img/units/nordic.png" alt="nordic" class:active={unit === $selected}>
+                        <img src="img/units/nordic.png" alt="nordic" class:active={unit === $selected}> -->
+                        <img src="img/units/unit_template.svg" alt="Unkown unit" class:active={unit === $selected}>
+                        <img src="img/units/nordic.svg" alt="Nordic">
                      </div>
                   {/each}
                   {#each tile.resources as resource}

@@ -7,16 +7,14 @@
 </style>
 
 <script>
-import { createEventDispatcher, onDestroy } from 'svelte';
+import { onDestroy } from 'svelte';
 import { alerts, backend, selected, player } from '../stores';
 import Flag from './Flag.svelte';
 import Path from './Path.svelte';
 
-const dispatch = createEventDispatcher();
-
 let mapdata;
 let mapsize;
-let randomized = null;
+let randomized;
 
 export function setData(map, size) {
    if (!randomized) {
@@ -40,52 +38,24 @@ export function setData(map, size) {
    mapsize = size;
 }
 
-function resource_quantity(resource) {
-   return `${resource.type} (${Number.parseFloat(resource.quantity).toFixed(0)})`;
-}
-
-/**
- * Selects or moves a unit.
- */
-async function tile_click(e, tile) {
-   e.stopPropagation();
-   if (e.which === 1) {
-      const unit = tile.units.find(u => u.player_id === $player.id);
-      if (unit) {
-         show_path(unit.x, unit.y, unit.actions.filter(action => action.type === 'move'));
-      }
-
-      selected.set(unit);
-      show_path();
+const subscription = selected.subscribe(unit => {
+   if (!mapsize) {
       return;
    }
 
-   if (e.which !== 3) {
-      return;
-   }
-
-   const action = await backend('game/action', { id: $selected.id, type: 'move', parameter: `${tile.x},${tile.y}` });
-   if (action) {
-      $selected.actions.push(action);
-      show_path($selected);
-      dispatch('addAction', { action });
-   }
-}
-
-function show_path() {
    for (let x = 0; x < mapsize.x; x++) {
       for (let y = 0; y < mapsize.y; y++) {
          mapdata[y][x].path = [];
       }
    }
 
-   if (!$selected) {
+   if (!unit) {
       return;
    }
 
-   let startX = $selected.x;
-   let startY = $selected.y;
-   $selected.actions.forEach(action => {
+   let startX = unit.x;
+   let startY = unit.y;
+   unit.actions.forEach(action => {
       if (action.type !== 'move') {
          return;
       }
@@ -119,6 +89,34 @@ function show_path() {
    });
 
    mapdata = mapdata;
+});
+
+onDestroy(subscription);
+
+function resource_quantity(resource) {
+   return `${resource.type} (${Number.parseFloat(resource.quantity).toFixed(0)})`;
+}
+
+/**
+ * Selects or moves a unit.
+ */
+async function tile_click(e, tile) {
+   e.stopPropagation();
+   if (e.which === 1) {
+      const unit = tile.units.find(u => u.player_id === $player.id);
+      selected.set(unit);
+      return;
+   }
+
+   if (e.which !== 3) {
+      return;
+   }
+
+   const actions = await backend('game/action', { id: $selected.id, type: 'move', parameter: `${tile.x},${tile.y}` });
+   if (actions) {
+      $selected.actions = actions;
+      selected.set($selected);
+   }
 }
 </script>
 

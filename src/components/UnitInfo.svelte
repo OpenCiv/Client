@@ -14,13 +14,9 @@ function getDescription(action) {
 }
 
 async function removeAction(action) {
-   await backend('game/removeaction', { id: $selected.id, order: action.order });
-   $selected.actions = $selected.actions.filter(a => a !== action);
-   $selected.actions.forEach(act => {
-      if (act.order > action.order) {
-         act.order--;
-      }
-   });
+   const actions = await backend('game/removeaction', { id: $selected.id, order: action.order });
+   $selected.actions = actions;
+   selected.set($selected);
 }
 </script>
 

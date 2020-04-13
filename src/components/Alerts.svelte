@@ -2,6 +2,7 @@
 import { onDestroy } from 'svelte';
 import { alerts } from '../stores';
 
+// Removes an alert
 function remove(id) {
    alerts.remove(id);
 }
@@ -39,7 +40,7 @@ function remove(id) {
 <div class="messages">
    {#each $alerts as alrt (alrt.id)}
       <div class="container">
-         <span>{@html alrt.message}</span>
+         <span>{alrt.message}</span>
          <div class="closewindow" on:click|stopPropagation={() => remove(alrt.id)}>X</div>
       </div>
    {/each}

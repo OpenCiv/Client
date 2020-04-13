@@ -12,11 +12,25 @@ import { alerts, backend, selected, player } from '../stores';
 import Flag from './Flag.svelte';
 import Path from './Path.svelte';
 
+// The map itself
 let mapdata;
+
+// The size of the map
 let mapsize;
+
+// Contains random numbers from 1 to 3 for randomized layout purposes
 let randomized;
 
+/**
+ * Sets the map data and size
+ * @param {Object} map Contains the entire map
+ * @param {Object} size Contains the size of the map
+ */
 export function setData(map, size) {
+
+   // Sets random numbers from 1 to 3 for randomized layout purposes
+   // This has to be done only once during the game,
+   // otherwise the map's changes on a reload at the start of a new turn
    if (!randomized) {
       randomized = [];
       for (let x = 0; x < size.x; x++) {
@@ -28,16 +42,14 @@ export function setData(map, size) {
    }
 
    mapdata = map;
-   for (let x = 0; x < size.x; x++) {
-      for (let y = 0; y < size.y; y++) {
-         mapdata[y][x].random = randomized[x][y];
-         mapdata[y][x].path = [];
-      }
-   }
 
+   // As soon as mapdata and mapsize are set, the map is rendered
    mapsize = size;
 }
 
+/**
+ * Displays the path that the selected unit is set to take
+ */
 const subscription = selected.subscribe(unit => {
    if (!mapsize) {
       return;
@@ -45,7 +57,7 @@ const subscription = selected.subscribe(unit => {
 
    for (let x = 0; x < mapsize.x; x++) {
       for (let y = 0; y < mapsize.y; y++) {
-         mapdata[y][x].path = [];
+         delete mapdata[y][x].path;
       }
    }
 
@@ -81,8 +93,18 @@ const subscription = selected.subscribe(unit => {
             to += 'E';
          }
 
-         mapdata[startY][startX].path.push(to);
-         mapdata[step.y][step.x].path.push(from);
+         if (!mapdata[startY][startX].path) {
+            mapdata[startY][startX].path = [to];
+         } else {
+            mapdata[startY][startX].path.push(to);
+         }
+
+         if (!mapdata[step.y][step.x].path) {
+            mapdata[step.y][step.x].path = [from];
+         } else {
+            mapdata[step.y][step.x].path.push(from);
+         }
+
          startX = step.x;
          startY = step.y;
       });
@@ -91,27 +113,40 @@ const subscription = selected.subscribe(unit => {
    mapdata = mapdata;
 });
 
+/**
+ * Destroys the subscription on the selected unit
+ */
 onDestroy(subscription);
 
+/**
+ * Returns the resource type and quantity
+ * @param {Object} resource The resource's details are returned
+ */
 function resource_quantity(resource) {
    return `${resource.type} (${Number.parseFloat(resource.quantity).toFixed(0)})`;
 }
 
 /**
- * Selects or moves a unit.
+ * Handles mouse clicks
+ * @param {MouseEvent} e The event contains which mouse button was pressed
+ * @param {Object} tile The tile that was clicked on
  */
 async function tile_click(e, tile) {
    e.stopPropagation();
+
+   // Left mouse button (de)selecting a unit
    if (e.which === 1) {
       const unit = tile.units.find(u => u.player_id === $player.id);
       selected.set(unit);
       return;
    }
 
-   if (e.which !== 3) {
+   // The only alternative is moving a unit with the right mouse button
+   if (e.which !== 3 || !$selected) {
       return;
    }
 
+   // Send the move action to the backend
    const actions = await backend('game/action', { id: $selected.id, type: 'move', parameter: `${tile.x},${tile.y}` });
    if (actions) {
       $selected.actions = actions;
@@ -125,7 +160,7 @@ async function tile_click(e, tile) {
       {#each mapdata as row}
          <div class="map_row" style="width: {mapsize.x * 128}px;">
             {#each row as tile}
-               <div class="tile {tile.type === 'water' ? 'water' : ('ground ' + tile.type + tile.random)}" on:mousedown={e => tile_click(e, tile)}>
+               <div class="tile {tile.type === 'water' ? 'water' : ('ground ' + tile.type + randomized[tile.x][tile.y])}" on:mousedown={e => tile_click(e, tile)}>
                   {#each tile.improvements as improvement}
                      <div class="improvement-back">
                         <img src="img/improvements/forest_back.svg" alt=""> <!-- Background improvement: forests, walls... -->
@@ -143,24 +178,26 @@ async function tile_click(e, tile) {
                            <Flag color={$player.color} icon={$player.icon} />
                         </div>
                         <img src="img/units/nordic.png" alt="nordic" class:active={unit === $selected}> -->
-                        <img src="img/units/unit_template.svg" alt="Unkown unit" class:active={unit === $selected}>
+                        <img src="img/units/unit_template.svg" alt="Unknown unit" class:active={unit === $selected}>
                         <img src="img/units/nordic.svg" alt="Nordic">
                      </div>
                   {/each}
                   {#each tile.resources as resource}
-                     <div class="resource">
+                     <div class="resource" title={resource_quantity(resource)}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" preserveAspectRatio="none">
                            <polygon fill="#777777" points="0,0 64,0 64,64 0,64"/>
                            <circle cx="50%" cy="50%" r="75" stroke="#777777" stroke-width="8" fill="#444444" />
                         </svg>
-                        <img src="img/resources/{resource.type}.svg" alt={resource_quantity(resource)}>
+                        <img src="img/resources/{resource.type}.svg" alt={resource.type}>
                      </div>
                   {/each}
-                  {#each tile.path as direction}
-                     <div class="path">
-                        <Path {direction} />
-                     </div>
-                  {/each}
+                  {#if tile.path}
+                     {#each tile.path as direction}
+                        <div class="path">
+                           <Path {direction} />
+                        </div>
+                     {/each}
+                  {/if}
                </div>
             {/each}
          </div>

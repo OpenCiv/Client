@@ -23,7 +23,7 @@
     width: 10 * @tile_side;
     
     display: block;
-    padding-top: 48px;
+    padding-top: 42px;
     overflow-y: hidden;
     overflow-x: hidden;
     background-color: transparent;
@@ -39,9 +39,13 @@
     clear: both;
 
     background-color: #409AFF;
-    background-image: url(../img/t_water.gif);
+    background-image: url(../img/terrain/water.svg);
     background-size: contain;
 }
+
+// -----------------------------------------------
+// TILES
+// -----------------------------------------------
 
 // Base settings for one tile in map
 .tile {
@@ -52,46 +56,79 @@
     float: left;
     position: relative;
 
-    // border: 1px solid rgba(255,255,255,0.15);
     box-sizing: border-box;
-    background-color: #ccc;
+    background-color: transparent;
     background-size: cover;
 
     overflow: visible;
 }
 
 // Ocean tile specific settings
-.tile_ocean {
-    background-color: transparent;
-
-    &:hover {
-        background-color: lighten(#409AFF, 5%);
-    }
+.water:hover {
+    background-color: lighten(#409AFF, 5%);
 }
 
-// Plains tile specific settings
-.tile_plains {
-    //background-color: #30BF58;
-    background-color: transparent;
-    background-image: url(../img/t_grass.png);
+// All ground tiles
+.ground {
+    position: relative;
 
-    // Cliff at bottom
+   // Cliff at bottom
     height: @tile_side + @tile_land_padding_top + @tile_land_padding_bottom;
     width: @tile_side + @tile_land_padding_left + @tile_land_padding_right;
     margin-bottom: -1 * @tile_land_padding_bottom;
     margin-top: -1 * @tile_land_padding_top;
     margin-left: -1 * @tile_land_padding_left;
     margin-right: -1 * @tile_land_padding_right;
-
-    &:hover {
-        //background-color: lighten(#30BF58, 5%);
-        background-color: transparent;
-    }
 }
 
-// Improvement
-.improvement {
+// Grass
+.grass1 {
+    background-image: url(../img/terrain/grass1.svg);
+}
+
+.grass2 {
+    background-image: url(../img/terrain/grass2.svg);
+}
+
+.grass3 {
+    background-image: url(../img/terrain/grass3.svg);
+}
+
+// Desert
+.desert1 {
+    background-image: url(../img/terrain/desert1.svg);
+}
+
+.desert2 {
+    background-image: url(../img/terrain/desert2.svg);
+}
+
+.desert3 {
+    background-image: url(../img/terrain/desert3.svg);
+}
+
+// Tundra
+.tundra1 {
+    background-image: url(../img/terrain/tundra1.svg);
+}
+
+.tundra2 {
+    background-image: url(../img/terrain/tundra2.svg);
+}
+
+.tundra3 {
+    background-image: url(../img/terrain/tundra3.svg);
+}
+
+// -----------------------------------------------
+// IMPROVEMENT
+// -----------------------------------------------
+
+.improvement, .improvement-back, .improvement-front {
+    position: absolute;
     display: block;
+    width: @tile_side;
+    height: @tile_side;
     z-index: 10;
 
     img {
@@ -101,45 +138,73 @@
     }
 }
 
-// Unit
+// -----------------------------------------------
+// UNIT
+// -----------------------------------------------
+
 .unit {
+    position: relative;
     display: block;
     z-index: 15;
 
     img {
-        margin-top: -1*@tile_improvement_padding_top;
+        // margin-top: -1*@tile_improvement_padding_top;
         display: block;
         width: 100%;
+        position: absolute;
+    }
+
+    .player-banner {
+        position: absolute;
+        top: 8px;
+        left: 36px;
+        // left: @tile_side/2-16px+@tile_land_padding_left;
+        width: 32px;
+        height: 48px;
+        // border-top: 3px solid gold;
     }
 }
 
-// Resource icon
+.path {
+    position: absolute;
+    display: block;
+    z-index: 20;
+}
+
+// -----------------------------------------------
+// RESOURCES
+// -----------------------------------------------
+
 .resource {
     display: block;
     padding: 0px;
     position: absolute;
     right: 12px;
     bottom: 12px;
+
     z-index: 10;
 
     width: @tile_side / 3;
     height: @tile_side / 3;
 
-    border: 3px solid #eee;
-    border-radius: 50%;
     box-sizing: border-box;
-    background-color: #ccc;
 
     -webkit-transition: 0.2s;
     -moz-transition: 0.2s;
     transition: 0.2s;
 
     img {
+        position: relative;
         display: block;
-        width: 100%;
+        width: 0.8 * (@tile_side / 3);
+        padding: 0.1 * (@tile_side / 3);
     }
 
-    &:after {
+    svg {
+        position: absolute;
+    }
+
+    /* &:after {
         content: '';
         position: absolute;
         left: -1 * @tile_side / 40;
@@ -151,7 +216,7 @@
         border-bottom: @tile_side / 12 solid transparent;
         border-right: @tile_side / 12 solid transparent;
         clear: both;
-    }
+    } */
 }
 
 .tile:hover .resource {

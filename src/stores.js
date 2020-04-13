@@ -6,7 +6,6 @@ export const alerts = createAlerts();
 export const selected = writable(undefined);
 export const busy = writable(false);
 export const player = writable(undefined);
-export const game = writable(undefined);
 
 export async function backend (address, request) {
    busy.set(true);

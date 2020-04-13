@@ -4,88 +4,217 @@
 .active {
    background: #FF000080;
 }
-
-/* .canmove {
-   &:hover {
-      background-image: none;
-      background-color: #FF8000;
-   }
-} */
 </style>
 
 <script>
-import { backend, selected, player, game } from '../stores';
+import { onDestroy } from 'svelte';
+import { alerts, backend, selected, player } from '../stores';
+import Flag from './Flag.svelte';
+import Path from './Path.svelte';
 
-export let mapdata;
+// The map itself
+let mapdata;
 
-function img_src(category, type) {
-   return `img/${category.charAt(0)}_${type}.png`;
+// The size of the map
+let mapsize;
+
+// Contains random numbers from 1 to 3 for randomized layout purposes
+let randomized;
+
+/**
+ * Sets the map data and size
+ * @param {Object} map Contains the entire map
+ * @param {Object} size Contains the size of the map
+ */
+export function setData(map, size) {
+
+   // Sets random numbers from 1 to 3 for randomized layout purposes
+   // This has to be done only once during the game,
+   // otherwise the map's changes on a reload at the start of a new turn
+   if (!randomized) {
+      randomized = [];
+      for (let x = 0; x < size.x; x++) {
+         randomized[x] = [];
+         for (let y = 0; y < size.y; y++) {
+            randomized[x][y] = Math.floor(Math.random() * 3 + 1);
+         }
+      }
+   }
+
+   mapdata = map;
+
+   // As soon as mapdata and mapsize are set, the map is rendered
+   mapsize = size;
 }
 
+/**
+ * Displays the path that the selected unit is set to take
+ */
+const subscription = selected.subscribe(unit => {
+   if (!mapdata || !mapsize) {
+      return;
+   }
+
+   // First remove all paths that are displayed now
+   for (let x = 0; x < mapsize.x; x++) {
+      for (let y = 0; y < mapsize.y; y++) {
+         delete mapdata[y][x].path;
+      }
+   }
+
+   // If a unit is deselected, no path is displayed
+   if (!unit) {
+      return;
+   }
+
+   // The starting point of the path is the unit's location itself
+   let startX = unit.x;
+   let startY = unit.y;
+
+   // Check all actions one by one for moves
+   unit.actions.forEach(action => {
+
+      // Only moves are displayed on the map
+      if (action.type !== 'move') {
+         return;
+      }
+
+      // The action's parameter is an array of move steps
+      action.parameter.forEach(step => {
+
+         // If the step has a higher X, it moves from west to east
+         const changeX = step.x - startX;
+
+         // If the step has a higher Y, it moves from north to south
+         const changeY = step.y - startY;
+
+         // These two variables are passed to the Path component
+         let from = 'from';
+         let to = 'to';
+         if (changeY === -1) {
+            from += 'S';
+            to += 'N';
+         } else if (changeY === 1) {
+            from += 'N';
+            to += 'S';
+         }
+
+         if (changeX === -1) {
+            from += 'E';
+            to += 'W';
+         } else if (changeX === 1) {
+            from += 'W';
+            to += 'E';
+         }
+
+         // Add a path on the present location to show where the unit is going to
+         if (!mapdata[startY][startX].path) {
+            mapdata[startY][startX].path = [to];
+         } else {
+            mapdata[startY][startX].path.push(to);
+         }
+
+         // Add a path on the destination to show where the unit is coming from
+         if (!mapdata[step.y][step.x].path) {
+            mapdata[step.y][step.x].path = [from];
+         } else {
+            mapdata[step.y][step.x].path.push(from);
+         }
+
+         // The step will be the starting point for the next step
+         startX = step.x;
+         startY = step.y;
+      });
+   });
+
+   // Refresh the map
+   mapdata = mapdata;
+});
+
+// Destroys the subscription on the selected unit
+onDestroy(subscription);
+
+/**
+ * Returns the resource type and quantity
+ * @param {Object} resource The resource's details are returned
+ */
 function resource_quantity(resource) {
    return `${resource.type} (${Number.parseFloat(resource.quantity).toFixed(0)})`;
 }
 
+/**
+ * Handles mouse clicks
+ * @param {MouseEvent} e The event contains which mouse button was pressed
+ * @param {Object} tile The tile that was clicked on
+ */
 async function tile_click(e, tile) {
    e.stopPropagation();
+
+   // Left mouse button (de)selecting a unit
    if (e.which === 1) {
       const unit = tile.units.find(u => u.player_id === $player.id);
       selected.set(unit);
       return;
    }
 
-   if (e.which !== 3 || !can_move(tile)) {
+   // The only alternative is moving a unit with the right mouse button
+   if (e.which !== 3 || !$selected) {
       return;
    }
 
-   const moved = await backend('move', { id: $selected.id, x: tile.x, y: tile.y });
-   if (moved) {
-      const old = mapdata[$selected.y][$selected.x]['units'].indexOf($selected);
-      if (old === -1) {
-         alerts.add('Error moving unit');
-      }
-
-      mapdata[$selected.y][$selected.x]['units'].splice(old, 1);
-      $selected.x = tile.x;
-      $selected.y = tile.y;
-      tile.units.push($selected);
-      mapdata = mapdata;
+   // Send the move action to the backend
+   const actions = await backend('game/action', { id: $selected.id, type: 'move', parameter: `${tile.x},${tile.y}` });
+   if (actions) {
+      $selected.actions = actions;
+      selected.set($selected);
    }
-}
-
-function can_move(tile) {
-   if (tile.type === 'water' || !$selected) {
-      return false;
-   }
-
-   let x = Math.abs(tile.x - $selected.x);
-   let y = Math.abs(tile.y - $selected.y);
-   return x < 2 && y < 2 && x + y > 0;
 }
 </script>
 
-{#if mapdata}
-   <div id="map" class="full" style="width: {$game.x * 128}px;">
+{#if mapdata && mapsize}
+   <div id="map" class="full" style="width: {mapsize.x * 128}px;">
       {#each mapdata as row}
-         <div class="map_row" style="width: {$game.x * 128}px;">
+         <div class="map_row" style="width: {mapsize.x * 128}px;">
             {#each row as tile}
-               <!-- <div class="tile {tile.type === 'water' ? 'tile_ocean' : 'tile_plains'}" class:canmove={can_move(tile)} on:mousedown={e => tile_click(e, tile)}> -->
-               <div class="tile {tile.type === 'water' ? 'tile_ocean' : 'tile_plains'}" on:mousedown={e => tile_click(e, tile)}>
+               <div class="tile {tile.type === 'water' ? 'water' : ('ground ' + tile.type + randomized[tile.x][tile.y])}" on:mousedown={e => tile_click(e, tile)}>
                   {#each tile.improvements as improvement}
-                     <div class="improvement">
-                        <img src={img_src('building', improvement.type)} alt={improvement.type}>
+                     <div class="improvement-back">
+                        <img src="img/improvements/forest_back.svg" alt=""> <!-- Background improvement: forests, walls... -->
                      </div>
-                  {/each}
-                  {#each tile.resources as resource}
-                     <div class="resource">
-                        <img src={img_src('resource', resource.type)} alt={resource_quantity(resource)}>
+                     <div class="improvement">
+                        <img src="img/improvements/{improvement.type}.svg" alt={improvement.type} style="opacity: {improvement.completion}">
+                     </div>
+                     <div class="improvement-front">
+                        <img src="img/improvements/forest_front.svg" alt=""> <!-- Front improvement: forests, walls... -->
                      </div>
                   {/each}
                   {#each tile.units as unit}
                      <div class="unit">
-                        <img src={img_src('unit', 'nordic')} alt={'nordic'} class:active={unit === $selected}>
+                        <!-- <div class="player-banner">
+                           <Flag color={$player.color} icon={$player.icon} />
+                        </div>
+                        <img src="img/units/nordic.png" alt="nordic" class:active={unit === $selected}> -->
+                        <img src="img/units/unit_template.svg" alt="Unknown unit" class:active={unit === $selected}>
+                        <img src="img/units/nordic.svg" alt="Nordic">
+                        <img src="img/weapons/spear_copper.svg" alt="Copper spear">
                      </div>
                   {/each}
+                  {#each tile.resources as resource}
+                     <div class="resource" title={resource_quantity(resource)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" preserveAspectRatio="none">
+                           <polygon fill="#777777" points="0,0 64,0 64,64 0,64"/>
+                           <circle cx="50%" cy="50%" r="75" stroke="#777777" stroke-width="8" fill="#444444" />
+                        </svg>
+                        <img src="img/resources/{resource.type}.svg" alt={resource.type}>
+                     </div>
+                  {/each}
+                  {#if tile.path}
+                     {#each tile.path as direction}
+                        <div class="path">
+                           <Path {direction} />
+                        </div>
+                     {/each}
+                  {/if}
                </div>
             {/each}
          </div>

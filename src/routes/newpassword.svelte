@@ -8,21 +8,28 @@
 </style>
 
 <script>
-import Navbar from '../components/Navbar.svelte';
 import { alerts, backend, busy } from '../stores';
 
+// A new password is sent to this e-mail address if it exists in the database
 let email = '';
 
+// Whether a new password can be requested
 $: disabled = $busy || !email;
 
+/**
+ * Sends a new password request to the backend
+ */
 async function submit() {
+
+   // The regular expression tests whether the e-mail address is valid
    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
    if (!re.test(email)) {
       alerts.add('Not a valid e-mail address');
       return;
    }
 
-   let result = await backend('newpassword', { email });
+   // Send a new password request to the backend
+   let result = await backend('account/newpassword', { email });
    if (result) {
       alerts.add(`A new password is sent to ${email}`);
       email = '';
@@ -38,6 +45,6 @@ async function submit() {
       Please fill in your e-mail address. A new password will be sent to the address if it has an account.
    </p>
    <input type=email disabled={$busy} bind:value={email} placeholder="name@domain.com">
-   <button {disabled} on:click={submit}>Send new password</button>
+   <button class="button" {disabled} on:click={submit}>Send new password</button>
    <a href="/login" class="button cancel">Back</a>
 </div>

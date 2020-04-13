@@ -11,20 +11,28 @@
 import * as sapper from '@sapper/app';
 import { alerts, backend, busy } from '../stores';
 
+// Should become equal to the current password
 let oldpass = '';
+
+// The new password
 let newpass = '';
+
+// The new password again
 let repeat = '';
 
 // message === null when a password change is pending
 $: disabled = $busy || !oldpass || !newpass;
 
+/**
+ * Sends the new password to the backend
+ */
 async function submitPassword() {
    if (newpass !== repeat) {
       message = 'The passwords are not the same';
       return;
    }
 
-   const result = await backend('changepassword', { oldpass, newpass });
+   const result = await backend('account/changepassword', { oldpass, newpass });
    if (result) {
       alerts.add('Password successfully changed');
       sapper.goto('account', { replace: true });
@@ -60,7 +68,7 @@ async function submitPassword() {
          <input type=password disabled={$busy} bind:value={repeat}>
       </div>
    </div>
-   <button {disabled} on:click={submitPassword}>Submit</button>
+   <button class="button" {disabled} on:click={submitPassword}>Submit</button>
    <a href="/account" class="button cancel">Back</a>
 </div>
 

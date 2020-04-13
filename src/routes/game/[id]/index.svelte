@@ -8,156 +8,162 @@
 </style>
 
 <script>
-import { onMount, onDestroy } from 'svelte';
+import { onMount } from 'svelte';
 import { stores } from '@sapper/app';
 import Map from '../../../components/Map.svelte';
-import { alerts, selected, backend, player, game } from '../../../stores';
+import CommandOptions from '../../../components/CommandOptions.svelte';
+import UnitInfo from '../../../components/UnitInfo.svelte';
+import { alerts, backend, selected, player, busy } from '../../../stores';
+import { capitalize } from '../../../utilities';
+import Flag from '../../../components/Flag.svelte';
 
 const { page } = stores();
 
-// Obtained from the server and passed on to the map component
-let mapdata;
+// The map component
+let map, unitInfo;
 
-// Init values for information on divs.
-// Variables are exposed globally at the moment.
-// You can access the variables out of this scope
-var timeBarYears = '';
-var timeBarTurn = '';
-var researchBarResearch = '';
-var sideBarUnits = {
-   unitSelectUnitBuild: '',
-   unitOneName: '',
-   unitOneDescription: '',
-   unitTwoName: '',
-   unitTwoDescription: '',
-   unitThreeName: '',
-   unitThreeDescription: ''
-};
-var infoPanel = {
-   currentUnit: '',
-   information: '',
-};
-var commandsPanel = {
-   commandOne: '',
-   commandTwo: '',
-   commandThree: '',
-   commandFour: ''
-};
+// True if the browser is in full screen mode
+let fullscreen = false;
 
-var innerHeight;
+// The window's inner height
+let innerHeight;
 
-// For show purpose populate with bogus data.
-function populateUnits(event) {
-   timeBarYears = '29 000 BC';
-   timeBarTurn = 'Turn ' + 2;
-   researchBarResearch = 'Agriculture';
-   sideBarUnits.unitOneName = 'Builder';
-   sideBarUnits.unitOneDescription = 'Builds a lot';
-   sideBarUnits.unitTwoName = 'Monk';
-   sideBarUnits.unitTwoDescription = 'Prays a lot'
-   sideBarUnits.unitThreeName = 'Warrior';
-   sideBarUnits.unitThreeDescription = 'Fights a lot';
-   infoPanel.currentUnit = 'Builder';
-   infoPanel.information = 'Currenlty building an iron mine.';
-   commandsPanel.commandOne = ' [Build] ';
-   commandsPanel.commandTwo = ' [Move] ';
-   commandsPanel.commandThree = ' [Destroy] ';
-   commandsPanel.commandFour = ' [Cancel] ';
+// The displayed turn and year
+let turnAndYear = '';
+
+// The current research
+let researchBarResearch = 'No research';
+
+/**
+ * Sets the displayed turn and date
+ * @param {number} turn The turn number
+ */
+function setTurnAndYear(turn) {
+   let date;
+   if (turn < 61) {
+      date = (5050 - 50 * turn) + ' BC';
+   } else if (turn < 96) {
+      date = (4440 - 40 * turn) + ' BC';
+   } else if (turn < 120) {
+      date = (3000 - 25 * turn) + ' BC';
+   } else if (turn === 120) {
+      date = '1 AD';
+   } else if (turn < 180) {
+      date = (20 * turn - 2400) + ' AD';
+   } else if (turn < 220) {
+      date = (10 * turn - 600) + ' AD';
+   } else if (turn < 260) {
+      date = (5 * turn + 500) + ' AD';
+   } else if (turn < 310) {
+      date = (2 * turn + 1280) + ' AD';
+   } else if (turn < 420) {
+      date = (turn + 1590) + ' AD';
+   } else {
+      date = (turn % 2 === 0 ? 'Spring ' : 'Autumn ') + (Math.floor(turn / 2) + 1800) + ' AD';
+   }
+
+   turnAndYear = `Turn ${turn} - ${date}`;
 }
 
-// For clearing variables
-function clearAllVariables(event) {
-   timeBarYears = '';
-   timeBarTurn = '';
-   researchBarResearch = '';
-   sideBarUnits.unitOneName = '';
-   sideBarUnits.unitOneDescription = '';
-   sideBarUnits.unitTwoName = '';
-   sideBarUnits.unitTwoDescription = ''
-   sideBarUnits.unitThreeName = '';
-   sideBarUnits.unitThreeDescription = '';
-   infoPanel.currentUnit = '';
-   infoPanel.information = '';
-   commandsPanel.commandOne = ' - ';
-   commandsPanel.commandTwo = ' - ';
-   commandsPanel.commandThree = ' - ';
-   commandsPanel.commandFour = ' - ';
-}
+// Refresh when the page is mounted
+onMount(refresh);
 
-const unsubscribe = selected.subscribe(value => {
-   infoPanel.currentUnit = value ? 'Unit selected' : '';
-   infoPanel.information = value ? 'What orders?' : '';
-});
+/**
+ * Loads the game data
+ */
+async function refresh() {
+   let result = await backend('game/load', { game: $page.params.id });
+   if (!result) {
+      alerts.add('The data could not be loaded');
+      return;
+   }
 
-onMount(async () => {
-   let result = await backend('load', { game: $page.params.id });
-   game.set(result.game);
+   setTurnAndYear(result.game.turn);
    player.set(result.player);
-   mapdata = result.map;
-});
+   const mapsize = { x: result.game.x, y: result.game.y };
+   map.setData(result.map, mapsize);
+}
 
-onDestroy(unsubscribe);
+/**
+ * Sets the browser in full screen mode
+ */
+function openFullscreen() {
+   document.documentElement.requestFullscreen();
+   fullscreen = true;
+}
+
+/**
+ * Puts the browser out of full screen mode
+ */
+function closeFullscreen() {
+   document.exitFullscreen();
+   fullscreen = false;
+}
+
+/**
+ * Send to the backend that the user finished their turn
+ */
+async function endTurn() {
+   selected.set(null);
+   const result = await backend('game/endturn');
+   if (result) {
+      refresh();
+   }
+}
 </script>
 
+<!-- The inner height is used to set the map's scroll bar -->
 <svelte:window bind:innerHeight/>
 
 <header class="full">
-   <div id="time-bar" class="fourth">
-      <!-- Get values from variables or show defaults. -->
-      <p>{timeBarTurn || "Turn 1"} - {timeBarYears || "30 000 BC"}</p>
+   <div id="account-bar" class="fourth">
+      <div class="account-banner">
+         <Flag color="gold" icon="celticcross" />
+      </div>
+      <p>
+         {$player ? $player.name : "No login information"}
+      </p>
    </div>
    <div id="research-bar" class="fourth">
-      <!-- Get values from variables or show defaults. -->
-      <p class="center"><span class="research">&sext; Researching</span> {researchBarResearch || "No research"}</p>
+      <p class="center"><span class="research">&sext; Researching</span> {researchBarResearch}</p>
+   </div>
+   <div id="time-bar" class="fourth">
+      <p class="center">
+         {turnAndYear}
+      </p>
    </div>
    <div id="menu-bar" class="fourth">
-      <!-- Get values from variables or show defaults. -->
-      <p class="center"><a href="/menu">Menu</a></p>
-   </div>
-   <div id="account-bar" class="fourth">
-      <!-- Get values from variables or show defaults. -->
-      <p class="right">{$player ? $player.name : "No login information."}</p>
+      <p class="right">
+         {#if !fullscreen}
+            <button title="Enable fullscreen" class="hyperlink" on:click={openFullscreen}>
+               <img class="tiny-icon" src="img/icon_fullscreen.png" alt="Full">
+            </button>
+         {/if}
+         {#if fullscreen}
+            <button title="Deactivate fullscreen" class="hyperlink" on:click={closeFullscreen}>
+               <img class="tiny-icon" src="img/icon_disablefullscreen.png" alt="Minimize">
+            </button>
+         {/if}
+         <a href="/menu">
+            <img class="tiny-icon" src="img/icon_menu.png" alt="Main"> Menu
+         </a>
+      </p>
    </div>
 </header>
-<main style="height: {innerHeight - 160}px;">
-   <!-- <div id="sidebar" class="third">
-      // Get values from variables or show defaults. 
-      <h2>{sideBarUnits.unitSelectUnitBuild || "Select a unit to build"}</h2>
-      <a class="button closewindow" title="Close window">X</a>
-      <h3 class="no-bottom-margin">{sideBarUnits.unitOneName||"No unit"}</h3>
-      <p>{sideBarUnits.unitOneDescription||"No description"}</p>
-      <h3 class="no-bottom-margin">{sideBarUnits.unitTwoName||"No unit"}</h3>
-      <p>{sideBarUnits.unitTwoDescription||"No description"}</p>
-      <h3 class="no-bottom-margin">{sideBarUnits.unitThreeName||"No unit"}</h3>
-      <p>{sideBarUnits.unitThreeDescription||"no description"}</p>
-      // Test field input. 
-      <p>
-         <button on:click={populateUnits}>Populate</button>
-         <button on:click={clearAllVariables}>Clear</button>
-      </p>
-   </div> -->
-   {#if mapdata}
-      <Map {mapdata}/>
-   {/if}
+<main style="height: {innerHeight - 128}px;">
+   <Map bind:this={map} />
 </main>
 <footer class="full">
    <div id="info-panel" class="third">
-      <div class="third non-responsive">
-         <img src="" alt="Unit image">
-      </div>
-      <div class="two-thirds non-responsive">
-         <!-- Get values from variables or show defaults. -->
-         <h3>{infoPanel.currentUnit}</h3>
-         <p>{infoPanel.information}</p>
-      </div>
+      <UnitInfo />
    </div>
    <div id="commands-panel" class="third">
-      <p class="left">Command options</p>
-      <!-- Get values from variables or show defaults. -->
-      <p class="center" id="command-buttons">{commandsPanel.commandOne || " - "}{commandsPanel.commandTwo || " - "}{commandsPanel.commandThree || " - "}{commandsPanel.commandTwo || " - "}</p>
+      <CommandOptions />
    </div>
    <div id="status-panel" class="third">
-      <h2 class="center no-bottom-margin">Turn complete</h2>
-      <p class="center"><button id="end-turn">End Turn</button></p>
+      <h2 class="center no-bottom-margin no-top-margin">Turn complete</h2>
+      <p class="center">
+         <button disabled={$busy} class="button" id="end-turn" on:click={endTurn}>End Turn</button>
+      </p>
    </div>
 </footer>

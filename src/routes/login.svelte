@@ -9,16 +9,22 @@
 
 <script>
 import * as sapper from '@sapper/app';
-import Navbar from '../components/Navbar.svelte';
 import { alerts, backend, busy } from '../stores';
 
+// The username is always an e-mail address
 let email = '';
+
+// The password belonging to the e-mail address
 let password = '';
 
+// A login attempt is not possible if a backend call is being done or details are missing
 $: disabled = $busy || !email || !password;
 
+/**
+ * Sends login details to the backend and forwards to the menu in case the login is successful
+ */
 async function login() {
-   const result = await backend('login', { username: email, password });
+   const result = await backend('account/login', { username: email, password });
    if (result === true) {
       sapper.goto('menu', { replace: true });
    } else {
@@ -48,7 +54,7 @@ async function login() {
          <input type=password disabled={$busy} bind:value={password}>
       </div>
    </div>
-   <button {disabled} on:click={login}>Log in</button>
+   <button class="button" {disabled} on:click={login}>Log in</button>
    <div class="row">
       <div class="half">
          <a href="/register" class="button">Register</a>

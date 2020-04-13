@@ -2,6 +2,10 @@
 import { onDestroy } from 'svelte';
 import { alerts } from '../stores';
 
+/**
+ * Removes an alert
+ * @param {number} id The alert's unique ID is used to pick out the right alert
+ */
 function remove(id) {
    alerts.remove(id);
 }
@@ -34,13 +38,12 @@ function remove(id) {
 	padding: 6px 10px;
 	color: #333;
 }
-
 </style>
 
 <div class="messages">
    {#each $alerts as alrt (alrt.id)}
       <div class="container">
-         <span>{@html alrt.message}</span>
+         <span>{alrt.message}</span>
          <div class="closewindow" on:click|stopPropagation={() => remove(alrt.id)}>X</div>
       </div>
    {/each}

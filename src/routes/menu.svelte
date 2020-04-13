@@ -14,20 +14,25 @@ import { backend, busy } from '../stores';
 
 let games = null;
 
+// Gets a list of games that the user participates in
 onMount(async () => {
-   games = await backend('getgames');
+   games = await backend('account/getgames');
 });
 
+/**
+ * Logs the user off
+ */
 async function logoff() {
-   await backend('logoff');
+   await backend('account/logoff');
    sapper.goto('login', { replace: true });
 }
 </script>
+
 <div class="menuwrapper">
    <h1>Menu</h1>
-   <a href="newgame" class="button">New game</a>
    
-   <h3>Active games</h3>
+   <div class="separator"></div>
+   <h2>Active games</h2>
 
    {#if !Array.isArray(games)}
       <span>Loading...</span><br>
@@ -35,11 +40,20 @@ async function logoff() {
       <span>None</span><br>
    {:else}
       {#each games as game (game.id)}
-         <a href={'/game/' + game.id} class="button">{game.name}</a>
-      {/each}
+      <div class="row">
+         <div class="two-thirds non-responsive">
+            <p class="label">{game.name}</p>
+         </div>
+         <div class="third non-responsive">
+            <a href={'/game/' + game.id} class="button">Join <span class="hide-mobile">game</span></a>
+         </div>
+      </div> 
+      {/each} 
    {/if}
+   <div class="separator"></div> 
 
-   <a href="/account" class="button">Account</a>
+   <a href="newgame" class="button">New game</a>
+   <a href="/account" class="button">Account <span class="hide-mobile">Settings</span></a>
 
-   <button disabled={$busy} on:click={logoff} class="cancel">Log off</button>
+   <button class="button cancel" disabled={$busy} on:click={logoff}>Log off</button>
 </div>

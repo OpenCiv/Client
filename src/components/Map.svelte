@@ -180,6 +180,7 @@ async function tile_click(e, tile) {
                         <img src="img/units/nordic.png" alt="nordic" class:active={unit === $selected}> -->
                         <img src="img/units/unit_template.svg" alt="Unknown unit" class:active={unit === $selected}>
                         <img src="img/units/nordic.svg" alt="Nordic">
+                        <img src="img/weapons/spear_copper.svg" alt="Copper spear">
                      </div>
                   {/each}
                   {#each tile.resources as resource}

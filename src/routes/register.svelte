@@ -11,30 +11,47 @@
 import * as sapper from '@sapper/app';
 import { alerts, backend, busy } from '../stores';
 
+// The user's name
 let name = '';
+
+// The user's e-mail address
 let email = '';
+
+// The user's password
 let password = '';
+
+// The user's password again
 let repeat = '';
 
+// Whether a registration can be requested
 $: disabled = $busy || !name || !email || !password;
 
+/**
+ * Registers a new user
+ */
 async function register() {
+
+   // The regular expression tests the e-mail address' validity
    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
    if (!re.test(email)) {
       alerts.add('Not a valid e-mail address');
       return;
    }
 
+   // Check if the user filled in the same password twice
    if (password !== repeat) {
       alerts.add('The passwords are not the same');
       return;
    }
 
+   // Register as a new user
    let result = await backend('account/register', { name, email, password });
    if (!result) {
       sapper.goto('menu', { replace: true });
    } else {
       alerts.add(result);
+
+      // ToDo: result value is too specific
       if (result === 'E-mail address already used') {
          sapper.goto('newpassword', { replace: true });
       }

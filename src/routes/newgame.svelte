@@ -11,8 +11,12 @@
 import * as sapper from '@sapper/app';
 import { backend, busy } from '../stores';
 
+// The name of the new game
 let name;
 
+/**
+ * Sets up a new game
+ */
 async function newgame(e) {
    const gameId = await backend('newgame/initiate', { name });
    sapper.goto('/game/' + gameId);

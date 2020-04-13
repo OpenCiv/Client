@@ -11,13 +11,21 @@
 import * as sapper from '@sapper/app';
 import { alerts, backend, busy } from '../stores';
 
+// Should become equal to the current password
 let oldpass = '';
+
+// The new password
 let newpass = '';
+
+// The new password again
 let repeat = '';
 
 // message === null when a password change is pending
 $: disabled = $busy || !oldpass || !newpass;
 
+/**
+ * Sends the new password to the backend
+ */
 async function submitPassword() {
    if (newpass !== repeat) {
       message = 'The passwords are not the same';

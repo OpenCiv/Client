@@ -14,15 +14,20 @@ import { backend, busy } from '../stores';
 
 let games = null;
 
+// Gets a list of games that the user participates in
 onMount(async () => {
    games = await backend('account/getgames');
 });
 
+/**
+ * Logs the user off
+ */
 async function logoff() {
    await backend('account/logoff');
    sapper.goto('login', { replace: true });
 }
 </script>
+
 <div class="menuwrapper">
    <h1>Menu</h1>
    

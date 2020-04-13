@@ -10,17 +10,25 @@
 <script>
 import { alerts, backend, busy } from '../stores';
 
+// A new password is sent to this e-mail address if it exists in the database
 let email = '';
 
+// Whether a new password can be requested
 $: disabled = $busy || !email;
 
+/**
+ * Sends a new password request to the backend
+ */
 async function submit() {
+
+   // The regular expression tests whether the e-mail address is valid
    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
    if (!re.test(email)) {
       alerts.add('Not a valid e-mail address');
       return;
    }
 
+   // Send a new password request to the backend
    let result = await backend('account/newpassword', { email });
    if (result) {
       alerts.add(`A new password is sent to ${email}`);

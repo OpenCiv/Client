@@ -20,23 +20,31 @@ let email = '';
 let editName = false;
 let editEmail = false;
 
+// Refreshes on mount
+// If a token is passed as URL parameter, it is sent to the backend to verify the user's e-mail address
 onMount(async () => {
    await refresh();
    name = user.name;
    email = user.email;
    if ($page.query.token && !user.verified) {
       let success = await backend('account/verify', { token: $page.query.token });
-      alerts.add(success ? 'Your account is now verified.' : 'Verification failed.');
+      alerts.add(success ? 'Your account is now verified' : 'Verification failed');
       if (success) {
          sapper.goto('menu', { replace: true });
       }
    }
 });
 
+/**
+ * Gets the user's details
+ */
 async function refresh() {
    user = await backend('account/getuser');
 }
 
+/**
+ * Changes the name of the user
+ */
 async function onChangeName() {
    let result = await backend('account/changename', { name });
    editName = false;
@@ -49,6 +57,9 @@ async function onChangeName() {
    }
 }
 
+/**
+ * Changes the e-mail address of the user
+ */
 async function onChangeEmail() {
    let result = await backend('account/changeemail', { email });
    editEmail = false;
@@ -62,6 +73,9 @@ async function onChangeEmail() {
    }
 }
 
+/**
+ * Sends a new verification e-mail
+ */
 async function resend() {
    let result = await backend('account/resend');
    if (result) {
@@ -72,6 +86,9 @@ async function resend() {
    }
 }
 
+/**
+ * Resets the displayed name to the current
+ */
 function cancelName(event) {
    if (event.key === 'Escape') {
       name = user.name;
@@ -79,6 +96,9 @@ function cancelName(event) {
    }
 }
 
+/**
+ * Resets the displayed e-mail address to the current
+ */
 function cancelEmail(event) {
    if (event.key === 'Escape') {
       email = user.email;
@@ -86,11 +106,14 @@ function cancelEmail(event) {
    }
 }
 
+/**
+ * Removes the user entirely
+ */
 async function remove() {
    if (confirm('Are you sure you want to delete your account?')) {
       await backend('account/remove');
+      alerts.add('Your account has been deleted');
       sapper.goto('login', { replace: true });
-      alerts.add('Your account has been deleted.');
    }
 }
 </script>

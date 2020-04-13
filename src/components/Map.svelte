@@ -179,7 +179,7 @@ async function tile_click(e, tile) {
                <div class="tile {tile.type === 'water' ? 'water' : ('ground ' + tile.type + randomized[tile.x][tile.y])}" on:mousedown={e => tile_click(e, tile)}>
                   {#if tile.vegetation}
                      <div class="improvement-back">
-                        <img src="img/improvements/{tile.vegetation}_back.svg" alt={tile.vegetation}> <!-- Background improvement: forests, walls... -->
+                        <img src="img/vegetation/{tile.vegetation}_back.svg" alt={tile.vegetation}> <!-- Background improvement: forests, walls... -->
                      </div>
                   {/if}
                   {#if tile.improvement}
@@ -188,12 +188,12 @@ async function tile_click(e, tile) {
                      </div>
                   {:else if tile.vegetation}
                      <div class="improvement">
-                        <img src="img/improvements/{tile.vegetation}.svg" alt={tile.vegetation}>
+                        <img src="img/vegetation/{tile.vegetation}.svg" alt={tile.vegetation}>
                      </div>
                   {/if}
                   {#if tile.vegetation}
                      <div class="improvement-front">
-                        <img src="img/improvements/{tile.vegetation}_front.svg" alt={tile.vegetation}> <!-- Front improvement: forests, walls... -->
+                        <img src="img/vegetation/{tile.vegetation}_front.svg" alt={tile.vegetation}> <!-- Front improvement: forests, walls... -->
                      </div>
                   {/if}
                   {#each tile.units as unit}

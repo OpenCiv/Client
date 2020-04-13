@@ -42,13 +42,12 @@ async function addAction(action) {
                break;
 
             case 'settle':
-               const order = await backend('game/action', { id: $selected.id, type: 'settle', parameter: '' });
-               if (order !== false) {
-                  action.order = order;
-                  dispatch('addAction', { action });
+               const newActions = await backend('game/action', { id: $selected.id, type: 'settle', parameter: '' });
+               if (newActions) {
+                  $selected.actions = newActions;
+                  selected.set(null);
                }
 
-               selected.set(null);
                break;
 
             default:
@@ -59,13 +58,12 @@ async function addAction(action) {
          break;
 
       case 'build':
-         const order = await backend('game/action', { id: $selected.id, type: 'build', parameter: action.parameter });
-         if (order !== false) {
-            action.order = order;
-            dispatch('newAction', { action });
+         const newActions = await backend('game/action', { id: $selected.id, type: 'build', parameter: action.parameter });
+         if (newActions) {
+            $selected.actions = newActions;
+            selected.set($selected);
          }
 
-         actions = getActions($selected);
          break;
 
       default:

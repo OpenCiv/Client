@@ -7,12 +7,22 @@ import { selected, backend } from '../stores';
 import { capitalize, imgFolder } from '../utilities';
 import IconButton from './IconButton.svelte';
 
+// The selected unit's actions
 let actions = [];
 
+/**
+ * Returns a string representing the action's description
+ * @param {Object} action The action is displayed in a button
+ * @returns {string} A one word description of the action
+ */
 function getDescription(action) {
    return action.type === 'move' ? action.type : action.parameter;
 }
 
+/**
+ * Removes a unit's action
+ * @param {Object} action The action is removed
+ */
 async function removeAction(action) {
    const actions = await backend('game/removeaction', { id: $selected.id, order: action.order });
    $selected.actions = actions;

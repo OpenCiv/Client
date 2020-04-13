@@ -1,6 +1,9 @@
 <script>
+
+// The direction should be set to one of the paths' keys
 export let direction;
 
+// These paths represent arrows directing where the selected unit is coming from or going to on the tile that this component is displayed
 const paths = {
    fromNW: 'M 0,0 L 0,3.5355 71.4645,75 55,75 60,80 80,80 80,60 75,55 75,71.4645 3.5355,0 Z',
    toSE: 'M 80,80 L 80,83.5355 151.4645,155 135,155 140,160 160,160 160,140 155,135 155,151.4645 83.5355,80 Z',

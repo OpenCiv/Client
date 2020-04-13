@@ -51,30 +51,44 @@ export function setData(map, size) {
  * Displays the path that the selected unit is set to take
  */
 const subscription = selected.subscribe(unit => {
-   if (!mapsize) {
+   if (!mapdata || !mapsize) {
       return;
    }
 
+   // First remove all paths that are displayed now
    for (let x = 0; x < mapsize.x; x++) {
       for (let y = 0; y < mapsize.y; y++) {
          delete mapdata[y][x].path;
       }
    }
 
+   // If a unit is deselected, no path is displayed
    if (!unit) {
       return;
    }
 
+   // The starting point of the path is the unit's location itself
    let startX = unit.x;
    let startY = unit.y;
+
+   // Check all actions one by one for moves
    unit.actions.forEach(action => {
+
+      // Only moves are displayed on the map
       if (action.type !== 'move') {
          return;
       }
 
+      // The action's parameter is an array of move steps
       action.parameter.forEach(step => {
+
+         // If the step has a higher X, it moves from west to east
          const changeX = step.x - startX;
+
+         // If the step has a higher Y, it moves from north to south
          const changeY = step.y - startY;
+
+         // These two variables are passed to the Path component
          let from = 'from';
          let to = 'to';
          if (changeY === -1) {
@@ -93,29 +107,31 @@ const subscription = selected.subscribe(unit => {
             to += 'E';
          }
 
+         // Add a path on the present location to show where the unit is going to
          if (!mapdata[startY][startX].path) {
             mapdata[startY][startX].path = [to];
          } else {
             mapdata[startY][startX].path.push(to);
          }
 
+         // Add a path on the destination to show where the unit is coming from
          if (!mapdata[step.y][step.x].path) {
             mapdata[step.y][step.x].path = [from];
          } else {
             mapdata[step.y][step.x].path.push(from);
          }
 
+         // The step will be the starting point for the next step
          startX = step.x;
          startY = step.y;
       });
    });
 
+   // Refresh the map
    mapdata = mapdata;
 });
 
-/**
- * Destroys the subscription on the selected unit
- */
+// Destroys the subscription on the selected unit
 onDestroy(subscription);
 
 /**

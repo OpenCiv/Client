@@ -34,6 +34,10 @@ let turnAndYear = '';
 // The current research
 let researchBarResearch = 'No research';
 
+/**
+ * Sets the displayed turn and date
+ * @param {number} turn The turn number
+ */
 function setTurnAndYear(turn) {
    let date;
    if (turn < 61) {
@@ -61,8 +65,12 @@ function setTurnAndYear(turn) {
    turnAndYear = `Turn ${turn} - ${date}`;
 }
 
+// Refresh when the page is mounted
 onMount(refresh);
 
+/**
+ * Loads the game data
+ */
 async function refresh() {
    let result = await backend('game/load', { game: $page.params.id });
    if (!result) {
@@ -76,16 +84,25 @@ async function refresh() {
    map.setData(result.map, mapsize);
 }
 
+/**
+ * Sets the browser in full screen mode
+ */
 function openFullscreen() {
    document.documentElement.requestFullscreen();
    fullscreen = true;
 }
 
+/**
+ * Puts the browser out of full screen mode
+ */
 function closeFullscreen() {
    document.exitFullscreen();
    fullscreen = false;
 }
 
+/**
+ * Send to the backend that the user finished their turn
+ */
 async function endTurn() {
    selected.set(null);
    const result = await backend('game/endturn');
@@ -95,16 +112,16 @@ async function endTurn() {
 }
 </script>
 
+<!-- The inner height is used to set the map's scroll bar -->
 <svelte:window bind:innerHeight/>
 
 <header class="full">
    <div id="account-bar" class="fourth">
-      <!-- Get values from variables or show defaults. -->
       <div class="account-banner">
-         <Flag primary="#D45722" secondary="#FFEC96" icon="celticcross" />
+         <Flag color="gold" icon="celticcross" />
       </div>
       <p>
-         {$player ? $player.name : "No login information."}
+         {$player ? $player.name : "No login information"}
       </p>
    </div>
    <div id="research-bar" class="fourth">

@@ -1,6 +1,10 @@
 <script>
 import { Colors } from '../utilities';
+
+// The icon or symbol displayed in the flag
 export let icon;
+
+// The color of the flag
 export let color;
 </script>
 

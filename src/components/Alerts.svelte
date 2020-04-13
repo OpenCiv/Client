@@ -2,7 +2,10 @@
 import { onDestroy } from 'svelte';
 import { alerts } from '../stores';
 
-// Removes an alert
+/**
+ * Removes an alert
+ * @param {number} id The alert's unique ID is used to pick out the right alert
+ */
 function remove(id) {
    alerts.remove(id);
 }

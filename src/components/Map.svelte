@@ -177,17 +177,25 @@ async function tile_click(e, tile) {
          <div class="map_row" style="width: {mapsize.x * 128}px;">
             {#each row as tile}
                <div class="tile {tile.type === 'water' ? 'water' : ('ground ' + tile.type + randomized[tile.x][tile.y])}" on:mousedown={e => tile_click(e, tile)}>
-                  {#each tile.improvements as improvement}
+                  {#if tile.vegetation}
                      <div class="improvement-back">
-                        <img src="img/improvements/forest_back.svg" alt=""> <!-- Background improvement: forests, walls... -->
+                        <img src="img/vegetation/{tile.vegetation}_back.svg" alt={tile.vegetation}> <!-- Background improvement: forests, walls... -->
                      </div>
+                  {/if}
+                  {#if tile.improvement}
                      <div class="improvement">
-                        <img src="img/improvements/{improvement.type}.svg" alt={improvement.type} style="opacity: {improvement.completion}">
+                        <img src="img/improvements/{tile.improvement.type}.svg" alt={tile.improvement.type} style="opacity: {tile.improvement.completion}">
                      </div>
+                  {:else if tile.vegetation}
+                     <div class="improvement">
+                        <img src="img/vegetation/{tile.vegetation}.svg" alt={tile.vegetation}>
+                     </div>
+                  {/if}
+                  {#if tile.vegetation}
                      <div class="improvement-front">
-                        <img src="img/improvements/forest_front.svg" alt=""> <!-- Front improvement: forests, walls... -->
+                        <img src="img/vegetation/{tile.vegetation}_front.svg" alt={tile.vegetation}> <!-- Front improvement: forests, walls... -->
                      </div>
-                  {/each}
+                  {/if}
                   {#each tile.units as unit}
                      <div class="unit">
                         <!-- <div class="player-banner">

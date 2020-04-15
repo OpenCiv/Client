@@ -13,7 +13,7 @@ import { stores } from '@sapper/app';
 import Map from '../../../components/Map.svelte';
 import CommandOptions from '../../../components/CommandOptions.svelte';
 import UnitInfo from '../../../components/UnitInfo.svelte';
-import { alerts, backend, selected, player, busy } from '../../../stores';
+import { alerts, backend, selectedUnit, player, busy } from '../../../stores';
 import { capitalize } from '../../../utilities';
 import Flag from '../../../components/Flag.svelte';
 
@@ -104,7 +104,7 @@ function closeFullscreen() {
  * Send to the backend that the user finished their turn
  */
 async function endTurn() {
-   selected.set(null);
+   selectedUnit.set(null);
    const result = await backend('game/endturn');
    if (result) {
       refresh();
@@ -121,7 +121,7 @@ async function endTurn() {
          <Flag color="gold" icon="celticcross" />
       </div>
       <p class="account-name">
-         {$player ? $player.name : "No login information"}
+         {$player ? `${$player.name} (${100 * $player.surplus}%)` : "No login information"}
       </p>
    </div>
    <div id="research-bar" class="fourth">

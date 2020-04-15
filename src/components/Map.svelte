@@ -8,7 +8,7 @@
 
 <script>
 import { onDestroy } from 'svelte';
-import { alerts, backend, selected, player } from '../stores';
+import { alerts, backend, selectedUnit, selectedAction, player, busy } from '../stores';
 import Flag from './Flag.svelte';
 import Path from './Path.svelte';
 
@@ -50,7 +50,7 @@ export function setData(map, size) {
 /**
  * Displays the path that the selected unit is set to take
  */
-const subscription = selected.subscribe(unit => {
+const subscription = selectedUnit.subscribe(unit => {
    if (!mapdata || !mapsize) {
       return;
    }
@@ -149,24 +149,60 @@ function resource_quantity(resource) {
  */
 async function tile_click(e, tile) {
    e.stopPropagation();
+   if ($busy || !$player) {
+      return;
+   }
 
    // Left mouse button (de)selecting a unit
    if (e.which === 1) {
       const unit = tile.units.find(u => u.player_id === $player.id);
-      selected.set(unit);
+      if ($selectedAction === 'newUnit') {
+         if (unit) {
+            if (unit.actions[0]['type'] === 'settle') {
+               const id = await backend('game/newunit', { x: tile.x, y: tile.y });
+               if (id) {
+                  $player.surplus -= 1;
+                  tile.units.push({
+                     id,
+                     x: tile.x,
+                     y: tile.y,
+                     player_id: $player.id,
+                     actions: ['new']
+                  });
+
+                  selectedAction.set(null);
+                  mapdata = mapdata;
+                  return;
+               }
+            }
+         }
+
+         selectedAction.set(null);
+      } else if (unit && unit.actions[0] === 'new') {
+         const result = await backend('game/cancelnewunit', { x: tile.x, y: tile.y });
+         if (result) {
+            $player.surplus += 1;
+            tile.units.slice(units.indexOf(unit), 1);
+            selectedAction.set('newUnit');
+            mapdata = mapdata;
+            return;
+         }
+      }
+
+      selectedUnit.set(unit);
       return;
    }
 
    // The only alternative is moving a unit with the right mouse button
-   if (e.which !== 3 || !$selected) {
+   if (e.which !== 3 || !$selectedUnit) {
       return;
    }
 
    // Send the move action to the backend
-   const actions = await backend('game/action', { id: $selected.id, type: 'move', parameter: `${tile.x},${tile.y}` });
+   const actions = await backend('game/action', { id: $selectedUnit.id, type: 'move', parameter: `${tile.x},${tile.y}` });
    if (actions) {
-      $selected.actions = actions;
-      selected.set($selected);
+      $selectedUnit.actions = actions;
+      selectedUnit.set($selectedUnit);
    }
 }
 </script>
@@ -198,7 +234,7 @@ async function tile_click(e, tile) {
                   {/if}
                   {#each tile.units as unit}
                      <div class="unit">
-                        <img src="img/units/unit_template.svg" alt="Unknown unit" class:active={unit === $selected}>
+                        <img src="img/units/unit_template.svg" alt="Unknown unit" class:active={unit === $selectedUnit}>
                         <div class="player-banner">
                            <Flag color={$player.color} icon={$player.icon} />
                         </div>

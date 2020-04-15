@@ -3,7 +3,8 @@ import axios from 'axios';
 import * as sapper from '@sapper/app';
 
 export const alerts = createAlerts();
-export const selected = writable(undefined);
+export const selectedUnit = writable(null);
+export const selectedAction = writable(null);
 export const busy = writable(false);
 export const player = writable(undefined);
 

@@ -4,34 +4,50 @@
 
 <script>
 import { onDestroy } from 'svelte';
-import { selected, backend, busy } from '../stores';
+import { player, selectedUnit, selectedAction, backend, busy } from '../stores';
 import { capitalize, imgFolder } from '../utilities';
-import IconButton from './IconButton.svelte';
+import ActionButton from './ActionButton.svelte';
 
 let actions = [];
 
 /**
  * Sets the actions based for the selected unit
  */
-const unsubscribe = selected.subscribe(unit => {
-   actions = getActions(unit);
+const unitSubscription = selectedUnit.subscribe(unit => {
+   actions = getBasicActions(unit);
 });
 
-// Destroys the subscription on the selected unit
-onDestroy(unsubscribe);
+const actionSubscription = selectedAction.subscribe(action => {
+   if (action === 'newUnit') {
+      actions = [];
+   }
+});
+
+const playerSubscription = player.subscribe(p => {
+   getBasicActions($selectedUnit);
+});
+
+// Destroys the subscriptions
+onDestroy(() => {
+   unitSubscription();
+   actionSubscription();
+});
 
 /**
  * Returns an array of primary actions
  * @param {Object} unit The unit
  * @returns {Array} An array of actions
  */
-function getActions(unit) {
-   const acts = unit ? [
-      { type: 'group', parameter: 'move' },
-      { type: 'group', parameter: 'build' },
-      { type: 'group', parameter: 'settle' }
-   ] : [];
-   return acts;
+function getBasicActions(unit) {
+   if (unit) {
+      return [
+         { type: 'group', parameter: 'move' },
+         { type: 'group', parameter: 'build' },
+         { type: 'group', parameter: 'settle' }
+      ];
+   }
+
+   return $player && $player.surplus >= 1 ? [{ type: 'player', parameter: 'newUnit' }] : [];
 }
 
 /**
@@ -45,6 +61,10 @@ async function clickAction(action) {
       case 'group':
          switch (action.parameter) {
 
+            case 'move':
+               selectedAction.set(action.parameter);
+               return;
+
             // Replace action buttons with possible build options
             case 'build':
                actions = [
@@ -54,52 +74,43 @@ async function clickAction(action) {
                   { type: 'build', parameter: 'market' },
                   { type: 'build', parameter: 'temple' }
                ];
-               break;
+               return;
 
             // Send the settle action to the backend
             case 'settle':
-               const newActions = await backend('game/action', { id: $selected.id, type: 'settle', parameter: '' });
+               const newActions = await backend('game/action', { id: $selectedUnit.id, type: 'settle', parameter: '' });
                if (newActions) {
-                  $selected.actions = newActions;
-                  selected.set(null);
+                  $selectedUnit.actions = newActions;
+                  selectedUnit.set(null);
                }
 
-               break;
-
-            // In all other cases, display the primary actions
-            default:
-               actions = getActions($selected);
-               break;
+               return;
          }
 
          break;
 
       // Send the build action to the backend
       case 'build':
-         const newActions = await backend('game/action', { id: $selected.id, type: 'build', parameter: action.parameter });
+         const newActions = await backend('game/action', { id: $selectedUnit.id, type: 'build', parameter: action.parameter });
          if (newActions) {
-            $selected.actions = newActions;
-            selected.set($selected);
+            $selectedUnit.actions = newActions;
+            selectedUnit.set($selectedUnit);
          }
 
-         break;
+         return;
 
-      // In all other cases, display the primary actions
-      default:
-         actions = getActions($selected);
-         break;
+      case 'player':
+         selectedAction.set(action.parameter);
+         return;
    }
+
+   actions = getBasicActions($selectedUnit);
 }
 </script>
 
 <h3 class="left no-top-margin">Command options</h3>
 <p>
    {#each actions as action}
-      <IconButton
-         title={capitalize(action.parameter)}
-         on:click={() => clickAction(action)}
-         img="img/{imgFolder[action.type]}/{action.parameter}.svg"
-         alt={action.parameter.slice(0, 3).toUpperCase()}
-      />
+      <ActionButton {action} on:click={() => clickAction(action)} />
    {/each}
 </p>

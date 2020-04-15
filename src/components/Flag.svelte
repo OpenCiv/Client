@@ -11,7 +11,7 @@ export let color;
 <style>
    /* Somehow color iconparts based on this */
    [data-name="iconpart"] {
-      fill: aqua;
+      fill: #444;
    }
 
    svg {
@@ -56,7 +56,7 @@ export let color;
    <use href="#{icon}" />
 </svg>
 
-<!-- Shade -->
+<!-- Little shadow on top of the flag -->
 <svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
    <polygon fill="#222222" opacity=".15" points="0,0 25,0 75,137 50,150 0,125"/>
 </svg>

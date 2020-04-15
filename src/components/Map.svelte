@@ -215,6 +215,11 @@ async function tile_click(e, tile) {
                         <img src="img/resources/{resource.type}.svg" alt={resource.type}>
                      </div>
                   {/each}
+                  <div class="yield">
+                     <p>
+                        <span class="science">2<img src="img/resources/science.svg" alt="Science" class="tiny-icon"></span>
+                     </p>
+                  </div>
                   {#if tile.path}
                      {#each tile.path as direction}
                         <div class="path">

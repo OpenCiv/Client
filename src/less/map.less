@@ -129,7 +129,7 @@
     display: block;
     width: @tile_side;
     height: @tile_side;
-    z-index: 10;
+    //z-index: 10;
 
     img {
         margin-top: -1*@tile_improvement_padding_top;
@@ -145,23 +145,31 @@
 .unit {
     position: relative;
     display: block;
-    z-index: 15;
+    width: 96px;
+    height: 96px;
+    margin-top: @tile_land_padding_top + 16;
+    margin-left: @tile_land_padding_left + 16;
+    //z-index: 15;
+
 
     img {
         // margin-top: -1*@tile_improvement_padding_top;
         display: block;
-        width: 100%;
+        width: 96px;
         position: absolute;
     }
 
     .player-banner {
         position: absolute;
-        top: 8px;
-        left: 36px;
-        // left: @tile_side/2-16px+@tile_land_padding_left;
-        width: 32px;
-        height: 48px;
-        // border-top: 3px solid gold;
+        /* top: 16px;
+        left: 32px;
+        width: 64px;
+        height: 96px; */
+
+        top: 12px;
+        left: 24px;
+        width: 48px;
+        height: 64px;
     }
 }
 
@@ -204,22 +212,18 @@
         position: absolute;
     }
 
-    /* &:after {
-        content: '';
-        position: absolute;
-        left: -1 * @tile_side / 40;
-        top: -1 * @tile_side / 40;
-        width: 0;
-        height: 0;
-        border-left: @tile_side / 12 solid #eee;
-        border-top: @tile_side / 12 solid #eee;
-        border-bottom: @tile_side / 12 solid transparent;
-        border-right: @tile_side / 12 solid transparent;
-        clear: both;
-    } */
 }
 
 .tile:hover .resource {
     right: 8px;
     bottom: 8px;
+}
+
+
+// -----------------------------------------------
+// PATH
+// -----------------------------------------------
+
+.path {
+    width: 100%;
 }

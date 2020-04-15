@@ -232,11 +232,10 @@ async function tile_click(e, tile) {
                   {/if}
                   {#each tile.units as unit}
                      <div class="unit">
-                        <!-- <div class="player-banner">
+                        <img src="img/units/unit_template.svg" alt="Unknown unit" class:active={unit === $selectedUnit}>
+                        <div class="player-banner">
                            <Flag color={$player.color} icon={$player.icon} />
                         </div>
-                        <img src="img/units/nordic.png" alt="nordic" class:active={unit === $selectedUnit}> -->
-                        <img src="img/units/unit_template.svg" alt="Unknown unit" class:active={unit === $selectedUnit}>
                         <img src="img/units/nordic.svg" alt="Nordic">
                         <img src="img/weapons/spear_copper.svg" alt="Copper spear">
                      </div>

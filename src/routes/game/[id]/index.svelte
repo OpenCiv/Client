@@ -120,12 +120,16 @@ async function endTurn() {
       <div class="account-banner">
          <Flag color="gold" icon="celticcross" />
       </div>
-      <p>
+      <p class="account-name">
          {$player ? $player.name : "No login information"}
       </p>
    </div>
    <div id="research-bar" class="fourth">
-      <p class="center"><span class="research">&sext; Researching</span> {researchBarResearch}</p>
+      <p class="center">
+         <img src="img/resources/wealth.svg" class="tiny-icon" alt="Wealth">
+         <span class="wealth">123 </span>
+         <img src="img/resources/science.svg" class="tiny-icon" alt="Science">
+         <span class="research">+123 &rArr;</span> {researchBarResearch} (17)</p>
    </div>
    <div id="time-bar" class="fourth">
       <p class="center">

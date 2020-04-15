@@ -13,6 +13,12 @@ export let color;
    [data-name="iconpart"] {
       fill: aqua;
    }
+
+   svg {
+      position: absolute;
+      left: 0;
+      top: 0;
+   }
 </style>
 
 <!-- Different icons -->
@@ -29,13 +35,10 @@ export let color;
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150" preserveAspectRatio="none">
    <!-- The fill of this polygon should be adjusted to be player's primary color. -->
-   <polygon fill={Colors.getPrimaryColor(color)} points="0,0 100,0 100,110 50,130 0,110"/>
+   <polygon fill={Colors.getPrimaryColor(color)} points="0,0 100,0 100,125 50,150 0,125"/>
 
    <!-- The fill of this polygon should be adjusted to be player's secondary color. -->
    <polygon fill={Colors.getSecondaryColor(color)} points="0,0 100,0 100,9.375 0,9.375"/>
-
-   <!-- Icon is used with its id -->
-   <use href="#{icon}" />
 
    <!-- <svg xmlns="http://www.w3.org/2000/svg">
       {#if icon="celticcross"}
@@ -46,4 +49,14 @@ export let color;
          <path fill={Colors.getSecondaryColor(color)} d="m32 0h32v81h-32z"/>
       {/if}
    </svg> -->
+</svg>
+
+<!-- Icon is used with its id -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96" preserveAspectRatio="none">
+   <use href="#{icon}" />
+</svg>
+
+<!-- Shade -->
+<svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+   <polygon fill="#222222" opacity=".15" points="0,0 25,0 75,137 50,150 0,125"/>
 </svg>

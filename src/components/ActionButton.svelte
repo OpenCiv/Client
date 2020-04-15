@@ -16,18 +16,13 @@
 
 <script>
 import { createEventDispatcher } from 'svelte';
-import { busy } from '../stores';
+import { busy, selectedAction } from '../stores';
+import { capitalize, imgFolder } from '../utilities';
 
 const dispatch = createEventDispatcher();
 
-// The title is displayed on hover (I hope)
-export let title;
-
-// The link to the image file
-export let img;
-
-// The text is displayed when the image could not be loaded
-export let alt;
+// The action this button represents
+export let action;
 
 /**
  * The click event
@@ -39,6 +34,6 @@ function click(e) {
 }
 </script>
 
-<button disabled={$busy} class="button iconbutton" {title} on:click>
-   <img src={img} {alt}>
+<button disabled={$busy} class="button iconbutton" title={capitalize(action.parameter)} on:click>
+   <img src="img/{imgFolder[action.type]}/{action.parameter}.svg" alt={action.parameter.slice(0, 3).toUpperCase()}>
 </button>

@@ -226,13 +226,18 @@
 .yield {
     text-align: center;
     margin: 0 auto;
-    background-color: #333;
+    //background-color: #333;
     width: auto;
     padding: 2px;
     display: flex; // make us of Flexbox
     align-items: center; // does vertically center the desired content
     justify-content: center; // horizontally centers single line items
     text-align: center; // optional, but helps horizontally center text that breaks into multiple lines
+
+    p {
+        margin: 0;
+        width: auto;
+    }
 
     .tiny-icon {
         height: 1.1em;

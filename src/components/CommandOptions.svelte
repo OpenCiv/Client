@@ -19,8 +19,12 @@ const unitSubscription = selectedUnit.subscribe(unit => {
 
 const actionSubscription = selectedAction.subscribe(action => {
    if (action === 'newUnit') {
-      getBasicActions(null);
+      actions = [];
    }
+});
+
+const playerSubscription = player.subscribe(p => {
+   getBasicActions($selectedUnit);
 });
 
 // Destroys the subscriptions
@@ -43,7 +47,7 @@ function getBasicActions(unit) {
       ];
    }
 
-   return $player['surplus'] >= 1 ? [{ type: 'player', parameter: 'newUnit' }] : [];
+   return $player && $player.surplus >= 1 ? [{ type: 'player', parameter: 'newUnit' }] : [];
 }
 
 /**

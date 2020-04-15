@@ -149,7 +149,7 @@ function resource_quantity(resource) {
  */
 async function tile_click(e, tile) {
    e.stopPropagation();
-   if ($busy) {
+   if ($busy || !$player) {
       return;
    }
 
@@ -158,7 +158,7 @@ async function tile_click(e, tile) {
       const unit = tile.units.find(u => u.player_id === $player.id);
       if ($selectedAction === 'newUnit') {
          if (unit) {
-            if (unit.actions[0] === 'settle') {
+            if (unit.actions[0]['type'] === 'settle') {
                const id = await backend('game/newunit', { x: tile.x, y: tile.y });
                if (id) {
                   $player.surplus -= 1;
@@ -176,6 +176,8 @@ async function tile_click(e, tile) {
                }
             }
          }
+
+         selectedAction.set(null);
       } else if (unit && unit.actions[0] === 'new') {
          const result = await backend('game/cancelnewunit', { x: tile.x, y: tile.y });
          if (result) {

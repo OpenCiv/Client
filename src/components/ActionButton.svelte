@@ -32,8 +32,22 @@ function click(e) {
       e
    });
 }
+
+function getParameter() {
+   if (!action) {
+      return '';
+   }
+
+   if (typeof action.parameter === 'string') {
+      return action.parameter;
+   } else {
+      const destination = action.parameter[action.parameter.length - 1];
+      return `${destination.x},${destination.y}`;
+   }
+   return typeof action.parameter === 'string' ? action.parameter : action.parameter[action.parameter.length - 1];
+}
 </script>
 
-<button disabled={$busy} class="button iconbutton" title={capitalize(action.parameter)} on:click>
-   <img src="img/{imgFolder[action.type]}/{action.parameter}.svg" alt={action.parameter.slice(0, 3).toUpperCase()}>
+<button disabled={$busy} class="button iconbutton" title={capitalize(getParameter())} on:click>
+   <img src="img/{imgFolder[action.type]}/{action.parameter}.svg" alt={getParameter().slice(0, 3).toUpperCase()}>
 </button>

@@ -121,7 +121,7 @@ async function endTurn() {
          <Flag color="gold" icon="celticcross" />
       </div>
       <p class="account-name">
-         {$player ? $player.name : "No login information"}
+         {$player ? `${$player.name} (${100 * $player.surplus}%)` : "No login information"}
       </p>
    </div>
    <div id="research-bar" class="fourth">

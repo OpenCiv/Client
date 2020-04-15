@@ -120,7 +120,7 @@ async function endTurn() {
       <div class="account-banner">
          <Flag color="gold" icon="celticcross" />
       </div>
-      <p>
+      <p class="account-name">
          {$player ? $player.name : "No login information"}
       </p>
    </div>

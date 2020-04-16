@@ -253,7 +253,9 @@ async function tile_click(e, tile) {
                   {/each}
                   <div class="yield">
                      <p>
-                        <span class="science">2<img src="img/resources/science.svg" alt="Science" class="tiny-icon"></span>
+                        <span class="production">2<img src="img/resources/production.svg" alt="Production" class="tiny-icon"></span><br>
+                        <span class="wealth">2<img src="img/resources/wealth.svg" alt="Wealth" class="tiny-icon"></span><br>
+                        <span class="food">2<img src="img/resources/food.svg" alt="Wealth" class="tiny-icon"></span>
                      </p>
                   </div>
                   {#if tile.path}

@@ -224,11 +224,8 @@
 // -----------------------------------------------
 
 .yield {
-    text-align: center;
-    margin: 0 auto;
-    //background-color: #333;
+    height: @tile_side;
     width: auto;
-    padding: 2px;
     display: flex; // make us of Flexbox
     align-items: center; // does vertically center the desired content
     justify-content: center; // horizontally centers single line items
@@ -237,14 +234,18 @@
     p {
         margin: 0;
         width: auto;
+        background-color: #444;
+        //background-color: rgba(0, 0, 0, 0.8);
+        padding: 4px 5px 4px 8px;
+        border-radius: 0.75em;
     }
 
     .tiny-icon {
         height: 1.1em;
         display: inline-block;
         margin-bottom: -0.2em;
-        margin-left: 0.2em;
-        margin-right: 0.2em;
+        margin-left: 0.15em;
+        margin-right: 0.15em;
     }
 }
 

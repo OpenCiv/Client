@@ -30,11 +30,9 @@ export default {
 				emitCss: true,
             preprocess: autoPreprocess({}),
             onwarn: (warning, handler) => {
-               if (warning.code === 'css-unused-selector') {
-                  return;
+               if (warning.code !== 'css-unused-selector') {
+                  handler(warning);
                }
-
-               handler(warning);
            }
 			}),
 			resolve({

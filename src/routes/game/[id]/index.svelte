@@ -151,12 +151,12 @@ async function endTurn() {
       <p class="right">
          {#if !displayYield}
          <button title="Enable yield display" class="hyperlink" on:click={toggleDisplayYield}>
-            <img class="tiny-icon" src="img/menuicons/displayyield_false.svg" alt="Enable yield display">
+            <img class="tiny-icon" src="img/menuicons/displayyield_true.svg" alt="Enable yield display">
          </button>
          {/if}
          {#if displayYield}
          <button title="Disable yield display" class="hyperlink" on:click={toggleDisplayYield}>
-            <img class="tiny-icon" src="img/menuicons/displayyield_true.svg" alt="Enable yield display">
+            <img class="tiny-icon" src="img/menuicons/displayyield_false.svg" alt="Enable yield display">
          </button>
          {/if}
          {#if !fullscreen}

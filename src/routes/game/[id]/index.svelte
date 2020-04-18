@@ -151,26 +151,26 @@ async function endTurn() {
       <p class="right">
          {#if !displayYield}
          <button title="Enable yield display" class="hyperlink" on:click={toggleDisplayYield}>
-            <img class="tiny-icon" src="img/toggleyield_false.svg" alt="Enable yield display">
+            <img class="tiny-icon" src="img/menuicons/displayyield_false.svg" alt="Enable yield display">
          </button>
          {/if}
          {#if displayYield}
          <button title="Disable yield display" class="hyperlink" on:click={toggleDisplayYield}>
-            <img class="tiny-icon" src="img/toggleyield_true.svg" alt="Enable yield display">
+            <img class="tiny-icon" src="img/menuicons/displayyield_true.svg" alt="Enable yield display">
          </button>
          {/if}
          {#if !fullscreen}
             <button title="Enable fullscreen" class="hyperlink" on:click={openFullscreen}>
-               <img class="tiny-icon" src="img/icon_fullscreen.png" alt="Full">
+               <img class="tiny-icon" src="img/menuicons/enable_fullscreen.svg" alt="Full">
             </button>
          {/if}
          {#if fullscreen}
             <button title="Deactivate fullscreen" class="hyperlink" on:click={closeFullscreen}>
-               <img class="tiny-icon" src="img/icon_disablefullscreen.png" alt="Minimize">
+               <img class="tiny-icon" src="img/menuicons/disable_fullscreen.svg" alt="Minimize">
             </button>
          {/if}
          <a href="/menu">
-            <img class="tiny-icon" src="img/icon_menu.png" alt="Main"> Menu
+            <img class="tiny-icon" src="img/menuicons/menu.svg" alt="Main"> Menu
          </a>
       </p>
    </div>

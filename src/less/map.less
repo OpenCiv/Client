@@ -143,7 +143,7 @@
 // -----------------------------------------------
 
 .unit {
-    position: relative;
+    position: absolute;
     display: block;
     width: 96px;
     height: 96px;
@@ -254,5 +254,10 @@
 // -----------------------------------------------
 
 .path {
-    width: 100%;
+    width: @tile_side + 4px;
+    height: @tile_side + 4px;
+    margin-top: -2px;
+    margin-left: -2px;
+    margin-bottom: -2px;
+    margin-right: -2px;
 }

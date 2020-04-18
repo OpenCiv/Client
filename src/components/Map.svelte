@@ -235,6 +235,13 @@ async function tile_click(e, tile) {
                         <img src="img/vegetation/{tile.vegetation}_front.svg" alt={tile.vegetation}> <!-- Front improvement: forests, walls... -->
                      </div>
                   {/if}
+                  {#if tile.path}
+                     {#each tile.path as direction}
+                        <div class="path">
+                           <Path {direction} color={$player.color} />
+                        </div>
+                     {/each}
+                  {/if}
                   {#each tile.units as unit}
                      <div class="unit">
                         <img src="img/units/unit_template.svg" alt="Unknown unit" class:active={unit === $selectedUnit}>
@@ -262,13 +269,6 @@ async function tile_click(e, tile) {
                            <span class="food">2<img src="img/resources/food.svg" alt="Food" class="tiny-icon"></span>
                         </p>
                      </div>
-                  {/if}
-                  {#if tile.path}
-                     {#each tile.path as direction}
-                        <div class="path">
-                           <Path {direction} />
-                        </div>
-                     {/each}
                   {/if}
                </div>
             {/each}

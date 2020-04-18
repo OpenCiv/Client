@@ -255,13 +255,13 @@ async function tile_click(e, tile) {
                      </div>
                   {/each}
                   {#if displayYield}
-                  <div class="yield">
-                     <p>
-                        <span class="production">2<img src="img/resources/production.svg" alt="Production" class="tiny-icon"></span><br>
-                        <span class="wealth">2<img src="img/resources/wealth.svg" alt="Wealth" class="tiny-icon"></span><br>
-                        <span class="food">2<img src="img/resources/food.svg" alt="Wealth" class="tiny-icon"></span>
-                     </p>
-                  </div>
+                     <div class="yield">
+                        <p>
+                           <span class="production">2<img src="img/resources/production.svg" alt="Production" class="tiny-icon"></span><br>
+                           <span class="wealth">2<img src="img/resources/wealth.svg" alt="Wealth" class="tiny-icon"></span><br>
+                           <span class="food">2<img src="img/resources/food.svg" alt="Food" class="tiny-icon"></span>
+                        </p>
+                     </div>
                   {/if}
                   {#if tile.path}
                      {#each tile.path as direction}

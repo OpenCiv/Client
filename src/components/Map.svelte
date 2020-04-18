@@ -1,9 +1,5 @@
 <style lang="less">
 @import url("../less/map.less");
-
-.active {
-   background: #FF000080;
-}
 </style>
 
 <script>
@@ -244,7 +240,10 @@ async function tile_click(e, tile) {
                   {/if}
                   {#each tile.units as unit}
                      <div class="unit">
-                        <img src="img/units/unit_template.svg" alt="Unknown unit" class:active={unit === $selectedUnit}>
+                        {#if unit === $selectedUnit}
+                           <img src="img/effects/select_shine.svg" alt="Selected unit">
+                        {/if}
+                        <img src="img/units/unit_template.svg" alt="Unknown unit">
                         <div class="player-banner">
                            <Flag color={$player.color} icon={$player.icon} />
                         </div>

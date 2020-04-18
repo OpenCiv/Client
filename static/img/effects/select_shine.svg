@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 128 128">
+    <defs><style>.a{fill:url(#a);}</style><radialGradient id="a" cx="64.01" cy="64.01" r="60.91" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>
+    <path id="shine" class="a" d="M71.91,65.15,125,72.9l0-18L71.9,62.82a7.89,7.89,0,0,0-.82-2.54L118.6,35.35,108,20.81,69.71,58.4a8.1,8.1,0,0,0-2.16-1.56l23.8-48.1L74.23,3.19l-8.9,52.93a7.49,7.49,0,0,0-2.67,0l-9-52.91L36.55,8.79,60.44,56.84a8.14,8.14,0,0,0-2.16,1.57L19.92,20.88,9.35,35.45,56.91,60.3a8.08,8.08,0,0,0-.82,2.53L3,55V73l53.09-7.83a8.27,8.27,0,0,0,.83,2.56l-47.48,25,10.62,14.53L58.3,69.61a8,8,0,0,0,2.17,1.56L36.73,119.3l17.13,5.52,8.83-52.94A8,8,0,0,0,64,72a8.58,8.58,0,0,0,1.35-.12l9.08,52.89,17.1-5.6-24-48a7.93,7.93,0,0,0,2.15-1.57l38.42,37.47,10.55-14.58L71.09,67.69A7.81,7.81,0,0,0,71.91,65.15Z">
+        <animateTransform attributeName="transform"
+            attributeType="XML"
+            type="rotate"
+            from="0 64 64"
+            to="360 64 64"
+            dur="10s"
+            repeatCount="indefinite"/>
+        <animate attributeName="opacity" dur="1s" keyTimes="0;1" values="0;1" repeatCount="1" restart="always"/>
+    </path>
+</svg>

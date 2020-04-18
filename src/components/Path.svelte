@@ -30,6 +30,7 @@ const paths = {
 {#if direction in paths}
    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 132 132" preserveAspectRatio="none">
       <path fill="#555555" d={paths[direction]} />
+      <!-- To do: The middle circle should only be drawn when turn changes (if moves 2 tiles, no circle to middle tile) -->
       <circle cx="66.04" cy="66.04" fill="#555" r="19"/>
       <circle cx="66.04" cy="66.04" fill="{color}" r="15"/>
       <!-- To do: If given actions such as build, fight etc then draw command icon here "inside" inner circle. -->

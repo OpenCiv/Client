@@ -21,6 +21,9 @@ let mapsize;
 // Contains random numbers from 1 to 3 for randomized layout purposes
 let randomized;
 
+// Display yields?
+export let displayYield;
+
 /**
  * Sets the map data and size
  * @param {Object} map Contains the entire map
@@ -251,6 +254,7 @@ async function tile_click(e, tile) {
                         <img src="img/resources/{resource.type}.svg" alt={resource.type}>
                      </div>
                   {/each}
+                  {#if displayYield}
                   <div class="yield">
                      <p>
                         <span class="production">2<img src="img/resources/production.svg" alt="Production" class="tiny-icon"></span><br>
@@ -258,6 +262,7 @@ async function tile_click(e, tile) {
                         <span class="food">2<img src="img/resources/food.svg" alt="Wealth" class="tiny-icon"></span>
                      </p>
                   </div>
+                  {/if}
                   {#if tile.path}
                      {#each tile.path as direction}
                         <div class="path">

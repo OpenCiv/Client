@@ -25,6 +25,9 @@ let map, unitInfo;
 // True if the browser is in full screen mode
 let fullscreen = false;
 
+// Display tile yield on map?
+let displayYield = false;
+
 // The window's inner height
 let innerHeight;
 
@@ -101,6 +104,14 @@ function closeFullscreen() {
 }
 
 /**
+ * Toggle display tile yields
+ */
+function toggleDisplayYield() {
+   displayYield = !displayYield;
+   console.log('Toggled displaying of tile yields.');
+}
+
+/**
  * Send to the backend that the user finished their turn
  */
 async function endTurn() {
@@ -138,6 +149,16 @@ async function endTurn() {
    </div>
    <div id="menu-bar" class="fourth">
       <p class="right">
+         {#if !displayYield}
+         <button title="Enable yield display" class="hyperlink" on:click={toggleDisplayYield}>
+            <img class="tiny-icon" src="img/toggleyield_false.svg" alt="Enable yield display">
+         </button>
+         {/if}
+         {#if displayYield}
+         <button title="Disable yield display" class="hyperlink" on:click={toggleDisplayYield}>
+            <img class="tiny-icon" src="img/toggleyield_true.svg" alt="Enable yield display">
+         </button>
+         {/if}
          {#if !fullscreen}
             <button title="Enable fullscreen" class="hyperlink" on:click={openFullscreen}>
                <img class="tiny-icon" src="img/icon_fullscreen.png" alt="Full">
@@ -155,7 +176,7 @@ async function endTurn() {
    </div>
 </header>
 <main style="height: {innerHeight - 128}px;">
-   <Map bind:this={map} />
+   <Map bind:this={map} {displayYield} />
 </main>
 <footer class="full">
    <div id="info-panel" class="third">

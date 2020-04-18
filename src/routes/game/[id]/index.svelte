@@ -28,6 +28,9 @@ let fullscreen = false;
 // Display tile yield on map?
 let displayYield = false;
 
+// Display notifications log?
+let displayNotifications = false;
+
 // The window's inner height
 let innerHeight;
 
@@ -112,6 +115,14 @@ function toggleDisplayYield() {
 }
 
 /**
+ * Toggle display notifications log
+ */
+function toggleDisplayNotifications() {
+   displayNotifications = !displayNotifications;
+   console.log('Toggled displaying of notifications log.');
+}
+
+/**
  * Send to the backend that the user finished their turn
  */
 async function endTurn() {
@@ -149,6 +160,16 @@ async function endTurn() {
    </div>
    <div id="menu-bar" class="fourth">
       <p class="right">
+         {#if !displayNotifications}
+         <button title="Show notification log" class="hyperlink" on:click={toggleDisplayNotifications}>
+            <img class="tiny-icon" src="img/menuicons/notifications.svg" alt="Show notification log">
+         </button>
+         {/if}
+         {#if displayNotifications}
+         <button title="Hide notification log" class="hyperlink" on:click={toggleDisplayNotifications}>
+            <img class="tiny-icon" src="img/menuicons/notifications.svg" alt="Hide notification log">
+         </button>
+         {/if}
          {#if !displayYield}
          <button title="Enable yield display" class="hyperlink" on:click={toggleDisplayYield}>
             <img class="tiny-icon" src="img/menuicons/displayyield_true.svg" alt="Enable yield display">
@@ -156,7 +177,7 @@ async function endTurn() {
          {/if}
          {#if displayYield}
          <button title="Disable yield display" class="hyperlink" on:click={toggleDisplayYield}>
-            <img class="tiny-icon" src="img/menuicons/displayyield_false.svg" alt="Enable yield display">
+            <img class="tiny-icon" src="img/menuicons/displayyield_false.svg" alt="Disable yield display">
          </button>
          {/if}
          {#if !fullscreen}
@@ -177,6 +198,26 @@ async function endTurn() {
 </header>
 <main style="height: {innerHeight - 128}px;">
    <Map bind:this={map} {displayYield} />
+   {#if displayNotifications}
+   <div id="sidebar-left" style="height: {innerHeight - 170}px;">
+      <div id="notifications">
+         <h3>Turn 240 - 1100 AD</h3>
+         <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
+         <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
+         <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
+         <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
+         <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
+         <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
+         <h3>Turn 240 - 1100 AD</h3>
+         <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
+         <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
+         <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
+         <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
+         <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
+         <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
+      </div>
+   </div>
+   {/if}
 </main>
 <footer class="full">
    <div id="info-panel" class="third">

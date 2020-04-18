@@ -354,7 +354,7 @@ a:hover .tiny-icon, button:hover .tiny-icon {
 	}
 }
 
-header, footer, #sidebar {
+header, footer, #sidebar-left, #sidebar-right {
 	background-color: #333;
 	.back-stone;
 	.border-stone;
@@ -405,13 +405,20 @@ header, header.full {
 	}
 }
 
-#sidebar {
+#sidebar-left, #sidebar-right {
 	background-color: #444;
+	box-sizing: border-box;
+	overflow: hidden;
 	height: auto;
-	right: 0;
-	margin-top: 48px;
+	width: 25%;
+	top: 0;
+	left: 0;
 	padding: @pad2 0;
-	z-index: 500;
+	margin-top: 42px;
+}
+
+#sidebar-right {
+	right: 0;
 }
 
 footer {
@@ -432,6 +439,17 @@ footer {
 #research-bar, #menu-bar, #commands-panel {
 	background-color: #444;
 	.back-stone;
+}
+
+#notifications {
+	overflow-y: scroll;
+	height: auto;
+
+	h3 {
+		color: #888;
+		border-top: 1px #888 solid;
+		padding-top: 6px;
+	}
 }
 
 .hide-mobile {

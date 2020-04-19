@@ -60,6 +60,14 @@
     border-top-color: #777;
 }
 
+.border-stone-thin {
+	border: @border2;
+	border-right-color: #555;
+    border-bottom-color: #222;
+    border-left-color: #555;
+    border-top-color: #777;
+}
+
 
 /* ======================================================== */
 /* HEADINGS */
@@ -244,7 +252,7 @@ button.hyperlink {
 	padding: 6px 10px;
 	position: absolute;
 	top: @pad2;
-	right: @pad1;
+	right: @pad1/2;
 }
 
 /* ======================================================== */
@@ -354,7 +362,7 @@ a:hover .tiny-icon, button:hover .tiny-icon {
 	}
 }
 
-header, footer, #sidebar-left, #sidebar-right {
+header, footer, #sidebar-left, #sidebar-right, .popup {
 	background-color: #333;
 	.back-stone;
 	.border-stone;
@@ -421,6 +429,22 @@ header, header.full {
 	right: 0;
 }
 
+.popup {
+	box-sizing: border-box;
+	width: 50%;
+	height: auto;
+	max-width: 1000px;
+	min-width: 500px;
+	margin: 64px auto;
+	top: 0px;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
 footer {
 	bottom: 0;
 	height: 128px; // Fixed height so the #map bottom-padding can be fixed
@@ -449,6 +473,71 @@ footer {
 		color: #888;
 		border-top: 1px #888 solid;
 		padding-top: 6px;
+	}
+}
+
+#techtree-container {
+	width: auto;
+	overflow-x: scroll;
+	overflow-y: scroll;
+	margin: 0 12px 12px 12px;
+
+	#techtree {
+		width: max-content;
+		.clearfix;
+
+		.tech-era {
+			border-right: 2px solid #777;
+			width: auto;
+			float: left;
+
+			.tech-path {
+				padding: @pad2 @pad1;
+				.clearfix;
+
+				.tech-card {
+					width: 150px;
+					float: left;
+					padding: 4px;
+					margin-right: 24px;
+					background-color: #555;
+					border-radius: 5px;
+					-webkit-border-radius: 5px;
+					-moz-border-radius: 5px;
+					display: flex;
+					align-items: center;
+					.back-stone;
+					.box-shadow;
+					.border-stone-thin;
+					.clearfix;
+
+					button {
+						float: left;
+					}
+					h3 {
+						display: block;
+						width: 90px;
+						float: left;
+						font-size: 0.9em;
+						margin: 4px 0 2px 8px;
+					}
+				}
+
+				.tech-card:last-of-type {
+					margin-right: 0;
+				}
+
+				.tech-card:hover {
+					cursor: pointer;
+					background-color: #777777;
+					border-top-color: #999999;
+				}
+			}
+		}
+
+		.tech-era:last-of-type {
+			border-right: 0 none transparent;
+		}
 	}
 }
 

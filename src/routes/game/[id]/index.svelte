@@ -11,6 +11,7 @@
 import { onMount } from 'svelte';
 import { stores } from '@sapper/app';
 import Map from '../../../components/Map.svelte';
+import TechTree from '../../../components/TechTree.svelte';
 import CommandOptions from '../../../components/CommandOptions.svelte';
 import UnitInfo from '../../../components/UnitInfo.svelte';
 import { alerts, backend, selectedUnit, player, busy } from '../../../stores';
@@ -30,6 +31,9 @@ let displayYield = false;
 
 // Display notifications log?
 let displayNotifications = false;
+
+// Display tech tree?
+let displayTechTree = false;
 
 // The window's inner height
 let innerHeight;
@@ -123,6 +127,14 @@ function toggleDisplayNotifications() {
 }
 
 /**
+ * Toggle display tech tree
+ */
+function toggleDisplayTechTree() {
+   displayTechTree = !displayTechTree;
+   console.log('Toggled displaying of tech tree.');
+}
+
+/**
  * Send to the backend that the user finished their turn
  */
 async function endTurn() {
@@ -150,8 +162,11 @@ async function endTurn() {
       <p class="center">
          <img src="img/resources/wealth.svg" class="tiny-icon" alt="Wealth">
          <span class="wealth">123 </span>
-         <img src="img/resources/science.svg" class="tiny-icon" alt="Science">
-         <span class="research">+123 &rArr;</span> {researchBarResearch} (17)</p>
+         <button title="Toggle Research window" class="hyperlink" on:click={toggleDisplayTechTree}>
+            <img src="img/resources/science.svg" class="tiny-icon" alt="Science">
+            <span class="research">+123 &rArr; {researchBarResearch} (17)</span>
+         </button>
+      </p>
    </div>
    <div id="time-bar" class="fourth">
       <p class="center">
@@ -217,6 +232,9 @@ async function endTurn() {
          <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
       </div>
    </div>
+   {/if}
+   {#if displayTechTree}
+      <TechTree />
    {/if}
 </main>
 <footer class="full">

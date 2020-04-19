@@ -15,8 +15,12 @@
     }
 </style>
 
+<script>
+    
+</script>
+
 <div class="popup">
-    <button class="hyperlink closewindow" title="Close" on:click={toggleDisplayTechTree}>
+    <button class="hyperlink closewindow" title="Close" on:click>
         <img class="tiny-icon" src="img/menuicons/close.svg" alt="Close window">
     </button>
     <h2 class="center"><img src="img/resources/science.svg" alt="Science" class="tiny-icon"> Research</h2>

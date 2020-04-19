@@ -215,6 +215,9 @@ async function endTurn() {
    <Map bind:this={map} {displayYield} />
    {#if displayNotifications}
    <div id="sidebar-left" style="height: {innerHeight - 170}px;">
+      <button class="hyperlink closewindow" title="Close" on:click={toggleDisplayNotifications}>
+        <img class="tiny-icon" src="img/menuicons/close.svg" alt="Close window">
+      </button>
       <div id="notifications-container">
          <div id="notifications">
             <h3>Turn 240 - 1100 AD</h3>

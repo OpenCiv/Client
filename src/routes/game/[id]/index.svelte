@@ -112,30 +112,6 @@ function closeFullscreen() {
 }
 
 /**
- * Toggle display tile yields
- */
-function toggleDisplayYield() {
-   displayYield = !displayYield;
-   console.log('Toggled displaying of tile yields.');
-}
-
-/**
- * Toggle display notifications log
- */
-function toggleDisplayNotifications() {
-   displayNotifications = !displayNotifications;
-   console.log('Toggled displaying of notifications log.');
-}
-
-/**
- * Toggle display tech tree
- */
-function toggleDisplayTechTree() {
-   displayTechTree = !displayTechTree;
-   console.log('Toggled displaying of tech tree.');
-}
-
-/**
  * Send to the backend that the user finished their turn
  */
 async function endTurn() {
@@ -163,7 +139,7 @@ async function endTurn() {
       <p class="center">
          <img src="img/resources/wealth.svg" class="tiny-icon" alt="Wealth">
          <span class="wealth">123 </span>
-         <button title="Toggle Research window" class="hyperlink" on:click={toggleDisplayTechTree}>
+         <button title="Toggle Research window" class="hyperlink" on:click={() => { displayTechTree = !displayTechTree; }}>
             <img src="img/resources/science.svg" class="tiny-icon" alt="Science">
             <span class="research">+123 &rArr; {researchBarResearch} (17)</span>
          </button>
@@ -176,26 +152,12 @@ async function endTurn() {
    </div>
    <div id="menu-bar" class="fourth">
       <p class="right">
-         {#if !displayNotifications}
-         <button title="Show notification log" class="hyperlink" on:click={toggleDisplayNotifications}>
-            <img class="tiny-icon" src="img/menuicons/notifications.svg" alt="Show notification log">
+         <button title="{displayNotifications ? 'Hide' : 'Show'} notification log" class="hyperlink" on:click={() => { displayNotifications = !displayNotifications; }}>
+            <img class="tiny-icon" src="img/menuicons/notifications.svg" alt="{displayNotifications ? 'Hide' : 'Show'} notification log">
          </button>
-         {/if}
-         {#if displayNotifications}
-         <button title="Hide notification log" class="hyperlink" on:click={toggleDisplayNotifications}>
-            <img class="tiny-icon" src="img/menuicons/notifications.svg" alt="Hide notification log">
+         <button title="{displayYield ? 'Disable' : 'Enable'} yield display" class="hyperlink" on:click={() => { displayYield = !displayYield; }}>
+            <img class="tiny-icon" src="img/menuicons/displayyield_{displayYield ? 'false' : 'true'}.svg" alt="{displayYield ? 'Disable' : 'Enable'} yield display">
          </button>
-         {/if}
-         {#if !displayYield}
-         <button title="Enable yield display" class="hyperlink" on:click={toggleDisplayYield}>
-            <img class="tiny-icon" src="img/menuicons/displayyield_true.svg" alt="Enable yield display">
-         </button>
-         {/if}
-         {#if displayYield}
-         <button title="Disable yield display" class="hyperlink" on:click={toggleDisplayYield}>
-            <img class="tiny-icon" src="img/menuicons/displayyield_false.svg" alt="Disable yield display">
-         </button>
-         {/if}
          {#if !fullscreen}
             <button title="Enable fullscreen" class="hyperlink" on:click={openFullscreen}>
                <img class="tiny-icon" src="img/menuicons/enable_fullscreen.svg" alt="Full">
@@ -215,10 +177,10 @@ async function endTurn() {
 <main style="height: {innerHeight - 128}px;">
    <Map bind:this={map} {displayYield} />
    {#if displayNotifications}
-      <Notifications {innerHeight} on:close={() => {displayNotifications = !displayNotifications}} />
+      <Notifications {innerHeight} on:close={() => { displayNotifications = !displayNotifications; }} />
    {/if}
    {#if displayTechTree}
-      <TechTree on:close={() => {displayTechTree = !displayTechTree}} />
+      <TechTree on:close={() => { displayTechTree = !displayTechTree; }} />
    {/if}
 </main>
 <footer class="full">

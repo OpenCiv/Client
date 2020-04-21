@@ -16,11 +16,17 @@
 </style>
 
 <script>
-    
+import { createEventDispatcher } from 'svelte';
+
+const dispatch = createEventDispatcher();
+
+function close() {
+   dispatch('close');
+}
 </script>
 
 <div class="popup">
-    <button class="hyperlink closewindow" title="Close" on:click>
+    <button class="hyperlink closewindow" title="Close" on:click={close}>
         <img class="tiny-icon" src="img/menuicons/close.svg" alt="Close window">
     </button>
     <h2 class="center"><img src="img/resources/science.svg" alt="Science" class="tiny-icon"> Research</h2>

@@ -218,7 +218,7 @@ async function endTurn() {
       <Notifications {innerHeight} on:close={() => {displayNotifications = !displayNotifications}} />
    {/if}
    {#if displayTechTree}
-      <TechTree {toggleDisplayTechTree} on:close={() => {displayTechTree = !displayTechTree}} />
+      <TechTree on:close={() => {displayTechTree = !displayTechTree}} />
    {/if}
 </main>
 <footer class="full">

@@ -10,13 +10,14 @@
 <script>
 import { onMount } from 'svelte';
 import { stores } from '@sapper/app';
+import { alerts, backend, selectedUnit, player, busy } from '../../../stores';
+import { capitalize } from '../../../utilities';
 import Map from '../../../components/Map.svelte';
 import TechTree from '../../../components/TechTree.svelte';
 import CommandOptions from '../../../components/CommandOptions.svelte';
 import UnitInfo from '../../../components/UnitInfo.svelte';
-import { alerts, backend, selectedUnit, player, busy } from '../../../stores';
-import { capitalize } from '../../../utilities';
 import Flag from '../../../components/Flag.svelte';
+import Notifications from '../../../components/Notifications.svelte';
 
 const { page } = stores();
 
@@ -214,39 +215,10 @@ async function endTurn() {
 <main style="height: {innerHeight - 128}px;">
    <Map bind:this={map} {displayYield} />
    {#if displayNotifications}
-   <div id="sidebar-left" style="height: {innerHeight - 170}px;">
-      <button class="hyperlink closewindow" title="Close" on:click={toggleDisplayNotifications}>
-        <img class="tiny-icon" src="img/menuicons/close.svg" alt="Close window">
-      </button>
-      <div id="notifications-container">
-         <div id="notifications">
-            <h3>Turn 240 - 1100 AD</h3>
-            <p><img class="tiny-icon" src="img/resources/science.svg" alt="Science"> Your civilization discovered Bronze Working! Research has now been focused on Siege Warfare.</p>
-            <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
-            <p><img class="tiny-icon" src="img/improvements/temple.svg" alt="Temple"> A Temple was build to 14, 24.</p>
-            <p><img class="tiny-icon" src="img/menuicons/playerflag.svg" alt="Unit"> Your unit arrived to 12, 22.</p>
-            <p><img class="tiny-icon" src="img/vegetation/forest.svg" alt="Forest"> A Forest has grown to 12, 23.</p>
-            <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
-            <h3>Turn 240 - 1100 AD</h3>
-            <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
-            <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
-            <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
-            <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
-            <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
-            <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
-            <h3>Turn 240 - 1100 AD</h3>
-            <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
-            <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
-            <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
-            <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
-            <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
-            <p><img class="tiny-icon" src="img/menuicons/error.svg" alt="Error"> Something happened.</p>
-         </div>
-      </div>
-   </div>
+      <Notifications {innerHeight} on:close={() => {displayNotifications = !displayNotifications}} />
    {/if}
    {#if displayTechTree}
-      <TechTree {toggleDisplayTechTree} />
+      <TechTree {toggleDisplayTechTree} on:close={() => {displayTechTree = !displayTechTree}} />
    {/if}
 </main>
 <footer class="full">

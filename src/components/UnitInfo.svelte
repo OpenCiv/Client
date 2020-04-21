@@ -25,8 +25,10 @@ function getDescription(action) {
  */
 async function removeAction(action) {
    const actions = await backend('game/removeaction', { id: $selectedUnit.id, order: action.order });
-   $selectedUnit.actions = actions;
-   selectedUnit.set($selectedUnit);
+   if (actions) {
+      $selectedUnit.actions = actions;
+      selectedUnit.set($selectedUnit);
+   }
 }
 </script>
 

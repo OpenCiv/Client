@@ -21,6 +21,9 @@ let randomized;
 // Display yields?
 export let displayYield;
 
+// Display resoure icons?
+export let displayResources;
+
 /**
  * Sets the map data and size
  * @param {Object} map Contains the entire map
@@ -252,16 +255,18 @@ async function tile_click(e, tile) {
                         <img src="img/weapons/spear_copper.svg" alt="Copper spear">
                      </div>
                   {/each}
-                  {#each tile.resources as resource}
-                     <div class="resource" title={resource_quantity(resource)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 240" preserveAspectRatio="none">
-                           <polygon fill="#777777" points="20,130 140,130 80,200"/>
-                           <circle cx="50%" cy="33.333%" r="80" fill="#777777" />
-                           <circle cx="50%" cy="33.333%" r="72" fill="#444444" />
-                        </svg>
-                        <img src="img/resources/{resource.type}.svg" alt={resource.type}>
-                     </div>
-                  {/each}
+                  {#if displayResources}
+                     {#each tile.resources as resource}
+                        <div class="resource" title={resource_quantity(resource)}>
+                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 240" preserveAspectRatio="none">
+                              <polygon fill="#777777" points="20,130 140,130 80,200"/>
+                              <circle cx="50%" cy="33.333%" r="80" fill="#777777" />
+                              <circle cx="50%" cy="33.333%" r="72" fill="#444444" />
+                           </svg>
+                           <img src="img/resources/{resource.type}.svg" alt={resource.type}>
+                        </div>
+                     {/each}
+                  {/if}
                   {#if displayYield}
                      <div class="yield">
                         <p>

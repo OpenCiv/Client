@@ -187,13 +187,11 @@
     display: block;
     padding: 0px;
     position: absolute;
-    right: 12px;
-    bottom: 12px;
-
-    z-index: 10;
+    left: @tile_side / 3;
+    top: @tile_side / 4;
 
     width: @tile_side / 3;
-    height: @tile_side / 3;
+    height: 2 * (@tile_side / 3);
 
     box-sizing: border-box;
 
@@ -215,8 +213,7 @@
 }
 
 .tile:hover .resource {
-    right: 8px;
-    bottom: 8px;
+    top: (@tile_side / 4) - 8px;
 }
 
 // -----------------------------------------------

@@ -31,6 +31,9 @@ let fullscreen = false;
 // Display tile yield on map?
 let displayYield = false;
 
+// Display resource icons on map?
+let displayResources = false;
+
 // Display notifications log?
 let displayNotifications = false;
 
@@ -154,10 +157,13 @@ async function endTurn() {
    <div id="menu-bar" class="fourth">
       <p class="right">
          <button title="{displayNotifications ? 'Hide' : 'Show'} notification log" class="hyperlink" on:click={() => { displayNotifications = !displayNotifications; }}>
-            <img class="tiny-icon" src="img/menuicons/notifications.svg" alt="{displayNotifications ? 'Hide' : 'Show'} notification log">
+            <img class="tiny-icon" src="img/menuicons/displaynotifications_{displayNotifications ? 'false' : 'true'}.svg" alt="{displayNotifications ? 'Hide' : 'Show'} notification log">
          </button>
          <button title="{displayYield ? 'Disable' : 'Enable'} yield display" class="hyperlink" on:click={() => { displayYield = !displayYield; }}>
             <img class="tiny-icon" src="img/menuicons/displayyield_{displayYield ? 'false' : 'true'}.svg" alt="{displayYield ? 'Disable' : 'Enable'} yield display">
+         </button>
+         <button title="{displayResources ? 'Disable' : 'Enable'} resource icon display" class="hyperlink" on:click={() => { displayResources = !displayResources; }}>
+            <img class="tiny-icon" src="img/menuicons/displayresources_{displayResources ? 'false' : 'true'}.svg" alt="{displayResources ? 'Disable' : 'Enable'} resource icon display">
          </button>
          {#if !fullscreen}
             <button title="Enable fullscreen" class="hyperlink" on:click={openFullscreen}>
@@ -176,7 +182,7 @@ async function endTurn() {
    </div>
 </header>
 <main style="height: {innerHeight - 128}px;">
-   <Map bind:this={map} {displayYield} />
+   <Map bind:this={map} {displayYield} {displayResources} />
    {#if displayNotifications}
       <Notifications {innerHeight} on:close={() => { displayNotifications = !displayNotifications; }} />
    {/if}

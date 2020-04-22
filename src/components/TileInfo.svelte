@@ -12,6 +12,9 @@ import { capitalize, Colors } from '../utilities';
 {#if $hoveredTile.vegetation}
 <br><span>{capitalize($hoveredTile.vegetation)}</span>
 {/if}
+{#each $hoveredTile.resources as resource}
+<br><span>{capitalize(resource.type)} ({resource.quantity})</span>
+{/each}
 {#if $hoveredTile.improvement}
 <br><span>{capitalize($hoveredTile.improvement.type)}</span>
 {/if}

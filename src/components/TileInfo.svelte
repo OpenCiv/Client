@@ -16,6 +16,6 @@ import { capitalize, Colors } from '../utilities';
 <br><span>{capitalize($hoveredTile.improvement.type)}</span>
 {/if}
 {#each $hoveredTile.units as unit}
-<br><span style="color: {Colors.getPrimaryColor(unit.color)}">Unit</span>
+<br><span style="color: {Colors.getPrimaryColor(unit.color)}">Unit{#if unit.actions && unit.actions.length > 0}&nbsp;({unit.actions[0].type}){/if}</span>
 {/each}
 </div>

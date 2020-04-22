@@ -1,6 +1,14 @@
+import { players } from './stores';
+
 export const imgFolder = {
    group: 'actions',
    build: 'improvements'
+}
+
+export function getPlayerFromUnit(unit) {
+   let player;
+   players.subscribe(all => player = all.find(p => p.id === unit.player_id))();
+   return player;
 }
 
 export class Colors {
@@ -10,12 +18,20 @@ export class Colors {
          default: return "#808080";
       }
    }
-   
+
    static getSecondaryColor(name) {
       switch (name) {
          case 'gold': return "#FFEC96";
          default: return "#808080";
       }
+   }
+
+   static getUnitPrimaryColor(unit) {
+      return Colors.getPrimaryColor(getPlayerFromUnit(unit).color);
+   }
+
+   static getUnitSecondaryColor(unit) {
+      return Colors.getSecondaryColor(getPlayerFromUnit(unit).color);
    }
 }
 

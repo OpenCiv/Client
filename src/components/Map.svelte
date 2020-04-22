@@ -5,6 +5,7 @@
 <script>
 import { onDestroy } from 'svelte';
 import { alerts, backend, selectedUnit, selectedAction, hoveredTile, player, busy } from '../stores';
+import { getPlayerFromUnit } from '../utilities';
 import Flag from './Flag.svelte';
 import Path from './Path.svelte';
 
@@ -248,7 +249,7 @@ async function tile_click(e, tile) {
                         {/if}
                         <img src="img/units/unit_template.svg" alt="Unknown unit">
                         <div class="player-banner">
-                           <Flag color={$player.color} icon={$player.icon} />
+                           <Flag color={getPlayerFromUnit(unit).color} icon={getPlayerFromUnit(unit).icon} />
                         </div>
                         <img src="img/units/nordic.svg" alt="Nordic">
                         <img src="img/weapons/spear_copper.svg" alt="Copper spear">

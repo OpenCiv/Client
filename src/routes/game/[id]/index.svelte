@@ -10,7 +10,7 @@
 <script>
 import { onMount } from 'svelte';
 import { stores } from '@sapper/app';
-import { alerts, backend, selectedUnit, player, busy } from '../../../stores';
+import { alerts, backend, selectedUnit, hoveredTile, player, busy } from '../../../stores';
 import { capitalize } from '../../../utilities';
 import Map from '../../../components/Map.svelte';
 import TechTree from '../../../components/TechTree.svelte';
@@ -18,6 +18,7 @@ import CommandOptions from '../../../components/CommandOptions.svelte';
 import UnitInfo from '../../../components/UnitInfo.svelte';
 import Flag from '../../../components/Flag.svelte';
 import Notifications from '../../../components/Notifications.svelte';
+import TileInfo from '../../../components/TileInfo.svelte';
 
 const { page } = stores();
 
@@ -181,6 +182,9 @@ async function endTurn() {
    {/if}
    {#if displayTechTree}
       <TechTree on:close={() => { displayTechTree = !displayTechTree; }} />
+   {/if}
+   {#if $hoveredTile}
+      <TileInfo />
    {/if}
 </main>
 <footer class="full">

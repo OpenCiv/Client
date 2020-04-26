@@ -1,4 +1,6 @@
-import { players } from './stores';
+import { statics } from './stores';
+
+const neutral = '#A0A0A0';
 
 export const imgFolder = {
    group: 'actions',
@@ -6,32 +8,32 @@ export const imgFolder = {
 }
 
 export function getPlayerFromUnit(unit) {
-   let player;
-   players.subscribe(all => player = all.find(p => p.id === unit.player_id))();
-   return player;
+   return statics.players.find(p => p.id === unit.player_id);
 }
 
 export class Colors {
    static getPrimaryColor(name) {
       switch (name) {
-         case 'gold': return "#F2D346";
-         default: return "#808080";
+         case 'gold': return '#F2D346';
+         default: return neutral;
       }
    }
 
    static getSecondaryColor(name) {
       switch (name) {
-         case 'gold': return "#FFEC96";
-         default: return "#808080";
+         case 'gold': return '#FFEC96';
+         default: return neutral;
       }
    }
 
    static getUnitPrimaryColor(unit) {
-      return Colors.getPrimaryColor(getPlayerFromUnit(unit).color);
+      const player = getPlayerFromUnit(unit);
+      return player ? Colors.getPrimaryColor(player.color) : neutral;
    }
 
    static getUnitSecondaryColor(unit) {
-      return Colors.getSecondaryColor(getPlayerFromUnit(unit).color);
+      const player = getPlayerFromUnit(unit);
+      return player ? Colors.getSecondaryColor(player.color) : neutral;
    }
 }
 

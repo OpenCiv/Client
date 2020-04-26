@@ -10,7 +10,7 @@
 <script>
 import { onMount } from 'svelte';
 import { stores } from '@sapper/app';
-import { alerts, backend, selectedUnit, hoveredTile, player, players, busy } from '../../../stores';
+import { backend, busy, alerts, statics, selectedUnit, hoveredTile, player } from '../../../stores';
 import { capitalize } from '../../../utilities';
 import Map from '../../../components/Map.svelte';
 import TechTree from '../../../components/TechTree.svelte';
@@ -95,7 +95,7 @@ async function refresh() {
 
    setTurnAndYear(result.game.turn);
    player.set(result.player);
-   players.set(result.players);
+   statics.players = result.players;
    const mapsize = { x: result.game.x, y: result.game.y };
    map.setData(result.map, mapsize);
 }

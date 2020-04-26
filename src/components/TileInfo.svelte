@@ -3,7 +3,7 @@
 </style>
 
 <script>
-import { hoveredTile, players } from '../stores';
+import { hoveredTile } from '../stores';
 import { capitalize, Colors } from '../utilities';
 </script>
 

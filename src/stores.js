@@ -7,8 +7,10 @@ export const selectedUnit = writable(null);
 export const selectedAction = writable(null);
 export const busy = writable(false);
 export const player = writable(undefined);
-export const players = writable(undefined);
 export const hoveredTile = writable(null);
+export const statics = {
+   players: []
+};
 
 export async function backend (address, request) {
    busy.set(true);

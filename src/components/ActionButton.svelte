@@ -35,7 +35,7 @@ function click(e) {
 }
 
 function getParameter() {
-   if (!action) {
+   if (!action || !action.parameter) {
       return '';
    }
 

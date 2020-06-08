@@ -166,6 +166,9 @@ async function endTurn() {
          <button title="{displayResources ? 'Disable' : 'Enable'} resource icon display" class="hyperlink" on:click={() => { displayResources = !displayResources; }}>
             <img class="tiny-icon" src="img/menuicons/displayresources_{displayResources ? 'false' : 'true'}.svg" alt="{displayResources ? 'Disable' : 'Enable'} resource icon display">
          </button>
+         <button title="Zoom in" class="hyperlink">
+            <img class="tiny-icon" src="img/menuicons/zoom_in.svg" alt="Zoom in">
+         </button>
          {#if !fullscreen}
             <button title="Enable fullscreen" class="hyperlink" on:click={openFullscreen}>
                <img class="tiny-icon" src="img/menuicons/enable_fullscreen.svg" alt="Full">

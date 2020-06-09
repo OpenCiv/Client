@@ -1,6 +1,34 @@
 <style lang="less">
    @import url("../less/layout.less");
 
+   #notifications-container {
+      width: auto;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      margin: 0 12px 12px 12px;
+
+      #notifications {
+         height: max-content;
+      
+         p {
+            line-height: 110%;
+            margin: 1em 0 1.2em 0;
+         }
+
+         h3 {
+            border-top: 1px #888 solid;
+            padding-top: 6px;
+            margin: 1.5em 0 1.2em 0;
+         }
+
+         h3:first-of-type {
+            margin-top: 0;
+            border-top: 0 transparent none;
+         }
+      }
+   }
+
    .iconbutton, .iconbutton:visited, .iconbutton:hover {
       height: 36px;
       width: 36px;

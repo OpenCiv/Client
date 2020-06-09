@@ -7,6 +7,7 @@
 @color_normal: #F2D346; /* Primary theme color */
 @color_dark: #AB9D61;
 @color_light: #FFEC96;
+@color_research: #96BFFF;
 @color_negatext: #333333; /* Text color */
 @color_text: #f5f5f5; /* Negative text color */
 @color_buttontext: #806F25;
@@ -154,7 +155,7 @@ ul li {
 }
 
 .research {
-	color: #96BFFF;
+	color: @color_research;
 }
 
 .wealth {
@@ -464,99 +465,6 @@ footer {
 #research-bar, #menu-bar, #commands-panel {
 	background-color: #444;
 	.back-stone;
-}
-
-#notifications-container {
-	width: auto;
-	height: 100%;
-	overflow-x: hidden;
-	overflow-y: scroll;
-	margin: 0 12px 12px 12px;
-
-	#notifications {
-		height: max-content;
-	
-		p {
-			line-height: 110%;
-			margin: 1em 0 1.2em 0;
-		}
-
-		h3 {
-			border-top: 1px #888 solid;
-			padding-top: 6px;
-			margin: 1.5em 0 1.2em 0;
-		}
-
-		h3:first-of-type {
-			margin-top: 0;
-			border-top: 0 transparent none;
-		}
-	}
-}
-
-#techtree-container {
-	width: auto;
-	overflow-x: scroll;
-	overflow-y: scroll;
-	margin: 0 12px 12px 12px;
-
-	#techtree {
-		width: max-content;
-		.clearfix;
-
-		.tech-era {
-			border-right: 2px solid #777;
-			width: auto;
-			float: left;
-
-			.tech-path {
-				padding: @pad2 @pad1;
-				.clearfix;
-
-				.tech-card {
-					width: 150px;
-					float: left;
-					padding: 4px;
-					margin-right: 24px;
-					background-color: #555;
-					border-radius: 5px;
-					-webkit-border-radius: 5px;
-					-moz-border-radius: 5px;
-					display: flex;
-					align-items: center;
-					.back-stone;
-					.box-shadow;
-					.border-stone-thin;
-					.clearfix;
-
-					button {
-						float: left;
-					}
-					h3 {
-						display: block;
-						width: 90px;
-						float: left;
-						font-size: 0.9em;
-						margin: 4px 0 2px 8px;
-					}
-				}
-
-				.tech-card:last-of-type {
-					margin-right: 0;
-				}
-
-				.tech-card:hover {
-					cursor: pointer;
-					background-color: #777777;
-					border-top-color: #999999;
-				}
-			}
-		}
-
-		.tech-era:last-of-type {
-			border-right: 0 none transparent;
-		}
-	}
 }
 
 .hide-mobile {

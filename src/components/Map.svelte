@@ -24,6 +24,9 @@ export let displayYield;
 // Display resoure icons?
 export let displayResources;
 
+// Map zoom level
+export let zoomLevel;
+
 /**
  * Sets the map data and size
  * @param {Object} map Contains the entire map
@@ -211,7 +214,7 @@ async function tile_click(e, tile) {
 </script>
 
 {#if mapdata && mapsize}
-   <div id="map" class="full" style="width: {mapsize.x * 128}px;" on:mouseleave={() => { hoveredTile.set(null); }}>
+   <div id="map" class="full" style="width: {mapsize.x * 128}px; zoom: {zoomLevel};" on:mouseleave={() => { hoveredTile.set(null); }}>
       {#each mapdata as row}
          <div class="map_row" style="width: {mapsize.x * 128}px;">
             {#each row as tile}

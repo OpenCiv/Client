@@ -43,6 +43,9 @@ let displayTechTree = false;
 // The window's inner height
 let innerHeight;
 
+// The zoom level of map
+let zoomLevel = 1;
+
 // The displayed turn and year
 let turnAndYear = '';
 
@@ -117,6 +120,48 @@ function closeFullscreen() {
 }
 
 /**
+ * Toggles zoom level
+ */
+function toggleZoomLevel() {
+   if (zoomLevel == 0.25) {
+      zoomLevel = 0.5;
+   }
+   else if (zoomLevel == 0.5) {
+      zoomLevel = 0.75;
+   }
+   else if (zoomLevel == 0.75) {
+      zoomLevel = 1;
+   }
+   else if (zoomLevel == 1) {
+      zoomLevel = 1.5;
+   }
+   else if (zoomLevel == 1.5) {
+      zoomLevel = 2;
+   }
+   else if (zoomLevel == 2) {
+      zoomLevel = 0.25;
+   }
+}
+
+/**
+ * Increases zoom level, to be binded with keyboard plus key!
+ */
+function zoomIn() {
+   if (zoomLevel < 2) {
+      zoomLevel += 0.25;
+   }
+}
+
+/**
+ * Decreases zoom level, to be binded with keyboard minus key!
+ */
+function zoomOut() {
+   if (zoomLevel > 0.25) {
+      zoomLevel -= 0.25;
+   }
+}
+
+/**
  * Send to the backend that the user finished their turn
  */
 async function endTurn() {
@@ -166,7 +211,7 @@ async function endTurn() {
          <button title="{displayResources ? 'Disable' : 'Enable'} resource icon display" class="hyperlink" on:click={() => { displayResources = !displayResources; }}>
             <img class="tiny-icon" src="img/menuicons/displayresources_{displayResources ? 'false' : 'true'}.svg" alt="{displayResources ? 'Disable' : 'Enable'} resource icon display">
          </button>
-         <button title="Zoom in" class="hyperlink">
+         <button title="Toggle zoom level" class="hyperlink" on:click={toggleZoomLevel}>
             <img class="tiny-icon" src="img/menuicons/zoom_in.svg" alt="Zoom in">
          </button>
          {#if !fullscreen}
@@ -186,7 +231,7 @@ async function endTurn() {
    </div>
 </header>
 <main style="height: {innerHeight - 128}px;">
-   <Map bind:this={map} {displayYield} {displayResources} />
+   <Map bind:this={map} {displayYield} {displayResources} {zoomLevel} />
    {#if displayNotifications}
       <Notifications {innerHeight} on:close={() => { displayNotifications = !displayNotifications; }} />
    {/if}

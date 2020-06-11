@@ -219,6 +219,11 @@ async function tile_click(e, tile) {
          <div class="map_row" style="width: {mapsize.x * 128}px;">
             {#each row as tile}
                <div class="tile {tile.type === 'water' ? 'water' : ('ground ' + tile.type + randomized[tile.x][tile.y])}" on:mousedown={e => tile_click(e, tile)} on:mouseover={() => { hoveredTile.set(tile); }}>
+                  {#if tile.type != 'water'}   
+                     <div class="hill">
+                        <img src="img/terrain/grass_hill0.svg" alt="Hill"> <!-- Hill -->
+                     </div>
+                  {/if}
                   {#if tile.vegetation}
                      <div class="improvement-back">
                         <img src="img/vegetation/{tile.vegetation}_back.svg" alt={tile.vegetation}> <!-- Background improvement: forests, walls... -->

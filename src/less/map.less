@@ -56,7 +56,8 @@
     float: left;
     position: relative;
 
-    box-sizing: border-box;
+    padding: @tile_land_padding_top @tile_land_padding_right @tile_land_padding_bottom @tile_land_padding_left;
+
     background-color: transparent;
     background-size: cover;
 
@@ -124,18 +125,21 @@
 // IMPROVEMENT
 // -----------------------------------------------
 
-.improvement, .improvement-back, .improvement-front {
+.hill, .improvement, .improvement-back, .improvement-front {
     position: absolute;
     display: block;
     width: @tile_side;
     height: @tile_side;
-    //z-index: 10;
 
     img {
         margin-top: -1*@tile_improvement_padding_top;
         display: block;
         width: 100%;
     }
+}
+
+.hill img {
+    margin: 0 auto;
 }
 
 // -----------------------------------------------
@@ -148,7 +152,7 @@
     width: 96px;
     height: 96px;
     margin-top: @tile_land_padding_top + 16;
-    margin-left: @tile_land_padding_left + 16;
+    margin-left: 14px;
     //z-index: 15;
 
 

@@ -40,6 +40,7 @@ async function submit() {
 </script>
 
 <div class="menuwrapper">
+   <img src="../img/branding/prosper_logo.svg" alt="Prosper" class="menulogo">
    <h1>Reset password</h1>
    <p>
       Please fill in your e-mail address. A new password will be sent to the address if it has an account.

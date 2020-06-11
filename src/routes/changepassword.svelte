@@ -43,7 +43,11 @@ async function submitPassword() {
 </script>
 
 <div class="menuwrapper">
+   <img src="../img/branding/prosper_logo.svg" alt="Prosper" class="menulogo">
    <h1>Change password</h1>
+
+   <div class="separator"></div>
+
    <div class="row">
       <div class="third left">
          <label>Current password</label>
@@ -68,6 +72,9 @@ async function submitPassword() {
          <input type=password disabled={$busy} bind:value={repeat}>
       </div>
    </div>
+
+   <div class="separator"></div>
+
    <button class="button" {disabled} on:click={submitPassword}>Submit</button>
    <a href="/account" class="button cancel">Back</a>
 </div>

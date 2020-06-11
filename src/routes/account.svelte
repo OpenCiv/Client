@@ -119,6 +119,7 @@ async function remove() {
 </script>
 
 <div class="menuwrapper">
+   <img src="../img/branding/prosper_logo.svg" alt="Prosper" class="menulogo">
    <h1>Account Settings</h1>
    {#if !user}
       <span>Loading...</span>

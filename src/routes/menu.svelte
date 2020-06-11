@@ -29,6 +29,7 @@ async function logoff() {
 </script>
 
 <div class="menuwrapper">
+   <img src="../img/branding/prosper_logo.svg" alt="Prosper" class="menulogo">
    <h1>Menu</h1>
    
    <div class="separator"></div>

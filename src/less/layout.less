@@ -260,7 +260,7 @@ button.hyperlink {
 /* FORMS */
 /* ======================================================== */
 
-input[type=text], input[type=password], input[type=email] {
+input[type=text], input[type=password], input[type=email], select {
 	display: block;
 	width: 100%;
 	min-height: 36px;
@@ -273,6 +273,11 @@ input[type=text], input[type=password], input[type=email] {
 	padding: @pad1/4 0.75*@pad1 @pad1/4-2px 0.75*@pad1;
 	border: 0px none;
 	outline: none;
+}
+
+select {
+	height: 36px;
+	margin: 1em 0;
 }
 
 label, .label {
@@ -365,7 +370,8 @@ a:hover .tiny-icon, button:hover .tiny-icon {
 	.menulogo {
 		margin: @pad2 auto;
 		display: block;
-		max-width: 80%;
+		width: 80%;
+		max-width: 250px;
 	}
 }
 

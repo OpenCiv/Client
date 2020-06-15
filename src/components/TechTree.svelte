@@ -41,6 +41,7 @@
                     .clearfix;
 
                     .tech-card {
+                        position: relative;
                         width: 150px;
                         float: left;
                         padding: 4px;
@@ -66,6 +67,38 @@
                             font-size: 0.9em;
                             margin: 4px 0 2px 8px;
                         }
+
+                        .tech-upgrades {
+                            display: none;
+                            background-color: #555;
+
+                            width: 150px;
+                            position: absolute;
+                            top: 0;
+                            left: 150px;
+                            z-index: 100;
+
+                            font-size: 0.7em;
+
+                            .back-stone;
+                            .border-stone-thin;
+
+                            img {
+                                width: 3.5em;
+                                float: left;
+                                margin: 0 0.75em 1em 1em;
+                            }
+
+                            h4 {
+                                margin: 1em 1em 0 0.75em;
+                                line-height: 110%;
+                            }
+
+                            p {
+                                margin: 0 1em 1.25em 0.75em;
+                                line-height: 110%;
+                            }
+                        }
                     }
 
                     .tech-card:last-of-type {
@@ -76,6 +109,10 @@
                         cursor: pointer;
                         background-color: #777777;
                         border-top-color: #999999;
+
+                        .tech-upgrades {
+                            display: block;
+                        }
                     }
 
                     .tech-card.unavailable {
@@ -180,6 +217,18 @@ function close() {
                             <img src="img/resources/production.svg" alt="Tech icon">
                         </div>
                         <h3>Stone Tools</h3>
+                        <div class="tech-upgrades">
+                            <div class="tech-upgrade">
+                                <img alt="Stone" src="img/resources/stone.svg">
+                                <h4>Stone</h4>
+                                <p>A common building material, required for many buildings.</p>
+                            </div>
+                            <div class="tech-upgrade">
+                                <img alt="Stone" src="img/resources/production.svg">
+                                <h4>Mine</h4>
+                                <p>Common improvement that provides materials.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="tech-path">

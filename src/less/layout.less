@@ -29,7 +29,7 @@
 	margin-left: 0;
 	margin-bottom: 0;
 	padding: 0;
-	float: left;
+	//float: left;
 	display: block;
 	max-height: inherit;
 }
@@ -160,6 +160,10 @@ ul li {
 
 .wealth {
 	color: rgb(255, 222, 150);
+}
+
+.growth {
+	color: rgb(51, 204, 51);
 }
 
 /* ======================================================== */
@@ -327,10 +331,16 @@ a:hover .tiny-icon, button:hover .tiny-icon {
 	width: 100%;
 	float: left;
 	overflow-x: hidden;
+	
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .row {
 	.clearfix;
+	
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .separator {
@@ -397,12 +407,12 @@ main {
 header, header.full {
 	top: 0;
 	padding: 0;
-	height: 42px; // Fixed height so the #map top-padding can be fixed
-	overflow: hidden;
+	height: 84px; // Fixed height so the #map top-padding can be fixed
 	box-sizing: border-box;
 	z-index: 500;
 	text-transform: uppercase;
 	letter-spacing: 1px;
+	overflow-x: visible;
 
 	border-top: 0px none;
 
@@ -414,15 +424,13 @@ header, header.full {
 
 	.account-banner {
 		width: 32px;
-		height: 40px;
 		position: relative;
-		float: left;
 	}
 	
 	.account-name {
 		width: auto;
-		float: left;
-		margin-left: @pad1;
+		text-align: center;
+		margin-left: @pad1 + 32px;
 	}
 }
 
@@ -536,16 +544,22 @@ footer {
 /* ======================================================== */
 /* TABLET */
 /* ======================================================== */
-
-
-
+@media only screen and (min-width: 640px) {
+	header, header.full {
+		height: 42px; // Fixed height so the #map top-padding can be fixed
+	}
+}
 /* ======================================================== */
 /* DESKTOPS & BIGGER SCREENS */
 /* ======================================================== */
-@media only screen and (min-width: 640px) {
+@media only screen and (min-width: 1024px) {
 
 	.menuwrapper {
 		margin: @pad3 auto;
+	}
+
+	.full {
+		flex-wrap: nowrap;
 	}
 
 	.half, .two-thirds, .third, .fourth, .sixth {
@@ -593,7 +607,7 @@ footer {
 	}
 
 	.hide-mobile {
-		display: inherit;
+		display: initial;
 	}
 
 	.hide-desktop {

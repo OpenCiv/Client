@@ -181,21 +181,20 @@ async function endTurn() {
       <div class="account-banner">
          <Flag color="gold" icon="celticcross" />
       </div>
-      <p class="account-name">
+      <p class="account-name three-fours non-responsive">
          {$player ? `${$player.name} (${100 * $player.surplus}%)` : "No login information"}
       </p>
    </div>
    <div id="research-bar" class="fourth">
       <p class="center">
-         <img src="img/resources/wealth.svg" class="tiny-icon" alt="Wealth">
-         <span class="wealth">123 </span>
+         <span class="wealth"><img src="img/resources/wealth.svg" class="tiny-icon" alt="Wealth">123 </span>
          <button title="Toggle Research window" class="hyperlink" on:click={() => { displayTechTree = !displayTechTree; }}>
-            <img src="img/resources/science.svg" class="tiny-icon" alt="Science">
-            <span class="research">+123 &rArr; {researchBarResearch} (17)</span>
+            <span class="research"><img src="img/resources/science.svg" class="tiny-icon" alt="Science">+123 &rArr; <span class="hide-mobile">{researchBarResearch}</span> (17)</span>
          </button>
+         <span class="growth"><img src="img/resources/food.svg" class="tiny-icon" alt="Growth">+12 (3)</span>
       </p>
    </div>
-   <div id="time-bar" class="fourth">
+   <div id="time-bar" class="fourth hide-mobile">
       <p class="center">
          {turnAndYear}
       </p>

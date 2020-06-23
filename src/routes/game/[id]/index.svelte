@@ -241,18 +241,20 @@ async function endTurn() {
    {#if displayTechTree}
       <TechTree on:close={() => { displayTechTree = !displayTechTree; }} />
    {/if}
-   {#if $hoveredTile}
-      <TileInfo />
-   {/if}
 </main>
 <footer class="full">
-   <div id="info-panel" class="third">
-      <UnitInfo />
+   <div id="info-panel" class="footer-panel fourth">
+      {#if $hoveredTile}
+         <TileInfo />
+      {/if}
    </div>
-   <div id="commands-panel" class="third">
+   <div id="commands-panel" class="footer-panel fourth">
       <CommandOptions />
    </div>
-   <div id="status-panel" class="third">
+   <div id="commands-panel2" class="footer-panel fourth">
+      <UnitInfo />
+   </div>
+   <div id="status-panel" class="footer-panel fourth">
       <h2 class="center no-bottom-margin no-top-margin">Turn complete</h2>
       <p class="center">
          <button disabled={$busy} class="button" id="end-turn" on:click={endTurn}>End Turn</button>

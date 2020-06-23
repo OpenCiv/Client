@@ -32,16 +32,14 @@ async function removeAction(action) {
 }
 </script>
 
-<div class="two-thirds non-responsive">
-   {#if $selectedUnit}
-      <h3 class="no-top-margin">Current orders</h3>
-      <p>
-         {#if $selectedUnit.actions === 0}
-            <span>None</span>
-         {/if}
-         {#each $selectedUnit.actions as action}
-            <ActionButton {action} on:click={() => removeAction(action)} />
-         {/each}
-      </p>
-   {/if}
-</div>
+{#if $selectedUnit}
+   <h3 class="no-top-margin"><span class="hide-mobile">Order Queue</span><span class="hide-desktop">Orders</span></h3>
+   <p>
+      {#if $selectedUnit.actions === 0}
+         <span>None</span>
+      {/if}
+      {#each $selectedUnit.actions as action}
+         <ActionButton {action} on:click={() => removeAction(action)} />
+      {/each}
+   </p>
+{/if}

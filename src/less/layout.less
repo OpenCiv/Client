@@ -470,11 +470,15 @@ footer {
 	display: flex;
 }
 
-#info-panel, #commands-panel, #status-panel {
+#info-panel, #commands-panel, #commands-panel2, #status-panel, .footer-panel {
 	padding: @pad2;
+	h3, p, table {
+		margin-left: @pad1/2;
+		margin-right: @pad1/2;
+	}
 }
 
-#research-bar, #menu-bar, #commands-panel {
+#research-bar, #menu-bar, #commands-panel, #status-panel {
 	background-color: #444;
 	.back-stone;
 }
@@ -528,6 +532,12 @@ footer {
 	width: 33.333%;
 	clear: none;
 }
+
+/* ======================================================== */
+/* TABLET */
+/* ======================================================== */
+
+
 
 /* ======================================================== */
 /* DESKTOPS & BIGGER SCREENS */
@@ -584,6 +594,10 @@ footer {
 
 	.hide-mobile {
 		display: inherit;
+	}
+
+	.hide-desktop {
+		display: none;
 	}
 
 }

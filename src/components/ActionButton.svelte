@@ -11,7 +11,8 @@
 	border-color: @color_text;
 	color: @color_negatext;
 	background-color: darken(@color_text,10%);
-	letter-spacing: 0px;
+   letter-spacing: 0px;
+   margin-right: 8px;
 }
 </style>
 

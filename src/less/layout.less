@@ -330,7 +330,7 @@ a:hover .tiny-icon, button:hover .tiny-icon {
 .full {
 	width: 100%;
 	float: left;
-	overflow-x: hidden;
+	overflow: hidden;
 	
 	display: flex;
 	flex-wrap: wrap;
@@ -424,7 +424,8 @@ header, header.full {
 
 	.account-banner {
 		width: 32px;
-		position: relative;
+		left: 16px;
+		position: fixed;
 	}
 	
 	.account-name {
@@ -476,6 +477,8 @@ footer {
 	border-bottom: 0px none;
 
 	display: flex;
+	width: 400%;
+	overflow-x: scroll;
 }
 
 #info-panel, #commands-panel, #commands-panel2, #status-panel, .footer-panel {
@@ -489,10 +492,6 @@ footer {
 #research-bar, #menu-bar, #commands-panel, #status-panel {
 	background-color: #444;
 	.back-stone;
-}
-
-.hide-mobile {
-	display: none;
 }
 
 /* ======================================================== */
@@ -541,10 +540,23 @@ footer {
 	clear: none;
 }
 
+.hide-mobile {
+	display: none;
+}
+
 /* ======================================================== */
 /* TABLET */
 /* ======================================================== */
 @media only screen and (min-width: 640px) {
+	
+	.fourth {
+		width: 50%;
+	}
+
+	.fourth.non-responsive {
+		width: 25%;
+	}
+	
 	header, header.full {
 		height: 42px; // Fixed height so the #map top-padding can be fixed
 	}
@@ -560,6 +572,11 @@ footer {
 
 	.full {
 		flex-wrap: nowrap;
+	}
+
+	footer {
+		width: 100%;
+		overflow-x: hidden;
 	}
 
 	.half, .two-thirds, .third, .fourth, .sixth {

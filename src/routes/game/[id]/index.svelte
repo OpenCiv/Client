@@ -177,10 +177,10 @@ async function endTurn() {
 <svelte:window bind:innerHeight/>
 
 <header class="full">
-   <div id="account-bar" class="fourth">
-      <div class="account-banner">
-         <Flag color="gold" icon="celticcross" />
-      </div>
+   <div class="account-banner">
+      <Flag color="gold" icon="celticcross" />
+   </div>
+   <div id="account-bar" class="fourth hide-mobile">
       <p class="account-name three-fours non-responsive">
          {$player ? `${$player.name} (${100 * $player.surplus}%)` : "No login information"}
       </p>
@@ -227,7 +227,7 @@ async function endTurn() {
             </button>
          {/if}
          <a href="/menu">
-            <img class="tiny-icon" src="img/menuicons/menu.svg" alt="Main"> Menu
+            <img class="tiny-icon" src="img/menuicons/menu.svg" alt="Main"> <span class="hide-mobile">Menu</span>
          </a>
       </p>
    </div>
@@ -241,7 +241,7 @@ async function endTurn() {
       <TechTree on:close={() => { displayTechTree = !displayTechTree; }} />
    {/if}
 </main>
-<footer class="full">
+<footer>
    <div id="info-panel" class="footer-panel fourth">
       {#if $hoveredTile}
          <TileInfo />

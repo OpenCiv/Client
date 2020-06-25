@@ -28,7 +28,6 @@
 	clear: both;
 	margin-left: 0;
 	margin-bottom: 0;
-	padding: 0;
 	//float: left;
 	display: block;
 	max-height: inherit;
@@ -477,21 +476,27 @@ footer {
 	border-bottom: 0px none;
 
 	display: flex;
+	flex-wrap: nowrap;
 	width: 400%;
 	overflow-x: scroll;
 }
 
-#info-panel, #commands-panel, #commands-panel2, #status-panel, .footer-panel {
+.footer-panel {
 	padding: @pad2;
+
 	h3, p, table {
-		margin-left: @pad1/2;
-		margin-right: @pad1/2;
+		margin-left: 0;
+		margin-right: 0;
 	}
 }
 
 #research-bar, #menu-bar, #commands-panel, #status-panel {
 	background-color: #444;
 	.back-stone;
+}
+
+#research-bar {
+	flex-grow: 2;
 }
 
 /* ======================================================== */
@@ -559,6 +564,11 @@ footer {
 	
 	header, header.full {
 		height: 42px; // Fixed height so the #map top-padding can be fixed
+	}
+
+	footer {
+		width: 200%;
+		overflow-x: scroll;
 	}
 }
 /* ======================================================== */

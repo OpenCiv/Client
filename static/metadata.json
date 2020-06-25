@@ -1,0 +1,134 @@
+{
+   "advancements": [
+      {
+         "name": "alphabet",
+         "cost": 10,
+         "prerequisites": []
+      },
+      {
+         "name": "writing",
+         "cost": 20,
+         "prerequisites": ["alphabet"]
+      },
+      {
+         "name": "mining",
+         "cost": 10,
+         "prerequisites": []
+      },
+      {
+         "name": "bronze_working",
+         "cost": 15,
+         "prerequisites": ["mining"]
+      },
+      {
+         "name": "iron_working",
+         "cost": 35,
+         "prerequisites": ["bronze_working"]
+      }
+   ],
+   "resources": [
+      {
+         "name": "stone",
+         "prerequisite": null
+      },
+      {
+         "name": "copper",
+         "prerequisite": "bronze_working"
+      }
+   ],
+   "weapons": [
+      {
+         "name": "spear",
+         "prerequisites": {
+            "advancement": "bronze_working",
+            "turns": 4,
+            "resources": [
+               {
+                  "name": "copper",
+                  "ratio": 2
+               }
+            ],
+            "effects": [
+               {
+                  "type": "strength",
+                  "factor": 2
+               }
+            ]
+         }
+      },
+      {
+         "name": "horse",
+         "prerequisites": {
+            "advancement": null,
+            "turns": 2,
+            "resources": [],
+            "effects": [
+               {
+                  "type": "movement",
+                  "factor": 2
+               }
+            ]
+         }
+      }
+   ],
+   "actions": [
+      {
+         "name": "farm",
+         "effects": [
+            {
+               "prerequisite": null,
+               "yields": [
+                  {
+                     "type": "food",
+                     "amount": 2
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name": "research",
+         "effects": [
+            {
+               "prerequisite": null,
+               "yields": [
+                  {
+                     "type": "research",
+                     "amount": 2
+                  }
+               ]
+            },
+            {
+               "prerequisite": "alphabet",
+               "yields": [
+                  {
+                     "type": "research",
+                     "amount": 3
+                  }
+               ]
+            },
+            {
+               "prerequisite": "writing",
+               "yields": [
+                  {
+                     "type": "research",
+                     "amount": 4
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name": "commerce",
+         "effects": {
+            "prerequisite": null,
+            "yields": [
+               {
+                  "type": "credits",
+                  "amount": 1
+               }
+            ]
+         }
+      }
+   ]
+}

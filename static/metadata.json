@@ -1,51 +1,69 @@
 {
    "advancements": [
       {
-         "name": "alphabet",
+         "id": "stone_tools",
          "cost": 10,
          "prerequisites": []
       },
       {
-         "name": "writing",
+         "id": "wood_working",
+         "cost": 10,
+         "prerequisites": []
+      },
+      {
+         "id": "agriculture",
+         "cost": 10,
+         "prerequisites": []
+      },
+      {
+         "id": "fishing",
+         "cost": 10,
+         "prerequisites": []
+      },
+      {
+         "id": "writing",
          "cost": 20,
          "prerequisites": ["alphabet"]
       },
       {
-         "name": "mining",
-         "cost": 10,
-         "prerequisites": []
+         "id": "bronze_working",
+         "cost": 20,
+         "prerequisites": ["stone_tools"]
       },
       {
-         "name": "bronze_working",
-         "cost": 15,
-         "prerequisites": ["mining"]
-      },
-      {
-         "name": "iron_working",
-         "cost": 35,
+         "id": "iron_working",
+         "cost": 25,
          "prerequisites": ["bronze_working"]
       }
    ],
    "resources": [
       {
-         "name": "stone",
-         "prerequisite": null
+         "id": "stone",
+         "prerequisite": "stone_tools"
       },
       {
-         "name": "copper",
+         "id": "wood",
+         "prerequisite": "wood_working"
+      },
+      {
+         "id": "copper",
          "prerequisite": "bronze_working"
+      }
+      {
+         "id": "iron",
+         "prerequisite": "iron_working"
       }
    ],
    "weapons": [
       {
-         "name": "spear",
+         "id": "spear_wood",
          "prerequisites": {
-            "advancement": "bronze_working",
+            "advancement": "wood_working",
             "turns": 4,
             "resources": [
                {
-                  "name": "copper",
-                  "ratio": 2
+                  "id": "wood",
+                  "ratio": 3
                }
             ],
             "effects": [
@@ -57,7 +75,102 @@
          }
       },
       {
-         "name": "horse",
+         "id": "sword_wood",
+         "prerequisites": {
+            "advancement": null,
+            "turns": 4,
+            "resources": [
+               {
+                  "id": "wood",
+                  "ratio": 3
+               }
+            ],
+            "effects": [
+               {
+                  "type": "strength",
+                  "factor": 2
+               }
+            ]
+         }
+      },
+      {
+         "id": "spear_stone",
+         "prerequisites": {
+            "advancement": "stone_working",
+            "turns": 5,
+            "resources": [
+               {
+                  "id": "stone",
+                  "ratio": 3
+               }
+            ],
+            "effects": [
+               {
+                  "type": "strength",
+                  "factor": 3
+               }
+            ]
+         }
+      },
+      {
+         "id": "sword_stone",
+         "prerequisites": {
+            "advancement": "stone_working",
+            "turns": 5,
+            "resources": [
+               {
+                  "id": "stone",
+                  "ratio": 3
+               }
+            ],
+            "effects": [
+               {
+                  "type": "strength",
+                  "factor": 3
+               }
+            ]
+         }
+      },
+      {
+         "id": "sword_copper",
+         "prerequisites": {
+            "advancement": "bronze_working",
+            "turns": 6,
+            "resources": [
+               {
+                  "id": "copper",
+                  "ratio": 3
+               }
+            ],
+            "effects": [
+               {
+                  "type": "strength",
+                  "factor": 4
+               }
+            ]
+         }
+      },
+      {
+         "id": "sword_copper",
+         "prerequisites": {
+            "advancement": "bronze_working",
+            "turns": 6,
+            "resources": [
+               {
+                  "id": "copper",
+                  "ratio": 3
+               }
+            ],
+            "effects": [
+               {
+                  "type": "strength",
+                  "factor": 4
+               }
+            ]
+         }
+      },
+      {
+         "id": "horse",
          "prerequisites": {
             "advancement": null,
             "turns": 2,
@@ -73,10 +186,10 @@
    ],
    "actions": [
       {
-         "name": "farm",
+         "id": "farm",
          "effects": [
             {
-               "prerequisite": null,
+               "prerequisite": "agriculture",
                "yields": [
                   {
                      "type": "food",
@@ -87,7 +200,7 @@
          ]
       },
       {
-         "name": "research",
+         "id": "research",
          "effects": [
             {
                "prerequisite": null,
@@ -119,7 +232,7 @@
          ]
       },
       {
-         "name": "commerce",
+         "id": "commerce",
          "effects": {
             "prerequisite": null,
             "yields": [

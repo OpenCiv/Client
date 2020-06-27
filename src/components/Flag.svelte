@@ -16,12 +16,16 @@ export let color;
 
    svg {
       position: absolute;
+      width: inherit;
       left: 0;
       top: 0;
    }
 
    .flag {
-      width: inherit;
+      width: 100%;
+      height: 150%;
+      overflow: hidden;
+      position: relative;
    }
 </style>
 

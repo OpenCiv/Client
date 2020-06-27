@@ -178,7 +178,7 @@ async function endTurn() {
 
 <header class="full">
    <div class="account-banner">
-      <Flag color="gold" icon="celticcross" />
+      <Flag color="{player.color}" icon="{player.icon}" />
    </div>
    <div id="account-bar" class="fourth hide-mobile">
       <p class="account-name three-fours non-responsive">

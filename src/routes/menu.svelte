@@ -55,6 +55,7 @@ async function logoff() {
 
    <a href="newgame" class="button">New game</a>
    <a href="/account" class="button">Account <span class="hide-mobile">Settings</span></a>
+   <a href="/customizenation" class="button">Customize <span class="hide-mobile">Nation</span></a>
 
    <button class="button cancel" disabled={$busy} on:click={logoff}>Log off</button>
 </div>

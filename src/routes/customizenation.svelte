@@ -13,10 +13,17 @@
         display: block;
     }
 
+    .playerunit {
+        display: block;
+        width: 100%;
+        position: absolute;
+        top: 12.5%;
+    }
+
     .playerbanner {
         position: absolute;
 
-        top: 15%;
+        top: 25%;
         left: 25%;
         width: 50%;
         height: 75%;
@@ -126,13 +133,13 @@ function cancelNationAdjective(event) {
 
     <h2>Identity</h2>
     <!-- Name of the nation -->
-    <h3 class="left">Name of the Nation</h3>
+    <h3 class="left">Name of Your Nation</h3>
     <div class="row">
         <div class="half">
             {#if editNationName}
                 <input type=text disabled={$busy} bind:value={nationName} on:change={onChangeNationName} on:keydown={cancelNationName} placeholder="Finland">
             {:else}
-                <label><!-- {user.nationName} --></label> 
+                <label><!-- {user.nationName} -->Finland</label> 
             {/if}
         </div>
         <div class="half">
@@ -140,13 +147,13 @@ function cancelNationAdjective(event) {
         </div>
     </div>
     <!-- Adjective -->
-    <h3 class="left">Adjective of the Nationality</h3>
+    <h3 class="left">Adjective for the Nationality</h3>
     <div class="row">
         <div class="half">
             {#if editNationAdjective}
                 <input type=text disabled={$busy} bind:value={nationAdjective} on:change={onChangeNationAdjective} on:keydown={cancelNationAdjective} placeholder="Finnish">
             {:else}
-                <label><!-- {user.nationAdjective} --></label> 
+                <label><!-- {user.nationAdjective} -->Finnish</label> 
             {/if}
         </div>
         <div class="half">
@@ -156,7 +163,7 @@ function cancelNationAdjective(event) {
 
     <div class="separator"></div>
 
-    <h2>National Flag</h2>
+    <h2>Flag & Units</h2>
 
     <!-- Flag -->
     <div class="row">
@@ -165,32 +172,63 @@ function cancelNationAdjective(event) {
         <div class="third">
             <div class="flagcontainer">
                 <img src="../img/1x1-placeholder.png" alt="Placeholder" class="placeholder">
+                <img src="img/units/unit_template.svg" alt="Unknown unit" class="playerunit">
                 <div class="playerbanner">
                     <Flag color="gold" icon="celticcross" />
                 </div>
+                <img src="img/units/nordic.svg" alt="Nordic" class="playerunit">
             </div>
         </div>
         
         <div class="two-thirds">
             <!-- Flag symbol selection -->
-            <h3 class="left">Symbol</h3>
+            <h3 class="left">Flag Symbol</h3>
             <select id="flagSymbolSelect" name="flagsymbol">
                 <option value="symbol1">Cross</option>
                 <option value="symbol2">Rectangle</option>
                 <option value="symbol3">Poop</option>
             </select>
             <!-- Flag colour selection -->
-            <h3 class="left">Colour Theme</h3>
+            <h3 class="left">Flag Colour Theme</h3>
             <select id="colorSelect" name="color">
                 <option value="color1">Cross Cyan</option>
                 <option value="color2">Rectangle Red</option>
                 <option value="color3">Poop Brown</option>
+            </select>
+            <!-- Ethnicity selection -->
+            <h3 class="left">Ethnicity</h3>
+            <select id="ethnicitySelect" name="ethnicity">
+                <option value="skin2">African</option>
+                <option value="skin3">Asian</option>
+                <option value="skin1">European</option>
             </select>
         </div>
 
     </div>
 
     <div class="separator"></div>
+
+    <h2>Architecture</h2>
+
+    <!-- Architecture -->
+    <div class="row">
+        
+        <!-- Architecture preview -->
+        <div class="third">
+            <img src="../img/improvements/town.svg" alt="Architecture" class="placeholder">
+        </div>
+        
+        <div class="two-thirds">
+            <!-- Architecture selection -->
+            <h3 class="left">Architectural style</h3>
+            <select id="architectureSelect" name="architecture">
+                <option value="skin2">European</option>
+                <option value="skin3">Mediterranean</option>
+                <option value="skin1">Oriental</option>
+            </select>
+        </div>
+
+    </div>
 
     <a href="/menu" class="button cancel">Back</a>
 </div>

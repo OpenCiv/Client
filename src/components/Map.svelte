@@ -238,7 +238,7 @@ async function tile_click(e, tile) {
                         <img src="img/vegetation/{tile.vegetation}.svg" alt={tile.vegetation}>
                      </div>
                   {/if}
-                  {#if tile.vegetation}
+                  {#if tile.vegetation && !tile.hill}
                      <div class="improvement-front">
                         <img src="img/vegetation/{tile.vegetation}_front.svg" alt={tile.vegetation}> <!-- Front improvement: forests, walls... -->
                      </div>

@@ -178,7 +178,9 @@ async function endTurn() {
 
 <header class="full">
    <div class="account-banner">
-      <Flag color="{player.color}" icon="{player.icon}" />
+      {#if $player}
+         <Flag color="{$player.color}" icon="{$player.icon}" />
+      {/if}
    </div>
    <div id="account-bar" class="fourth hide-mobile">
       <p class="account-name three-fours non-responsive">

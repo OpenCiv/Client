@@ -30,9 +30,7 @@ export let action;
  * The click event
  */
 function click(e) {
-   dispatch('click', {
-      e
-   });
+   dispatch('click', { e });
 }
 
 function getParameter() {

@@ -13,7 +13,6 @@ import { hoveredTile } from '../stores';
 import { capitalize, Colors } from '../utilities';
 </script>
 
-
 <h3 class="no-top-margin">Tile Info</h3>
 <table>
    <tbody>
@@ -31,7 +30,7 @@ import { capitalize, Colors } from '../utilities';
                <span>{capitalize($hoveredTile.vegetation)}</span>
             {/if}
          </td>
-      </tr>      
+      </tr>
       <tr>
          <td class="hide-mobile right"><h4>Resources</h4></td>
          <td>
@@ -40,7 +39,7 @@ import { capitalize, Colors } from '../utilities';
             {/each}
          </td>
       </tr>
-      
+
       <tr>
          <td class="hide-mobile right"><h4>Units</h4></td>
          <td>

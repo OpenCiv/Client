@@ -47,7 +47,7 @@ function getBasicActions(unit) {
       ];
    }
 
-   return $player && $player.surplus >= 1 ? [{ type: 'player', parameter: 'newUnit' }] : [];
+   return [];
 }
 
 /**

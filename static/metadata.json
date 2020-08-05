@@ -48,7 +48,7 @@
       {
          "id": "copper",
          "prerequisite": "bronze_working"
-      }
+      },
       {
          "id": "iron",
          "prerequisite": "iron_working"

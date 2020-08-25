@@ -46,8 +46,16 @@ function getParameter() {
    }
    return typeof action.parameter === 'string' ? action.parameter : action.parameter[action.parameter.length - 1];
 }
+
+function getImg() {
+   if (!imgFolder[action.type] || typeof action.parameter !== 'string') {
+      return null;
+   }
+
+   return `img/${imgFolder[action.type]}/${action.parameter}.svg`;
+}
 </script>
 
 <button disabled={$busy} class="button iconbutton" title={capitalize(getParameter())} on:click>
-   <img src="img/{imgFolder[action.type]}/{action.parameter}.svg" alt={getParameter().slice(0, 3).toUpperCase()}>
+   <img src={getImg()} alt={getParameter().slice(0, 3).toUpperCase()}>
 </button>

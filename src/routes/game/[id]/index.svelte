@@ -99,6 +99,7 @@ async function refresh() {
    setTurnAndYear(result.game.turn);
    player.set(result.player);
    statics.players = result.players;
+   statics.metadata = result.metadata;
    const mapsize = { x: result.game.x, y: result.game.y };
    map.setData(result.map, mapsize);
 }

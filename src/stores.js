@@ -9,7 +9,8 @@ export const busy = writable(false);
 export const player = writable(undefined);
 export const hoveredTile = writable(null);
 export const statics = {
-   players: []
+   players: [],
+   metadata: null
 };
 
 export async function backend (address, request) {

@@ -2,15 +2,47 @@
    @import url("../less/layout.less");
 
    h4 {
-      margin-top:0;
+      margin-top: 0;
       margin-bottom: 0;
       color: #ccc;
    }
 </style>
 
 <script>
+import { onMount, onDestroy } from 'svelte';
 import { hoveredTile } from '../stores';
 import { capitalize, Colors } from '../utilities';
+
+let features = '';
+let subscriptions = [];
+
+onMount(() => {
+   subscriptions.push(hoveredTile.subscribe(tile => {
+      let result = '';
+      if (tile) {
+         if (tile.improvement) {
+            result += capitalize(tile.improvement.type);
+            if (tile.improvement.completion < 1) {
+               result += ` (${Math.round(100 * tile.improvement.completion, 0)}%)`;
+            }
+
+            if (tile.vegetation) {
+               result += ', ';
+            }
+         }
+
+         if (tile.vegetation) {
+            result += tile.improvement ? tile.vegetation : capitalize(tile.vegetation);
+         }
+      }
+
+      features = result;
+   }));
+});
+
+onDestroy(() => {
+   subscriptions.forEach(subscription => subscription());
+})
 </script>
 
 <h3 class="no-top-margin">Tile Info</h3>
@@ -26,17 +58,7 @@ import { capitalize, Colors } from '../utilities';
       </tr>
       <tr>
          <td class="hide-mobile right"><h4>Features</h4></td>
-         <td>
-            {#if $hoveredTile.improvement}
-               <span>{capitalize($hoveredTile.improvement.type)}{#if $hoveredTile.improvement.completion < 1}
-                     ({Math.round(100 * $hoveredTile.improvement.completion, 0)}%)
-                  {/if}{#if $hoveredTile.vegetation},{/if}
-               </span>
-            {/if}
-            {#if $hoveredTile.vegetation}
-               <span>{$hoveredTile.improvement ? $hoveredTile.vegetation : capitalize($hoveredTile.vegetation)}</span>
-            {/if}
-         </td>
+         <td><span>{features}</span></td>
       </tr>
       <tr>
          <td class="hide-mobile right"><h4>Resources</h4></td>
@@ -46,7 +68,6 @@ import { capitalize, Colors } from '../utilities';
             {/each}
          </td>
       </tr>
-
       <tr>
          <td class="hide-mobile right"><h4>Units</h4></td>
          <td>
@@ -61,4 +82,3 @@ import { capitalize, Colors } from '../utilities';
       </tr>
    </tbody>
 </table>
-

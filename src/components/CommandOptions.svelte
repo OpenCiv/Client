@@ -3,34 +3,31 @@
 </style>
 
 <script>
-import { onDestroy } from 'svelte';
+import { onMount, onDestroy } from 'svelte';
 import { player, selectedUnit, selectedAction, backend, busy } from '../stores';
 import { capitalize, imgFolder } from '../utilities';
 import ActionButton from './ActionButton.svelte';
 
 let actions = [];
+let subscriptions = [];
 
-/**
- * Sets the actions based for the selected unit
- */
-const unitSubscription = selectedUnit.subscribe(unit => {
-   actions = getBasicActions(unit);
-});
-
-const actionSubscription = selectedAction.subscribe(action => {
-   if (action === 'newUnit') {
-      actions = [];
-   }
-});
-
-const playerSubscription = player.subscribe(p => {
-   getBasicActions($selectedUnit);
+onMount(() => {
+   subscriptions.push(selectedUnit.subscribe(unit => {
+      actions = getBasicActions(unit);
+   }));
+   subscriptions.push(selectedAction.subscribe(action => {
+      if (action === 'newUnit') {
+         actions = [];
+      }
+   }));
+   subscriptions.push(player.subscribe(p => {
+      getBasicActions($selectedUnit);
+   }));
 });
 
 // Destroys the subscriptions
 onDestroy(() => {
-   unitSubscription();
-   actionSubscription();
+   subscriptions.forEach(subscription => subscription());
 });
 
 /**

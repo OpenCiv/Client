@@ -1,12 +1,25 @@
 <style lang="less">
-   @import url("../less/layout.less");
+@import url("../less/layout.less");
+
+.iconbutton, .iconbutton:visited, .iconbutton:hover {
+	height: 36px;
+	width: 36px;
+	min-height: 36px;
+   min-width: 36px;
+   box-sizing: border-box;
+	padding: 0px;
+	border-color: @color_text;
+	color: @color_negatext;
+	background-color: darken(@color_text,10%);
+   letter-spacing: 0px;
+   margin-right: 8px;
+}
 </style>
 
 <script>
 import { onMount, onDestroy } from 'svelte';
 import { player, selectedUnit, selectedAction, backend, busy } from '../stores';
-import { capitalize, imgFolder } from '../utilities';
-import ActionButton from './ActionButton.svelte';
+import { capitalize } from '../utilities';
 
 let actions = [];
 let subscriptions = [];
@@ -37,11 +50,7 @@ onDestroy(() => {
  */
 function getBasicActions(unit) {
    if (unit) {
-      return [
-         { type: 'group', parameter: 'move' },
-         { type: 'group', parameter: 'build' },
-         { type: 'group', parameter: 'settle' }
-      ];
+      return ['move', 'earn'];
    }
 
    return [];
@@ -52,53 +61,19 @@ function getBasicActions(unit) {
  * @param {Object} action The action the user clicked on
  */
 async function clickAction(action) {
-   switch (action.type) {
-
-      // Primary action group
-      case 'group':
-         switch (action.parameter) {
-
-            case 'move':
-               selectedAction.set(action.parameter);
-               return;
-
-            // Replace action buttons with possible build options
-            case 'build':
-               actions = [
-                  { type: 'group', parameter: 'back' },
-                  { type: 'build', parameter: 'castle' },
-                  { type: 'build', parameter: 'library' },
-                  { type: 'build', parameter: 'market' },
-                  { type: 'build', parameter: 'temple' }
-               ];
-               return;
-
-            // Send the settle action to the backend
-            case 'settle':
-               const newActions = await backend('game/action', { id: $selectedUnit.id, type: 'settle', parameter: '' });
-               if (newActions) {
-                  $selectedUnit.actions = newActions;
-                  selectedUnit.set(null);
-               }
-
-               return;
-         }
-
+   switch (action) {
+      case 'move':
+         selectedAction.set(action);
          break;
 
-      // Send the build action to the backend
-      case 'build':
-         const newActions = await backend('game/action', { id: $selectedUnit.id, type: 'build', parameter: action.parameter });
+      default:
+         const newActions = await backend('game/action', { id: $selectedUnit.id, type: action });
          if (newActions) {
             $selectedUnit.actions = newActions;
             selectedUnit.set($selectedUnit);
          }
 
-         return;
-
-      case 'player':
-         selectedAction.set(action.parameter);
-         return;
+         break;
    }
 
    actions = getBasicActions($selectedUnit);
@@ -108,6 +83,8 @@ async function clickAction(action) {
 <h3 class="left no-top-margin">Command options</h3>
 <p>
    {#each actions as action}
-      <ActionButton {action} on:click={() => clickAction(action)} />
+      <button disabled={$busy} class="button iconbutton" title={capitalize(action)} on:click={() => clickAction(action)}>
+         <img src={`img/actions/${action}.svg`} alt={capitalize(action)}>
+      </button>
    {/each}
 </p>

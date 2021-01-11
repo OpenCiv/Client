@@ -1,23 +1,24 @@
 <style lang="less">
-   @import url("../less/layout.less");
+@import url("../less/layout.less");
+
+.iconbutton, .iconbutton:visited, .iconbutton:hover {
+	height: 36px;
+	width: 36px;
+	min-height: 36px;
+   min-width: 36px;
+   box-sizing: border-box;
+	padding: 0px;
+	border-color: @color_text;
+	color: @color_negatext;
+	background-color: darken(@color_text,10%);
+   letter-spacing: 0px;
+   margin-right: 8px;
+}
 </style>
 
 <script>
-import { selectedUnit, backend } from '../stores';
-import { capitalize, imgFolder } from '../utilities';
-import ActionButton from './ActionButton.svelte';
-
-// The selected unit's actions
-let actions = [];
-
-/**
- * Returns a string representing the action's description
- * @param {Object} action The action is displayed in a button
- * @returns {string} A one word description of the action
- */
-function getDescription(action) {
-   return action.type === 'move' ? action.type : action.parameter;
-}
+import { selectedUnit, backend, busy } from '../stores';
+import { capitalize } from '../utilities';
 
 /**
  * Removes a unit's action
@@ -30,6 +31,20 @@ async function removeAction(action) {
       selectedUnit.set($selectedUnit);
    }
 }
+
+function getParameter(action) {
+   if (!action || !action.parameter) {
+      return '';
+   }
+
+   if (typeof action.parameter === 'string') {
+      return action.parameter;
+   } else {
+      const destination = action.parameter[action.parameter.length - 1];
+      return `${destination.x},${destination.y}`;
+   }
+   return typeof action.parameter === 'string' ? action.parameter : action.parameter[action.parameter.length - 1];
+}
 </script>
 
 {#if $selectedUnit}
@@ -39,7 +54,9 @@ async function removeAction(action) {
          <span>None</span>
       {/if}
       {#each $selectedUnit.actions as action}
-         <ActionButton {action} on:click={() => removeAction(action)} />
+         <button disabled={$busy} class="button iconbutton" title={capitalize(getParameter(action))} on:click={() => removeAction(action)}>
+            <img src={`img/actions/${action.type}.svg`} alt={getParameter(action).slice(0, 3).toUpperCase()}>
+         </button>
       {/each}
    </p>
 {/if}

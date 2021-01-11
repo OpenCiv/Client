@@ -154,61 +154,30 @@ function resource_quantity(resource) {
  * @param {Object} tile The tile that was clicked on
  */
 async function tile_click(e, tile) {
-   e.stopPropagation();
    if ($busy || !$player) {
       return;
    }
 
-   // Left mouse button (de)selecting a unit
-   if (e.which === 1) {
-      const unit = tile.units.find(u => u.player_id === $player.id);
-      if ($selectedAction === 'newUnit') {
-         if (unit) {
-            if (unit.actions[0]['type'] === 'settle') {
-               const id = await backend('game/newunit', { x: tile.x, y: tile.y });
-               if (id) {
-                  $player.surplus -= 1;
-                  tile.units.push({
-                     id,
-                     x: tile.x,
-                     y: tile.y,
-                     player_id: $player.id,
-                     actions: ['new']
-                  });
-
-                  selectedAction.set(null);
-                  mapdata = mapdata;
-                  return;
-               }
-            }
-         }
-
-         selectedAction.set(null);
-      } else if (unit && unit.actions[0] === 'new') {
-         const result = await backend('game/cancelnewunit', { x: tile.x, y: tile.y });
-         if (result) {
-            $player.surplus += 1;
-            tile.units.slice(units.indexOf(unit), 1);
-            selectedAction.set('newUnit');
-            mapdata = mapdata;
-            return;
+   // Move the unit
+   if (e.button === 2 || ($selectedAction === 'move' && e.button === 0)) {
+      selectedAction.set(null);
+      if ($selectedUnit) {
+         const actions = await backend('game/action', { id: $selectedUnit.id, type: 'move', parameter: `${tile.x},${tile.y}` });
+         if (actions) {
+            $selectedUnit.actions = actions;
+            selectedUnit.set($selectedUnit);
          }
       }
 
+      return;
+   }
+
+   // (De)select a unit
+   if (e.button === 0) {
+      const unit = tile.units.find(u => u.player_id === $player.id);
+      selectedAction.set(null);
       selectedUnit.set(unit);
       return;
-   }
-
-   // The only alternative is moving a unit with the right mouse button
-   if (e.which !== 3 || !$selectedUnit) {
-      return;
-   }
-
-   // Send the move action to the backend
-   const actions = await backend('game/action', { id: $selectedUnit.id, type: 'move', parameter: `${tile.x},${tile.y}` });
-   if (actions) {
-      $selectedUnit.actions = actions;
-      selectedUnit.set($selectedUnit);
    }
 }
 </script>

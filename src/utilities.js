@@ -2,11 +2,6 @@ import { statics } from './stores';
 
 const neutral = '#A0A0A0';
 
-export const imgFolder = {
-   group: 'actions',
-   build: 'improvements'
-}
-
 export function getPlayerFromUnit(unit) {
    return statics.players.find(p => p.id === unit.player_id);
 }

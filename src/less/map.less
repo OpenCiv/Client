@@ -56,7 +56,8 @@
     float: left;
     position: relative;
 
-    box-sizing: border-box;
+    padding: @tile_land_padding_top @tile_land_padding_right @tile_land_padding_bottom @tile_land_padding_left;
+
     background-color: transparent;
     background-size: cover;
 
@@ -124,12 +125,11 @@
 // IMPROVEMENT
 // -----------------------------------------------
 
-.improvement, .improvement-back, .improvement-front {
+.hill, .improvement, .improvement-back, .improvement-front {
     position: absolute;
     display: block;
     width: @tile_side;
     height: @tile_side;
-    z-index: 10;
 
     img {
         margin-top: -1*@tile_improvement_padding_top;
@@ -138,30 +138,42 @@
     }
 }
 
+.hill img {
+    margin: 0 auto;
+}
+
 // -----------------------------------------------
 // UNIT
 // -----------------------------------------------
 
 .unit {
-    position: relative;
+    position: absolute;
     display: block;
-    z-index: 15;
+    width: 96px;
+    height: 96px;
+    margin-top: @tile_land_padding_top + 14;
+    margin-left: 14px;
+    //z-index: 15;
+
 
     img {
         // margin-top: -1*@tile_improvement_padding_top;
         display: block;
-        width: 100%;
+        width: 96px;
         position: absolute;
     }
 
     .player-banner {
         position: absolute;
-        top: 8px;
-        left: 36px;
-        // left: @tile_side/2-16px+@tile_land_padding_left;
-        width: 32px;
-        height: 48px;
-        // border-top: 3px solid gold;
+        /* top: 16px;
+        left: 32px;
+        width: 64px;
+        height: 96px; */
+
+        top: 12px;
+        left: 24px;
+        width: 48px;
+        height: 64px;
     }
 }
 
@@ -179,13 +191,11 @@
     display: block;
     padding: 0px;
     position: absolute;
-    right: 12px;
-    bottom: 12px;
-
-    z-index: 10;
+    left: @tile_side / 3;
+    top: @tile_side / 4;
 
     width: @tile_side / 3;
-    height: @tile_side / 3;
+    height: 2 * (@tile_side / 3);
 
     box-sizing: border-box;
 
@@ -204,22 +214,51 @@
         position: absolute;
     }
 
-    /* &:after {
-        content: '';
-        position: absolute;
-        left: -1 * @tile_side / 40;
-        top: -1 * @tile_side / 40;
-        width: 0;
-        height: 0;
-        border-left: @tile_side / 12 solid #eee;
-        border-top: @tile_side / 12 solid #eee;
-        border-bottom: @tile_side / 12 solid transparent;
-        border-right: @tile_side / 12 solid transparent;
-        clear: both;
-    } */
 }
 
 .tile:hover .resource {
-    right: 8px;
-    bottom: 8px;
+    top: (@tile_side / 4) - 8px;
+}
+
+// -----------------------------------------------
+// YIELD
+// -----------------------------------------------
+
+.yield {
+    height: @tile_side;
+    width: auto;
+    display: flex; // make us of Flexbox
+    align-items: center; // does vertically center the desired content
+    justify-content: center; // horizontally centers single line items
+    text-align: center; // optional, but helps horizontally center text that breaks into multiple lines
+
+    p {
+        margin: 0;
+        width: auto;
+        background-color: #444;
+        //background-color: rgba(0, 0, 0, 0.8);
+        padding: 4px 5px 4px 8px;
+        border-radius: 0.75em;
+    }
+
+    .tiny-icon {
+        height: 1.1em;
+        display: inline-block;
+        margin-bottom: -0.2em;
+        margin-left: 0.15em;
+        margin-right: 0.15em;
+    }
+}
+
+// -----------------------------------------------
+// PATH
+// -----------------------------------------------
+
+.path {
+    width: @tile_side + 4px;
+    height: @tile_side + 4px;
+    margin-top: 2px;
+    margin-left: 2px;
+    margin-bottom: 2px;
+    margin-right: 2px;
 }

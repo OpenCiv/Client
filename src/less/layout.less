@@ -7,6 +7,7 @@
 @color_normal: #F2D346; /* Primary theme color */
 @color_dark: #AB9D61;
 @color_light: #FFEC96;
+@color_research: #96BFFF;
 @color_negatext: #333333; /* Text color */
 @color_text: #f5f5f5; /* Negative text color */
 @color_buttontext: #806F25;
@@ -27,8 +28,7 @@
 	clear: both;
 	margin-left: 0;
 	margin-bottom: 0;
-	padding: 0;
-	float: left;
+	//float: left;
 	display: block;
 	max-height: inherit;
 }
@@ -60,6 +60,14 @@
     border-top-color: #777;
 }
 
+.border-stone-thin {
+	border: @border2;
+	border-right-color: #555;
+    border-bottom-color: #222;
+    border-left-color: #555;
+    border-top-color: #777;
+}
+
 
 /* ======================================================== */
 /* HEADINGS */
@@ -80,7 +88,7 @@ h1 {
 }
 
 h2 {
-	margin: @pad2 @pad1 @pad2/2 @pad1;
+	margin: @pad2 @pad1 @pad2 @pad1;
 	font-size: 1.8em;
 	font-weight:400;	
 	letter-spacing: 2px;
@@ -146,7 +154,15 @@ ul li {
 }
 
 .research {
-	color: #96BFFF;
+	color: @color_research;
+}
+
+.wealth {
+	color: rgb(255, 222, 150);
+}
+
+.growth {
+	color: rgb(51, 204, 51);
 }
 
 /* ======================================================== */
@@ -169,6 +185,8 @@ button.hyperlink {
 	background-color: transparent;
 	-webkit-appearance: none;
 	border: 0 none transparent;
+	outline: none;
+	padding: 0;
 }
 
 .button, .button:visited {
@@ -238,14 +256,14 @@ button.hyperlink {
 	padding: 6px 10px;
 	position: absolute;
 	top: @pad2;
-	right: @pad1;
+	right: @pad1/2;
 }
 
 /* ======================================================== */
 /* FORMS */
 /* ======================================================== */
 
-input[type=text], input[type=password], input[type=email] {
+input[type=text], input[type=password], input[type=email], select {
 	display: block;
 	width: 100%;
 	min-height: 36px;
@@ -258,6 +276,11 @@ input[type=text], input[type=password], input[type=email] {
 	padding: @pad1/4 0.75*@pad1 @pad1/4-2px 0.75*@pad1;
 	border: 0px none;
 	outline: none;
+}
+
+select {
+	height: 36px;
+	margin: 1em 0;
 }
 
 label, .label {
@@ -306,11 +329,17 @@ a:hover .tiny-icon, button:hover .tiny-icon {
 .full {
 	width: 100%;
 	float: left;
-	overflow-x: hidden;
+	overflow: hidden;
+	
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .row {
 	.clearfix;
+	
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .separator {
@@ -346,9 +375,16 @@ a:hover .tiny-icon, button:hover .tiny-icon {
 		box-sizing: border-box;
 		margin: @pad2 0 @pad2 0;
 	}
+
+	.menulogo {
+		margin: @pad2 auto;
+		display: block;
+		width: 80%;
+		max-width: 250px;
+	}
 }
 
-header, footer, #sidebar {
+header, footer, #sidebar-left, #sidebar-right, .popup, #tileinfo {
 	background-color: #333;
 	.back-stone;
 	.border-stone;
@@ -370,28 +406,66 @@ main {
 header, header.full {
 	top: 0;
 	padding: 0;
-	height: 42px; // Fixed height so the #map top-padding can be fixed
-	overflow: hidden;
+	height: 84px; // Fixed height so the #map top-padding can be fixed
 	box-sizing: border-box;
 	z-index: 500;
 	text-transform: uppercase;
 	letter-spacing: 1px;
+	overflow-x: visible;
 
 	border-top: 0px none;
 
 	p {
 		margin: 0;
 		line-height: 42px;
+		//font-size: 1.2em;
+	}
+
+	.account-banner {
+		width: 32px;
+		height: 48px;
+		left: 16px;
+		position: fixed;
+	}
+	
+	.account-name {
+		width: auto;
+		text-align: center;
+		margin-left: @pad1 + 32px;
 	}
 }
 
-#sidebar {
+#sidebar-left, #sidebar-right, #tileinfo {
 	background-color: #444;
+	box-sizing: border-box;
+	overflow: hidden;
 	height: auto;
-	right: 0;
-	margin-top: 48px;
+	width: 25%;
+	top: 0;
+	left: 0;
 	padding: @pad2 0;
-	z-index: 500;
+	margin-top: 42px;
+}
+
+#sidebar-right, #tileinfo {
+	right: 0;
+	left: inherit;
+}
+
+.popup {
+	box-sizing: border-box;
+	width: 50%;
+	height: auto;
+	max-width: 1000px;
+	min-width: 500px;
+	margin: 64px auto;
+	top: 0px;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
 }
 
 footer {
@@ -403,24 +477,27 @@ footer {
 	border-bottom: 0px none;
 
 	display: flex;
+	flex-wrap: nowrap;
+	width: 400%;
+	overflow-x: scroll;
 }
 
-#info-panel, #commands-panel, #status-panel {
+.footer-panel {
 	padding: @pad2;
+
+	h3, p, table {
+		margin-left: 0;
+		margin-right: 0;
+	}
 }
 
-#research-bar, #menu-bar, #commands-panel {
+#research-bar, #menu-bar, #commands-panel, #status-panel {
 	background-color: #444;
 	.back-stone;
 }
 
-.account-banner {
-	width: 32px;
-	height: 40px;
-}
-
-.hide-mobile {
-	display: none;
+#research-bar {
+	flex-grow: 2;
 }
 
 /* ======================================================== */
@@ -469,13 +546,48 @@ footer {
 	clear: none;
 }
 
+.hide-mobile {
+	display: none;
+}
+
+/* ======================================================== */
+/* TABLET */
+/* ======================================================== */
+@media only screen and (min-width: 640px) {
+	
+	.fourth {
+		width: 50%;
+	}
+
+	.fourth.non-responsive {
+		width: 25%;
+	}
+	
+	header, header.full {
+		height: 42px; // Fixed height so the #map top-padding can be fixed
+	}
+
+	footer {
+		width: 200%;
+		overflow-x: scroll;
+	}
+}
 /* ======================================================== */
 /* DESKTOPS & BIGGER SCREENS */
 /* ======================================================== */
-@media only screen and (min-width: 640px) {
+@media only screen and (min-width: 1024px) {
 
 	.menuwrapper {
 		margin: @pad3 auto;
+	}
+
+	.full {
+		flex-wrap: nowrap;
+	}
+
+	footer {
+		width: 100%;
+		overflow-x: hidden;
 	}
 
 	.half, .two-thirds, .third, .fourth, .sixth {
@@ -523,7 +635,11 @@ footer {
 	}
 
 	.hide-mobile {
-		display: inherit;
+		display: initial;
+	}
+
+	.hide-desktop {
+		display: none;
 	}
 
 }

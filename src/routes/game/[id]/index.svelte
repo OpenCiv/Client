@@ -10,12 +10,15 @@
 <script>
 import { onMount } from 'svelte';
 import { stores } from '@sapper/app';
+import { backend, busy, alerts, statics, selectedUnit, hoveredTile, player } from '../../../stores';
+import { capitalize } from '../../../utilities';
 import Map from '../../../components/Map.svelte';
+import TechTree from '../../../components/TechTree.svelte';
 import CommandOptions from '../../../components/CommandOptions.svelte';
 import UnitInfo from '../../../components/UnitInfo.svelte';
-import { alerts, backend, selected, player, busy } from '../../../stores';
-import { capitalize } from '../../../utilities';
 import Flag from '../../../components/Flag.svelte';
+import Notifications from '../../../components/Notifications.svelte';
+import TileInfo from '../../../components/TileInfo.svelte';
 
 const { page } = stores();
 
@@ -25,8 +28,23 @@ let map, unitInfo;
 // True if the browser is in full screen mode
 let fullscreen = false;
 
+// Display tile yield on map?
+let displayYield = false;
+
+// Display resource icons on map?
+let displayResources = false;
+
+// Display notifications log?
+let displayNotifications = false;
+
+// Display tech tree?
+let displayTechTree = false;
+
 // The window's inner height
 let innerHeight;
+
+// The zoom level of map
+let zoomLevel = 1;
 
 // The displayed turn and year
 let turnAndYear = '';
@@ -80,6 +98,8 @@ async function refresh() {
 
    setTurnAndYear(result.game.turn);
    player.set(result.player);
+   statics.players = result.players;
+   statics.metadata = result.metadata;
    const mapsize = { x: result.game.x, y: result.game.y };
    map.setData(result.map, mapsize);
 }
@@ -101,10 +121,52 @@ function closeFullscreen() {
 }
 
 /**
+ * Toggles zoom level
+ */
+function toggleZoomLevel() {
+   if (zoomLevel == 0.25) {
+      zoomLevel = 0.5;
+   }
+   else if (zoomLevel == 0.5) {
+      zoomLevel = 0.75;
+   }
+   else if (zoomLevel == 0.75) {
+      zoomLevel = 1;
+   }
+   else if (zoomLevel == 1) {
+      zoomLevel = 1.5;
+   }
+   else if (zoomLevel == 1.5) {
+      zoomLevel = 2;
+   }
+   else if (zoomLevel == 2) {
+      zoomLevel = 0.25;
+   }
+}
+
+/**
+ * Increases zoom level, to be binded with keyboard plus key!
+ */
+function zoomIn() {
+   if (zoomLevel < 2) {
+      zoomLevel += 0.25;
+   }
+}
+
+/**
+ * Decreases zoom level, to be binded with keyboard minus key!
+ */
+function zoomOut() {
+   if (zoomLevel > 0.25) {
+      zoomLevel -= 0.25;
+   }
+}
+
+/**
  * Send to the backend that the user finished their turn
  */
 async function endTurn() {
-   selected.set(null);
+   selectedUnit.set(null);
    const result = await backend('game/endturn');
    if (result) {
       refresh();
@@ -116,51 +178,85 @@ async function endTurn() {
 <svelte:window bind:innerHeight/>
 
 <header class="full">
-   <div id="account-bar" class="fourth">
-      <div class="account-banner">
-         <Flag color="gold" icon="celticcross" />
-      </div>
-      <p>
-         {$player ? $player.name : "No login information"}
+   <div class="account-banner">
+      {#if $player}
+         <Flag color="{$player.color}" icon="{$player.icon}" />
+      {/if}
+   </div>
+   <div id="account-bar" class="fourth hide-mobile">
+      <p class="account-name three-fours non-responsive">
+         {$player ? `${$player.name} (${100 * $player.surplus}%)` : "No login information"}
       </p>
    </div>
    <div id="research-bar" class="fourth">
-      <p class="center"><span class="research">&sext; Researching</span> {researchBarResearch}</p>
+      <p class="center">
+         <span class="wealth"><img src="img/resources/wealth.svg" class="tiny-icon" alt="Wealth">123 </span>
+         <button title="Toggle Research window" class="hyperlink" on:click={() => { displayTechTree = !displayTechTree; }}>
+            <span class="research"><img src="img/resources/science.svg" class="tiny-icon" alt="Science">+123 &rArr; <span class="hide-mobile">{researchBarResearch}</span> (17)</span>
+         </button>
+         <span class="growth"><img src="img/resources/food.svg" class="tiny-icon" alt="Growth">+12 (3)</span>
+      </p>
    </div>
-   <div id="time-bar" class="fourth">
+   <div id="time-bar" class="fourth hide-mobile">
       <p class="center">
          {turnAndYear}
       </p>
    </div>
    <div id="menu-bar" class="fourth">
       <p class="right">
+         <button title="{displayNotifications ? 'Hide' : 'Show'} notification log" class="hyperlink" on:click={() => { displayNotifications = !displayNotifications; }}>
+            <img class="tiny-icon" src="img/menuicons/displaynotifications_{displayNotifications ? 'false' : 'true'}.svg" alt="{displayNotifications ? 'Hide' : 'Show'} notification log">
+         </button>
+         <button title="{displayYield ? 'Disable' : 'Enable'} yield display" class="hyperlink" on:click={() => { displayYield = !displayYield; }}>
+            <img class="tiny-icon" src="img/menuicons/displayyield_{displayYield ? 'false' : 'true'}.svg" alt="{displayYield ? 'Disable' : 'Enable'} yield display">
+         </button>
+         <button title="{displayResources ? 'Disable' : 'Enable'} resource icon display" class="hyperlink" on:click={() => { displayResources = !displayResources; }}>
+            <img class="tiny-icon" src="img/menuicons/displayresources_{displayResources ? 'false' : 'true'}.svg" alt="{displayResources ? 'Disable' : 'Enable'} resource icon display">
+         </button>
+         <button title="Zoom in" class="hyperlink" on:click={zoomIn}>
+            <img class="tiny-icon" src="img/menuicons/zoom_in.svg" alt="Zoom in">
+         </button>
+         <button title="Zoom out" class="hyperlink" on:click={zoomOut}>
+            <img class="tiny-icon" src="img/menuicons/zoom_out.svg" alt="Zoom out">
+         </button>
          {#if !fullscreen}
             <button title="Enable fullscreen" class="hyperlink" on:click={openFullscreen}>
-               <img class="tiny-icon" src="img/icon_fullscreen.png" alt="Full">
+               <img class="tiny-icon" src="img/menuicons/enable_fullscreen.svg" alt="Full">
             </button>
          {/if}
          {#if fullscreen}
             <button title="Deactivate fullscreen" class="hyperlink" on:click={closeFullscreen}>
-               <img class="tiny-icon" src="img/icon_disablefullscreen.png" alt="Minimize">
+               <img class="tiny-icon" src="img/menuicons/disable_fullscreen.svg" alt="Minimize">
             </button>
          {/if}
          <a href="/menu">
-            <img class="tiny-icon" src="img/icon_menu.png" alt="Main"> Menu
+            <img class="tiny-icon" src="img/menuicons/menu.svg" alt="Main"> <span class="hide-mobile">Menu</span>
          </a>
       </p>
    </div>
 </header>
 <main style="height: {innerHeight - 128}px;">
-   <Map bind:this={map} />
+   <Map bind:this={map} {displayYield} {displayResources} {zoomLevel} />
+   {#if displayNotifications}
+      <Notifications {innerHeight} on:close={() => { displayNotifications = !displayNotifications; }} />
+   {/if}
+   {#if displayTechTree}
+      <TechTree on:close={() => { displayTechTree = !displayTechTree; }} />
+   {/if}
 </main>
-<footer class="full">
-   <div id="info-panel" class="third">
-      <UnitInfo />
+<footer>
+   <div id="info-panel" class="footer-panel fourth">
+      {#if $hoveredTile}
+         <TileInfo />
+      {/if}
    </div>
-   <div id="commands-panel" class="third">
+   <div id="commands-panel" class="footer-panel fourth">
       <CommandOptions />
    </div>
-   <div id="status-panel" class="third">
+   <div id="commands-panel2" class="footer-panel fourth">
+      <UnitInfo />
+   </div>
+   <div id="status-panel" class="footer-panel fourth">
       <h2 class="center no-bottom-margin no-top-margin">Turn complete</h2>
       <p class="center">
          <button disabled={$busy} class="button" id="end-turn" on:click={endTurn}>End Turn</button>

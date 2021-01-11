@@ -3,7 +3,7 @@ import Alerts from '../components/Alerts.svelte';
 </script>
 
 <svelte:head>
-	<title>Open Civ</title>
+	<title>Prosper - A Historical 4X Multiplayer Experience</title>
 </svelte:head>
 
 <!-- This will prevent the content menu to be displayed anywhere -->

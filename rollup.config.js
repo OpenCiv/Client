@@ -28,7 +28,12 @@ export default {
 				dev,
 				hydratable: true,
 				emitCss: true,
-            preprocess: autoPreprocess({})
+            preprocess: autoPreprocess({}),
+            onwarn: (warning, handler) => {
+               if (warning.code !== 'css-unused-selector') {
+                  handler(warning);
+               }
+           }
 			}),
 			resolve({
 				browser: true,

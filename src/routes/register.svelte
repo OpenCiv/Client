@@ -60,6 +60,7 @@ async function register() {
 </script>
 
 <div class="menuwrapper">
+   <img src="../img/branding/prosper_logo.svg" alt="Prosper" class="menulogo">
    <h1>Register</h1>
    <div class="row">
       <div class="third left">

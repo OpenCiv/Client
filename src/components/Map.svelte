@@ -1,14 +1,11 @@
 <style lang="less">
 @import url("../less/map.less");
-
-.active {
-   background: #FF000080;
-}
 </style>
 
 <script>
 import { onDestroy } from 'svelte';
-import { alerts, backend, selected, player } from '../stores';
+import { alerts, backend, selectedUnit, selectedAction, hoveredTile, player, busy } from '../stores';
+import { getPlayerFromUnit } from '../utilities';
 import Flag from './Flag.svelte';
 import Path from './Path.svelte';
 
@@ -20,6 +17,15 @@ let mapsize;
 
 // Contains random numbers from 1 to 3 for randomized layout purposes
 let randomized;
+
+// Display yields?
+export let displayYield;
+
+// Display resoure icons?
+export let displayResources;
+
+// Map zoom level
+export let zoomLevel;
 
 /**
  * Sets the map data and size
@@ -50,7 +56,7 @@ export function setData(map, size) {
 /**
  * Displays the path that the selected unit is set to take
  */
-const subscription = selected.subscribe(unit => {
+const subscription = selectedUnit.subscribe(unit => {
    if (!mapdata || !mapsize) {
       return;
    }
@@ -149,34 +155,75 @@ function resource_quantity(resource) {
  */
 async function tile_click(e, tile) {
    e.stopPropagation();
+   if ($busy || !$player) {
+      return;
+   }
 
    // Left mouse button (de)selecting a unit
    if (e.which === 1) {
       const unit = tile.units.find(u => u.player_id === $player.id);
-      selected.set(unit);
+      if ($selectedAction === 'newUnit') {
+         if (unit) {
+            if (unit.actions[0]['type'] === 'settle') {
+               const id = await backend('game/newunit', { x: tile.x, y: tile.y });
+               if (id) {
+                  $player.surplus -= 1;
+                  tile.units.push({
+                     id,
+                     x: tile.x,
+                     y: tile.y,
+                     player_id: $player.id,
+                     actions: ['new']
+                  });
+
+                  selectedAction.set(null);
+                  mapdata = mapdata;
+                  return;
+               }
+            }
+         }
+
+         selectedAction.set(null);
+      } else if (unit && unit.actions[0] === 'new') {
+         const result = await backend('game/cancelnewunit', { x: tile.x, y: tile.y });
+         if (result) {
+            $player.surplus += 1;
+            tile.units.slice(units.indexOf(unit), 1);
+            selectedAction.set('newUnit');
+            mapdata = mapdata;
+            return;
+         }
+      }
+
+      selectedUnit.set(unit);
       return;
    }
 
    // The only alternative is moving a unit with the right mouse button
-   if (e.which !== 3 || !$selected) {
+   if (e.which !== 3 || !$selectedUnit) {
       return;
    }
 
    // Send the move action to the backend
-   const actions = await backend('game/action', { id: $selected.id, type: 'move', parameter: `${tile.x},${tile.y}` });
+   const actions = await backend('game/action', { id: $selectedUnit.id, type: 'move', parameter: `${tile.x},${tile.y}` });
    if (actions) {
-      $selected.actions = actions;
-      selected.set($selected);
+      $selectedUnit.actions = actions;
+      selectedUnit.set($selectedUnit);
    }
 }
 </script>
 
 {#if mapdata && mapsize}
-   <div id="map" class="full" style="width: {mapsize.x * 128}px;">
+   <div id="map" class="full" style="width: {mapsize.x * 128}px; zoom: {zoomLevel};" on:mouseleave={() => { hoveredTile.set(null); }}>
       {#each mapdata as row}
          <div class="map_row" style="width: {mapsize.x * 128}px;">
             {#each row as tile}
-               <div class="tile {tile.type === 'water' ? 'water' : ('ground ' + tile.type + randomized[tile.x][tile.y])}" on:mousedown={e => tile_click(e, tile)}>
+               <div class="tile {tile.type === 'water' ? 'water' : ('ground ' + tile.type + randomized[tile.x][tile.y])}" on:mousedown={e => tile_click(e, tile)} on:mouseover={() => { hoveredTile.set(tile); }}>
+                  {#if tile.hill}
+                     <div class="hill">
+                        <img src="img/terrain/{tile.type}_hill.svg" alt="Hill"> <!-- Hill -->
+                     </div>
+                  {/if}
                   {#if tile.vegetation}
                      <div class="improvement-back">
                         <img src="img/vegetation/{tile.vegetation}_back.svg" alt={tile.vegetation}> <!-- Background improvement: forests, walls... -->
@@ -191,37 +238,51 @@ async function tile_click(e, tile) {
                         <img src="img/vegetation/{tile.vegetation}.svg" alt={tile.vegetation}>
                      </div>
                   {/if}
-                  {#if tile.vegetation}
+                  {#if tile.vegetation && !tile.hill}
                      <div class="improvement-front">
                         <img src="img/vegetation/{tile.vegetation}_front.svg" alt={tile.vegetation}> <!-- Front improvement: forests, walls... -->
                      </div>
                   {/if}
+                  {#if tile.path}
+                     {#each tile.path as direction}
+                        <div class="path">
+                           <Path {direction} color={$player.color} />
+                        </div>
+                     {/each}
+                  {/if}
                   {#each tile.units as unit}
                      <div class="unit">
-                        <!-- <div class="player-banner">
-                           <Flag color={$player.color} icon={$player.icon} />
+                        {#if unit === $selectedUnit}
+                           <img src="img/effects/select_shine.svg" alt="Selected unit">
+                        {/if}
+                        <img src="img/units/unit_template.svg" alt="Unknown unit">
+                        <div class="player-banner">
+                           <Flag color={getPlayerFromUnit(unit).color} icon={getPlayerFromUnit(unit).icon} />
                         </div>
-                        <img src="img/units/nordic.png" alt="nordic" class:active={unit === $selected}> -->
-                        <img src="img/units/unit_template.svg" alt="Unknown unit" class:active={unit === $selected}>
                         <img src="img/units/nordic.svg" alt="Nordic">
                         <img src="img/weapons/spear_copper.svg" alt="Copper spear">
                      </div>
                   {/each}
-                  {#each tile.resources as resource}
-                     <div class="resource" title={resource_quantity(resource)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" preserveAspectRatio="none">
-                           <polygon fill="#777777" points="0,0 64,0 64,64 0,64"/>
-                           <circle cx="50%" cy="50%" r="75" stroke="#777777" stroke-width="8" fill="#444444" />
-                        </svg>
-                        <img src="img/resources/{resource.type}.svg" alt={resource.type}>
-                     </div>
-                  {/each}
-                  {#if tile.path}
-                     {#each tile.path as direction}
-                        <div class="path">
-                           <Path {direction} />
+                  {#if displayResources}
+                     {#each tile.resources as resource}
+                        <div class="resource" title={resource_quantity(resource)}>
+                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 240" preserveAspectRatio="none">
+                              <polygon fill="#777777" points="20,130 140,130 80,200"/>
+                              <circle cx="50%" cy="33.333%" r="80" fill="#777777" />
+                              <circle cx="50%" cy="33.333%" r="72" fill="#444444" />
+                           </svg>
+                           <img src="img/resources/{resource.type}.svg" alt={resource.type}>
                         </div>
                      {/each}
+                  {/if}
+                  {#if displayYield}
+                     <div class="yield">
+                        <p>
+                           <span class="production">2<img src="img/resources/production.svg" alt="Production" class="tiny-icon"></span><br>
+                           <span class="wealth">2<img src="img/resources/wealth.svg" alt="Wealth" class="tiny-icon"></span><br>
+                           <span class="food">2<img src="img/resources/food.svg" alt="Food" class="tiny-icon"></span>
+                        </p>
+                     </div>
                   {/if}
                </div>
             {/each}

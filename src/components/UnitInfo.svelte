@@ -3,9 +3,9 @@
 </style>
 
 <script>
-import { selected, backend } from '../stores';
+import { selectedUnit, backend } from '../stores';
 import { capitalize, imgFolder } from '../utilities';
-import IconButton from './IconButton.svelte';
+import ActionButton from './ActionButton.svelte';
 
 // The selected unit's actions
 let actions = [];
@@ -24,27 +24,22 @@ function getDescription(action) {
  * @param {Object} action The action is removed
  */
 async function removeAction(action) {
-   const actions = await backend('game/removeaction', { id: $selected.id, order: action.order });
-   $selected.actions = actions;
-   selected.set($selected);
+   const actions = await backend('game/removeaction', { id: $selectedUnit.id, order: action.order });
+   if (actions) {
+      $selectedUnit.actions = actions;
+      selectedUnit.set($selectedUnit);
+   }
 }
 </script>
 
-<div class="two-thirds non-responsive">
-   {#if $selected}
-      <h3 class="no-top-margin">Current orders</h3>
-      <p>
-         {#if $selected.actions === 0}
-            <span>None</span>
-         {/if}
-         {#each $selected.actions as action}
-            <IconButton
-               title={capitalize(getDescription(action))}
-               on:click={() => removeAction(action)}
-               img="img/{imgFolder[action.type]}/{getDescription(action)}.svg"
-               alt={getDescription(action).slice(0, 3).toUpperCase()}
-            />
-         {/each}
-      </p>
-   {/if}
-</div>
+{#if $selectedUnit}
+   <h3 class="no-top-margin"><span class="hide-mobile">Order Queue</span><span class="hide-desktop">Orders</span></h3>
+   <p>
+      {#if $selectedUnit.actions === 0}
+         <span>None</span>
+      {/if}
+      {#each $selectedUnit.actions as action}
+         <ActionButton {action} on:click={() => removeAction(action)} />
+      {/each}
+   </p>
+{/if}

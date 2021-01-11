@@ -17,7 +17,7 @@
 
                 .item-card {
                     position: relative;
-                    width: 150px;
+                    width: 100px;
                     float: left;
                     padding: 4px;
                     margin-right: 24px;
@@ -25,22 +25,33 @@
                     border-radius: 5px;
                     -webkit-border-radius: 5px;
                     -moz-border-radius: 5px;
-                    display: flex;
                     align-items: center;
                     .back-stone;
                     .box-shadow;
                     .border-stone-thin;
                     .clearfix;
 
-                    .button {
+                    .item-icon {
+                        width: 40%;
                         float: left;
+                        box-sizing: border-box;
+                        color: @color_negatext;
+                        letter-spacing: 0px;
+                        padding-left: 0.25em;
+                        //margin: 0.05em 0 0 0;
                     }
-                    h3 {
+
+                    .amount {
+                        box-sizing: border-box;
                         display: block;
-                        width: 90px;
+                        width: 60%;
+                        text-align: center;
+                        line-height: 150%;
                         float: left;
-                        font-size: 0.9em;
-                        margin: 4px 0 2px 8px;
+                        font-size: 24px;
+                        font-weight: 700;
+                        margin: 0.05em 0 0 0;
+                        padding: 0 0.25em 0 0.25em;
                     }
                 }
 
@@ -71,16 +82,7 @@
         }
     }
 
-    .item-icon {
-        height: 36px;
-        width: 36px;
-        min-height: 36px;
-        min-width: 36px;
-        box-sizing: border-box;
-        padding: 0px;
-        color: @color_negatext;
-        letter-spacing: 0px;
-    }
+    
 
     .unavailable .item-icon {
         border-color: darken(@color_text, 30%);
@@ -117,46 +119,56 @@ function close() {
     <div id="inventory-container">
         <div id="inventory">
             <div class="item-wrapper">
+                <h3>Influence</h3>
+                <div class="item-card">
+                    <div class="item-icon" title="Wealth">
+                        <img src="img/resources/wealth.svg" alt="Wealth">
+                    </div>
+                    <p class="amount">192.<small>5</small></p>
+                </div>
+            </div>
+
+            <div class="item-wrapper">
                 <h3>Material</h3>
                 <div class="item-card">
-                    <div class="item-icon" title="Item">
-                        <img src="img/resources/wood.svg" alt="Item icon">
+                    <div class="item-icon" title="Wood">
+                        <img src="img/resources/wood.svg" alt="Wood">
                     </div>
-                    <h3>Wood</h3>
+                    <p class="amount">25.<small>5</small></p>
                 </div>
                 <div class="item-card">
-                    <div class="item-icon" title="Item">
-                        <img src="img/resources/stone.svg" alt="Item icon">
+                    <div class="item-icon" title="Stone">
+                        <img src="img/resources/stone.svg" alt="Stone">
                     </div>
-                    <h3>Stone</h3>
+                    <p class="amount">12</p>
                 </div>
                 <div class="item-card">
-                    <div class="item-icon" title="Item">
-                        <img src="img/resources/bronze.svg" alt="Item icon">
+                    <div class="item-icon" title="Bronze">
+                        <img src="img/resources/bronze.svg" alt="Bronze">
                     </div>
-                    <h3>Bronze</h3>
+                    <p class="amount">999</p>
                 </div>
             </div>
 
             <div class="item-wrapper">
                 <h3>Weapons</h3>
                 <div class="item-card">
-                    <div class="item-icon" title="Item">
-                        <img src="img/resources/spear_wood.svg" alt="Item icon">
+                    <div class="item-icon" title="Wooden spear">
+                        <img src="img/resources/spear_wood.svg" alt="Wooden spear">
                     </div>
-                    <h3>Wooden spear</h3>
+                    <p class="amount">4</p>
                 </div>
                 <div class="item-card">
-                    <div class="item-icon" title="Item">
-                        <img src="img/resources/sword_iron.svg" alt="Item icon">
+                    <div class="item-icon" title="Iron sword">
+                        <img src="img/resources/sword_iron.svg" alt="Iron sword">
                     </div>
-                    <h3>Iron sword</h3>
+                    <p class="amount">1</p>
                 </div>
                 <div class="item-card">
-                    <div class="item-icon" title="Item">
-                        <img src="img/resources/sword_copper.svg" alt="Item icon">
+                    <div class="item-icon" title="Copper sword">
+                        <img src="img/resources/sword_copper.svg" alt="Copper sword">
                     </div>
-                    <h3>Copper sword</h3>
+                    <p class="amount">2</p>
                 </div>
             </div>
         </div>

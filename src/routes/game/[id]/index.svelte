@@ -13,6 +13,7 @@ import { stores } from '@sapper/app';
 import { backend, busy, alerts, statics, selectedUnit, hoveredTile, player } from '../../../stores';
 import Map from '../../../components/Map.svelte';
 import TechTree from '../../../components/TechTree.svelte';
+import Inventory from '../../../components/Inventory.svelte';
 import CommandOptions from '../../../components/CommandOptions.svelte';
 import UnitInfo from '../../../components/UnitInfo.svelte';
 import Flag from '../../../components/Flag.svelte';
@@ -38,6 +39,9 @@ let displayNotifications = false;
 
 // Display tech tree?
 let displayTechTree = false;
+
+// Display inventory?
+let displayInventory = false;
 
 // The window's inner height
 let innerHeight;
@@ -200,7 +204,9 @@ async function endTurn() {
          <button title="Toggle Research window" class="hyperlink" on:click={() => { displayTechTree = !displayTechTree; }}>
             <span class="research"><img src="img/resources/science.svg" class="tiny-icon" alt="Science">+123 &rArr; <span class="hide-mobile">{researchBarResearch}</span> (17)</span>
          </button>
-         <span class="growth"><img src="img/resources/food.svg" class="tiny-icon" alt="Growth">+12 (3)</span>
+         <button title="Toggle Inventory window" class="hyperlink" on:click={() => { displayInventory = !displayInventory; }}>
+            <span class="growth"><img src="img/resources/food.svg" class="tiny-icon" alt="Growth">+12 (3)</span>
+         </button>
       </p>
    </div>
    <div id="time-bar" class="fourth hide-mobile">
@@ -248,6 +254,9 @@ async function endTurn() {
    {/if}
    {#if displayTechTree}
       <TechTree on:close={() => { displayTechTree = !displayTechTree; }} />
+   {/if}
+   {#if displayInventory}
+      <Inventory on:close={() => { displayInventory = !displayInventory; }} />
    {/if}
 </main>
 <footer>

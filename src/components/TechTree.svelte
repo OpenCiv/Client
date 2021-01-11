@@ -242,7 +242,7 @@ function close() {
                 <div class="tech-path">
                     <div class="tech-card">
                         <div class="button iconbutton" title="Technology">
-                            <img src="img/resources/food.svg" alt="Tech icon">
+                            <img src="img/resources/clay.svg" alt="Tech icon">
                         </div>
                         <h3>Pottery</h3>
                     </div>

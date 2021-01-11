@@ -11,12 +11,17 @@
          "prerequisites": []
       },
       {
-         "id": "agriculture",
+         "id": "pottery",
          "cost": 10,
          "prerequisites": []
       },
       {
          "id": "fishing",
+         "cost": 10,
+         "prerequisites": []
+      },
+      {
+         "id": "agriculture",
          "cost": 10,
          "prerequisites": []
       },
@@ -172,7 +177,7 @@
       {
          "id": "horse",
          "prerequisites": {
-            "advancement": null,
+            "advancement": "animal_domestication",
             "turns": 2,
             "resources": [],
             "effects": [

@@ -206,7 +206,7 @@ function close() {
     <button class="hyperlink closewindow" title="Close" on:click={close}>
         <img class="tiny-icon" src="img/menuicons/close.svg" alt="Close window">
     </button>
-    <h2 class="center"><img src="img/resources/science.svg" alt="Science" class="tiny-icon"> Research</h2>
+    <h2 class="center"><img src="img/menuicons/display_research.svg" alt="Science" class="tiny-icon"> Research</h2>
     <div id="techtree-container">
         <div id="techtree">
             <div class="tech-era">

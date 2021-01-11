@@ -3,24 +3,29 @@
 
     #inventory-container {
         width: auto;
-        overflow-x: scroll;
+        overflow-x: hidden;
         overflow-y: scroll;
         margin: 0 12px 12px 12px;
 
         #inventory {
-            width: max-content;
+            width: auto;
             .clearfix;
 
             .item-wrapper {
                 padding: @pad2 @pad1;
                 .clearfix;
 
+                h3 {
+                    margin-left: 1em;
+                    margin-bottom: 1em; 
+                }
+
                 .item-card {
-                    position: relative;
                     width: 100px;
                     float: left;
                     padding: 4px;
                     margin-right: 24px;
+                    margin-bottom: 12px;
                     background-color: #555;
                     border-radius: 5px;
                     -webkit-border-radius: 5px;
@@ -124,7 +129,7 @@ function close() {
                     <div class="item-icon" title="Wealth">
                         <img src="img/resources/wealth.svg" alt="Wealth">
                     </div>
-                    <p class="amount">192.<small>5</small></p>
+                    <p class="amount">192<small>.5</small></p>
                 </div>
             </div>
 
@@ -134,7 +139,7 @@ function close() {
                     <div class="item-icon" title="Wood">
                         <img src="img/resources/wood.svg" alt="Wood">
                     </div>
-                    <p class="amount">25.<small>5</small></p>
+                    <p class="amount">25<small>.5</small></p>
                 </div>
                 <div class="item-card">
                     <div class="item-icon" title="Stone">
@@ -146,7 +151,13 @@ function close() {
                     <div class="item-icon" title="Bronze">
                         <img src="img/resources/bronze.svg" alt="Bronze">
                     </div>
-                    <p class="amount">999</p>
+                    <p class="amount">999<small>.9</small></p>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon" title="Clay">
+                        <img src="img/resources/clay.svg" alt="Clay">
+                    </div>
+                    <p class="amount">52<small>.1</small></p>
                 </div>
             </div>
 

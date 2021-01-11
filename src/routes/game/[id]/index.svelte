@@ -11,7 +11,6 @@
 import { onMount } from 'svelte';
 import { stores } from '@sapper/app';
 import { backend, busy, alerts, statics, selectedUnit, hoveredTile, player } from '../../../stores';
-import { capitalize } from '../../../utilities';
 import Map from '../../../components/Map.svelte';
 import TechTree from '../../../components/TechTree.svelte';
 import CommandOptions from '../../../components/CommandOptions.svelte';
@@ -23,7 +22,7 @@ import TileInfo from '../../../components/TileInfo.svelte';
 const { page } = stores();
 
 // The map component
-let map, unitInfo;
+let map;
 
 // True if the browser is in full screen mode
 let fullscreen = false;
@@ -48,6 +47,9 @@ let zoomLevel = 1;
 
 // The displayed turn and year
 let turnAndYear = '';
+
+// The amount of credits
+let credits = 0;
 
 // The current research
 let researchBarResearch = 'No research';
@@ -98,6 +100,10 @@ async function refresh() {
 
    setTurnAndYear(result.game.turn);
    player.set(result.player);
+   if (result.stocks.credits != null) {
+      credits = result.stocks.credits;
+   }
+
    statics.players = result.players;
    statics.metadata = result.metadata;
    const mapsize = { x: result.game.x, y: result.game.y };
@@ -190,7 +196,7 @@ async function endTurn() {
    </div>
    <div id="research-bar" class="fourth">
       <p class="center">
-         <span class="wealth"><img src="img/resources/wealth.svg" class="tiny-icon" alt="Wealth">123 </span>
+         <span class="wealth"><img src="img/resources/wealth.svg" class="tiny-icon" alt="Wealth">{credits}</span>
          <button title="Toggle Research window" class="hyperlink" on:click={() => { displayTechTree = !displayTechTree; }}>
             <span class="research"><img src="img/resources/science.svg" class="tiny-icon" alt="Science">+123 &rArr; <span class="hide-mobile">{researchBarResearch}</span> (17)</span>
          </button>

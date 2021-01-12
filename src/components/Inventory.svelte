@@ -125,8 +125,8 @@ function close() {
         <div id="inventory">
             <div class="item-wrapper">
                 <h3>Influence</h3>
-                <div class="item-card">
-                    <div class="item-icon" title="Wealth">
+                <div class="item-card" title="Wealth">
+                    <div class="item-icon">
                         <img src="img/resources/wealth.svg" alt="Wealth">
                     </div>
                     <p class="amount">192<small>.5</small></p>
@@ -135,26 +135,26 @@ function close() {
 
             <div class="item-wrapper">
                 <h3>Material</h3>
-                <div class="item-card">
-                    <div class="item-icon" title="Wood">
+                <div class="item-card" title="Wood">
+                    <div class="item-icon">
                         <img src="img/resources/wood.svg" alt="Wood">
                     </div>
                     <p class="amount">25<small>.5</small></p>
                 </div>
-                <div class="item-card">
-                    <div class="item-icon" title="Stone">
+                <div class="item-card" title="Stone">
+                    <div class="item-icon">
                         <img src="img/resources/stone.svg" alt="Stone">
                     </div>
                     <p class="amount">12</p>
                 </div>
-                <div class="item-card">
-                    <div class="item-icon" title="Bronze">
+                <div class="item-card" title="Bronze">
+                    <div class="item-icon">
                         <img src="img/resources/bronze.svg" alt="Bronze">
                     </div>
                     <p class="amount">999<small>.9</small></p>
                 </div>
-                <div class="item-card">
-                    <div class="item-icon" title="Clay">
+                <div class="item-card" title="Clay">
+                    <div class="item-icon">
                         <img src="img/resources/clay.svg" alt="Clay">
                     </div>
                     <p class="amount">52<small>.1</small></p>
@@ -162,21 +162,21 @@ function close() {
             </div>
 
             <div class="item-wrapper">
-                <h3>Weapons</h3>
-                <div class="item-card">
-                    <div class="item-icon" title="Wooden spear">
+                <h3>Weaponry</h3>
+                <div class="item-card" title="Wooden spear">
+                    <div class="item-icon">
                         <img src="img/resources/spear_wood.svg" alt="Wooden spear">
                     </div>
                     <p class="amount">4</p>
                 </div>
-                <div class="item-card">
-                    <div class="item-icon" title="Iron sword">
+                <div class="item-card" title="Iron sword">
+                    <div class="item-icon">
                         <img src="img/resources/sword_iron.svg" alt="Iron sword">
                     </div>
                     <p class="amount">1</p>
                 </div>
-                <div class="item-card">
-                    <div class="item-icon" title="Copper sword">
+                <div class="item-card" title="Copper sword">
+                    <div class="item-icon">
                         <img src="img/resources/sword_copper.svg" alt="Copper sword">
                     </div>
                     <p class="amount">2</p>

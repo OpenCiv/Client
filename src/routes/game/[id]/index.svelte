@@ -58,6 +58,9 @@ let credits = 0;
 // The current research
 let researchBarResearch = 'No research';
 
+// Current mobile footer panel to display
+//let footerPanel = 0;
+
 /**
  * Sets the displayed turn and date
  * @param {number} turn The turn number

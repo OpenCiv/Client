@@ -1,195 +1,196 @@
 <style lang="less">
-    @import url("../less/layout.less");
+@import url("../less/base.less");
 
-    @-webkit-keyframes researchGradient {
-        0%{background-position:100% 0%}
-        50%{background-position:0% 100%}
-        100%{background-position:100% 0%}
-    }
-    @-moz-keyframes researchGradient {
-        0%{background-position:100% 0%}
-        50%{background-position:0% 100%}
-        100%{background-position:100% 0%}
-    }
-    @keyframes researchGradient {
-        0%{background-position:100% 0%}
-        50%{background-position:0% 100%}
-        100%{background-position:100% 0%}
-    }
+@-webkit-keyframes researchGradient {
+      0%{background-position:100% 0%}
+      50%{background-position:0% 100%}
+      100%{background-position:100% 0%}
+}
 
-    #techtree-container {
-        width: auto;
-        overflow-x: scroll;
-        overflow-y: scroll;
-        margin: 0 12px 12px 12px;
+@-moz-keyframes researchGradient {
+   0%{background-position:100% 0%}
+   50%{background-position:0% 100%}
+   100%{background-position:100% 0%}
+}
 
-        #techtree {
-            width: max-content;
-            .clearfix;
+@keyframes researchGradient {
+   0%{background-position:100% 0%}
+   50%{background-position:0% 100%}
+   100%{background-position:100% 0%}
+}
 
-            .tech-era {
-                border-right: 2px solid #777;
-                width: auto;
-                float: left;
+   #techtree-container {
+      width: auto;
+      overflow-x: scroll;
+      overflow-y: scroll;
+      margin: 0 12px 12px 12px;
 
-                .tech-path {
-                    padding: @pad2 @pad1;
-                    background-image: url("../img/menuicons/dashed_line_horizontal.svg");
-                    background-repeat: repeat-x;
-                    background-position: left;
-                    background-size: 24px;
-                    .clearfix;
+      #techtree {
+         width: max-content;
+         .clearfix;
 
-                    .tech-card {
-                        position: relative;
-                        width: 150px;
+         .tech-era {
+            border-right: 2px solid #777;
+            width: auto;
+            float: left;
+
+            .tech-path {
+               padding: @pad2 @pad1;
+               background-image: url("../img/menuicons/dashed_line_horizontal.svg");
+               background-repeat: repeat-x;
+               background-position: left;
+               background-size: 24px;
+               .clearfix;
+
+               .tech-card {
+                  position: relative;
+                  width: 150px;
+                  float: left;
+                  padding: 4px;
+                  margin-right: 24px;
+                  background-color: #555;
+                  border-radius: 5px;
+                  -webkit-border-radius: 5px;
+                  -moz-border-radius: 5px;
+                  display: flex;
+                  align-items: center;
+                  .back-stone;
+                  .box-shadow;
+                  .border-stone-thin;
+                  .clearfix;
+
+                  button {
+                     float: left;
+                  }
+                  h3 {
+                     display: block;
+                     width: 90px;
+                     float: left;
+                     font-size: 0.9em;
+                     margin: 4px 0 2px 8px;
+                  }
+
+                  .tech-upgrades {
+                     display: none;
+                     background-color: #555;
+
+                     width: 150px;
+                     position: absolute;
+                     top: 0;
+                     left: 150px;
+                     z-index: 100;
+
+                     font-size: 0.7em;
+
+                     .back-stone;
+                     .border-stone-thin;
+
+                     img {
+                        width: 3.5em;
                         float: left;
-                        padding: 4px;
-                        margin-right: 24px;
-                        background-color: #555;
-                        border-radius: 5px;
-                        -webkit-border-radius: 5px;
-                        -moz-border-radius: 5px;
-                        display: flex;
-                        align-items: center;
-                        .back-stone;
-                        .box-shadow;
-                        .border-stone-thin;
-                        .clearfix;
+                        margin: 0 0.75em 1em 1em;
+                     }
 
-                        button {
-                            float: left;
-                        }
-                        h3 {
-                            display: block;
-                            width: 90px;
-                            float: left;
-                            font-size: 0.9em;
-                            margin: 4px 0 2px 8px;
-                        }
+                     h4 {
+                        margin: 1em 1em 0 0.75em;
+                        line-height: 110%;
+                     }
 
-                        .tech-upgrades {
-                            display: none;
-                            background-color: #555;
+                     p {
+                        margin: 0 1em 1.25em 0.75em;
+                        line-height: 110%;
+                     }
+                  }
+               }
 
-                            width: 150px;
-                            position: absolute;
-                            top: 0;
-                            left: 150px;
-                            z-index: 100;
+               .tech-card:last-of-type {
+                  margin-right: 0;
+               }
 
-                            font-size: 0.7em;
+               .tech-card:hover {
+                  cursor: pointer;
+                  background-color: #777777;
+                  border-top-color: #999999;
 
-                            .back-stone;
-                            .border-stone-thin;
+                  .tech-upgrades {
+                     display: block;
+                  }
+               }
 
-                            img {
-                                width: 3.5em;
-                                float: left;
-                                margin: 0 0.75em 1em 1em;
-                            }
+               .tech-card.unavailable {
+                  background-color: #333;
 
-                            h4 {
-                                margin: 1em 1em 0 0.75em;
-                                line-height: 110%;
-                            }
+                  h3 {
+                     color: #777;
+                  }
+               }
 
-                            p {
-                                margin: 0 1em 1.25em 0.75em;
-                                line-height: 110%;
-                            }
-                        }
-                    }
-
-                    .tech-card:last-of-type {
-                        margin-right: 0;
-                    }
-
-                    .tech-card:hover {
-                        cursor: pointer;
-                        background-color: #777777;
-                        border-top-color: #999999;
-
-                        .tech-upgrades {
-                            display: block;
-                        }
-                    }
-
-                    .tech-card.unavailable {
-                        background-color: #333;
-
-                        h3 {
-                            color: #777;
-                        }
-                    }
-
-                    .tech-card.unavailable:hover {
-                        cursor: default;
-                        background-color: #333;
-                        border-top-color: #777;
-                    }
-                }
+               .tech-card.unavailable:hover {
+                  cursor: default;
+                  background-color: #333;
+                  border-top-color: #777;
+               }
             }
+         }
 
-            .tech-era:first-of-type {
-                .tech-path {
-                    background-repeat: no-repeat;
-                    background-position-x: right;
-                }
+         .tech-era:first-of-type {
+            .tech-path {
+               background-repeat: no-repeat;
+               background-position-x: right;
             }
+         }
 
-            .tech-era:last-of-type {
-                border-right: 0 none transparent;
+         .tech-era:last-of-type {
+            border-right: 0 none transparent;
 
-                .tech-path {
-                    background-repeat: no-repeat;
-                    background-position-x: left;
-                }
+            .tech-path {
+               background-repeat: no-repeat;
+               background-position-x: left;
             }
-        }
-    }
+         }
+      }
+   }
 
-    .iconbutton, .iconbutton:visited, .iconbutton:hover {
-        height: 36px;
-        width: 36px;
-        min-height: 36px;
-        min-width: 36px;
-        box-sizing: border-box;
-        padding: 0px;
-        border-color: @color_text;
-        color: @color_negatext;
-        background-color: darken(@color_text,10%);
-        letter-spacing: 0px;
-    }
+   .iconbutton, .iconbutton:visited, .iconbutton:hover {
+      height: 36px;
+      width: 36px;
+      min-height: 36px;
+      min-width: 36px;
+      box-sizing: border-box;
+      padding: 0px;
+      border-color: @color_text;
+      color: @color_negatext;
+      background-color: darken(@color_text,10%);
+      letter-spacing: 0px;
+   }
 
-    .unavailable .iconbutton, .unavailable .iconbutton:visited, .unavailable .iconbutton:hover {
-        border-color: darken(@color_text, 30%);
-        background-color: darken(@color_text,40%);
+   .unavailable .iconbutton, .unavailable .iconbutton:visited, .unavailable .iconbutton:hover {
+      border-color: darken(@color_text, 30%);
+      background-color: darken(@color_text,40%);
 
-        img {
-            -webkit-filter: grayscale(100%) brightness(50%);
-            filter: grayscale(100%) brightness(50%);
-        }
-    }
+      img {
+         -webkit-filter: grayscale(100%) brightness(50%);
+         filter: grayscale(100%) brightness(50%);
+      }
+   }
 
-    .researched .iconbutton, .researched .iconbutton:visited, .researched .iconbutton:hover {
-        border-color: @color_light;
-        background-color: @color_normal;
-    }
+   .researched .iconbutton, .researched .iconbutton:visited, .researched .iconbutton:hover {
+      border-color: @color_light;
+      background-color: @color_normal;
+   }
 
-    .current-research .iconbutton, .current-research .iconbutton:visited, .current-research .iconbutton:hover {
-        border-color: @color_research;
-        //background: darken(@color_research,10%);
-        background: -moz-linear-gradient(45deg, darken(@color_research,2%), darken(@color_research,25%), darken(@color_research,2%));
-        background: -webkit-linear-gradient(45deg, darken(@color_research,2%), darken(@color_research,25%), darken(@color_research,2%));
-        background: linear-gradient(45deg, darken(@color_research,2%), darken(@color_research,25%), darken(@color_research,2%));
-        background-size: 400% 400%;
+   .current-research .iconbutton, .current-research .iconbutton:visited, .current-research .iconbutton:hover {
+      border-color: @color_research;
+      //background: darken(@color_research,10%);
+      background: -moz-linear-gradient(45deg, darken(@color_research,2%), darken(@color_research,25%), darken(@color_research,2%));
+      background: -webkit-linear-gradient(45deg, darken(@color_research,2%), darken(@color_research,25%), darken(@color_research,2%));
+      background: linear-gradient(45deg, darken(@color_research,2%), darken(@color_research,25%), darken(@color_research,2%));
+      background-size: 400% 400%;
 
-        -webkit-animation: researchGradient 5s infinite;
-        -moz-animation: researchGradient 5s infinite;
-        animation: researchGradient 5s infinite;
-    }
-
+      -webkit-animation: researchGradient 5s infinite;
+      -moz-animation: researchGradient 5s infinite;
+      animation: researchGradient 5s infinite;
+   }
 </style>
 
 <script>

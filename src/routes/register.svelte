@@ -3,10 +3,6 @@
    <link href="https://fonts.googleapis.com/css?family=Hind:400,600|Lora:400i&display=swap" rel="stylesheet">
 </svelte:head>
 
-<style lang="less">
-   @import url("../less/layout.less");
-</style>
-
 <script>
 import * as sapper from '@sapper/app';
 import { alerts, backend, busy } from '../stores';
@@ -64,35 +60,35 @@ async function register() {
    <h1>Register</h1>
    <div class="row">
       <div class="third left">
-         <label>Name</label>
+         <label for="name">Name</label>
       </div>
       <div class="two-thirds">
-         <input type=text disabled={$busy} placeholder="Nickname or real name..." bind:value={name}>
+         <input type=text disabled={$busy} id="name" placeholder="Nickname or real name..." bind:value={name}>
       </div>
    </div>
    
    <div class="row">
       <div class="third left">
-         <label>E-mail address</label>
+         <label for="email">E-mail address</label>
       </div>
       <div class="two-thirds">
-         <input type=email disabled={$busy} placeholder="name@domain.com" bind:value={email}>
+         <input type=email disabled={$busy} id="email" placeholder="name@domain.com" bind:value={email}>
       </div>
    </div>
    <div class="row">
       <div class="third left">
-         <label>Password</label>
+         <label for="password">Password</label>
       </div>
       <div class="two-thirds">
-         <input type=password disabled={$busy} bind:value={password}>
+         <input type=password disabled={$busy} id="password" bind:value={password}>
       </div>
    </div>
    <div class="row">
       <div class="third left">
-         <label>Repeat password</label>
+         <label for="repeat">Repeat password</label>
       </div>
       <div class="two-thirds">
-         <input type=password disabled={$busy} bind:value={repeat}>
+         <input type=password disabled={$busy} id="repeat" bind:value={repeat}>
       </div>
    </div>
    <button class="button" {disabled} on:click={register}>Register</button>

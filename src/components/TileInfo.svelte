@@ -1,6 +1,4 @@
 <style lang="less">
-   @import url("../less/layout.less");
-
    h4 {
       margin-top: 0;
       margin-bottom: 0;

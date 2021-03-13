@@ -1,6 +1,4 @@
 <style lang="less">
-    @import url("../less/layout.less");
-
     .flagcontainer {
         display: block;
         position: relative;
@@ -22,7 +20,6 @@
 
     .playerbanner {
         position: absolute;
-
         top: 25%;
         left: 25%;
         width: 50%;
@@ -139,7 +136,7 @@ function cancelNationAdjective(event) {
             {#if editNationName}
                 <input type=text disabled={$busy} bind:value={nationName} on:change={onChangeNationName} on:keydown={cancelNationName} placeholder="Finland">
             {:else}
-                <label><!-- {user.nationName} -->Finland</label> 
+                <span class="label"><!-- {user.nationName} -->Finland</span> 
             {/if}
         </div>
         <div class="half">
@@ -153,7 +150,7 @@ function cancelNationAdjective(event) {
             {#if editNationAdjective}
                 <input type=text disabled={$busy} bind:value={nationAdjective} on:change={onChangeNationAdjective} on:keydown={cancelNationAdjective} placeholder="Finnish">
             {:else}
-                <label><!-- {user.nationAdjective} -->Finnish</label> 
+                <span class="label"><!-- {user.nationAdjective} -->Finnish</span> 
             {/if}
         </div>
         <div class="half">

@@ -1,6 +1,4 @@
 <style lang="less">
-   @import url("../less/layout.less");
-
    #notifications-container {
       width: auto;
       height: 100%;
@@ -27,19 +25,6 @@
             border-top: 0 transparent none;
          }
       }
-   }
-
-   .iconbutton, .iconbutton:visited, .iconbutton:hover {
-      height: 36px;
-      width: 36px;
-      min-height: 36px;
-      min-width: 36px;
-      box-sizing: border-box;
-      padding: 0px;
-      border-color: @color_text;
-      color: @color_negatext;
-      background-color: darken(@color_text,10%);
-      letter-spacing: 0px;
    }
 </style>
 

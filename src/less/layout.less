@@ -1,29 +1,12 @@
 /* LESS Document */
 
+@import url("./base.less");
+
 // Normalize.less is no longer in use - the styles have been copied to global.css.
 // @import url("normalize.less");
 
 /* MIXINS */
-@color_normal: #F2D346; /* Primary theme color */
-@color_dark: #AB9D61;
-@color_light: #FFEC96;
-@color_research: #96BFFF;
-@color_negatext: #333333; /* Text color */
-@color_text: #f5f5f5; /* Negative text color */
-@color_buttontext: #806F25;
-
-@font1: 'Hind', 'Futura', sans-serif; /* Body text font */
-@font2: 'Lora', 'Times New Roman', serif; /* Headings font */
-
-@pad1: 24px; /* Sivuilla oleva yleinen väli */
-@pad2: 1em; /* Ylhäällä ja alhaalla oleva yleinen väli */
-@pad3: 32px; /* Ylhäällä ja alhaalla oleva isompi väli */
-@pad4: 2*@pad3; /* Ylhäällä ja alhaalla oleva isoin väli */
-
-@border1: 6px double #777; // Yleinen reuna
-@border2: 2px solid #777; // Yleinen reuna 2
-
-.col {
+:global(.col) {
 	width: 100%;
 	clear: both;
 	margin-left: 0;
@@ -33,7 +16,7 @@
 	max-height: inherit;
 }
 
-.clearfix { 
+:global(.clearfix) { 
 	*zoom: 1;
 	&:before, &:after { 
 		content: ""; 
@@ -42,17 +25,17 @@
 	&:after { clear: both; }
 }
 
-.box-shadow {
+:global(.box-shadow) {
 	-webkit-box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.25);
 	-moz-box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.25);
 	box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.25);
 }
 
-.back-stone {
+:global(.back-stone) {
 	background-image: url("../img/texture_stone1.png");
 }
 
-.border-stone {
+:global(.border-stone) {
 	border: @border1;
 	border-right-color: #555;
     border-bottom-color: #222;
@@ -60,7 +43,7 @@
     border-top-color: #777;
 }
 
-.border-stone-thin {
+:global(.border-stone-thin) {
 	border: @border2;
 	border-right-color: #555;
     border-bottom-color: #222;
@@ -68,18 +51,17 @@
     border-top-color: #777;
 }
 
-
 /* ======================================================== */
 /* HEADINGS */
 /* ======================================================== */
 
-h1, h2, h3, h4, h5, h6 {
+:global(h1, h2, h3, h4, h5, h6) {
 	font-family: @font1;
 	text-transform: uppercase;
 	color: @color_light;
 }
 
-h1 {
+:global(h1) {
 	margin: @pad2 @pad1 @pad2 @pad1;
 	font-size: 3em;
 	font-weight: 400;
@@ -87,7 +69,7 @@ h1 {
 	letter-spacing: 2px;
 }
 
-h2 {
+:global(h2) {
 	margin: @pad2 @pad1 @pad2 @pad1;
 	font-size: 1.8em;
 	font-weight:400;	
@@ -95,7 +77,7 @@ h2 {
 	line-height:110%;
 }
 
-h3 {
+:global(h3) {
 	margin: @pad2 @pad1 @pad2/2 @pad1;
 	font-size: 1.2em;
 	font-weight:400;
@@ -103,7 +85,7 @@ h3 {
 	line-height: 110%;
 }
 
-h4 {
+:global(h4) {
 	margin: 1.5*@pad2 @pad1 @pad2 @pad1;
 	font-size: 1em;
 	font-weight:400;
@@ -111,11 +93,11 @@ h4 {
 	line-height:150%;
 }
 
-.no-top-margin {
+:global(.no-top-margin) {
 	margin-top: 0;
 }
 
-.no-bottom-margin {
+:global(.no-bottom-margin) {
 	margin-bottom: -0.1em;
 }
 
@@ -123,7 +105,7 @@ h4 {
 /* BODY TEXT, LEIPÄTEKSTI */
 /* ======================================================== */
 
-p {
+:global(p) {
 	margin: @pad2 @pad1 1.5*@pad2 @pad1;
 	font-size: 1.1em;
 	font-weight:400;
@@ -132,36 +114,36 @@ p {
 	font-family: @font1;
 }
 
-ul li {
+:global(ul li) {
 	line-height: 190%;
 }
 
-::selection, ::-moz-selection {
+:global(::selection, ::-moz-selection) {
 	background: @color_normal;
 	color: #ffffff;
 }
 
-.center {
+:global(.center) {
 	text-align: center;
 }
 
-.left {
+:global(.left) {
 	text-align: left;
 }
 
-.right {
+:global(.right) {
 	text-align: right;
 }
 
-.research {
+:global(.research) {
 	color: @color_research;
 }
 
-.wealth {
+:global(.wealth) {
 	color: rgb(255, 222, 150);
 }
 
-.growth {
+:global(.growth) {
 	color: rgb(51, 204, 51);
 }
 
@@ -169,19 +151,19 @@ ul li {
 /* LINKS */
 /* ======================================================== */
 
-a, a:visited, summary, .hyperlink {
+:global(a, a:visited, summary, .hyperlink) {
 	text-decoration: none;
 	color: @color_normal;
 	cursor: pointer;
 	font-family: @font1;
 }
 
-a:hover, a:active, .hyperlink:hover, .hyperlink:active {
+:global(a:hover, a:active, .hyperlink:hover, .hyperlink:active) {
 	color: @color_light;
 	cursor: pointer;
 }
 
-button.hyperlink {
+:global(button.hyperlink) {
 	background-color: transparent;
 	-webkit-appearance: none;
 	border: 0 none transparent;
@@ -189,7 +171,7 @@ button.hyperlink {
 	padding: 0;
 }
 
-.button, .button:visited {
+:global(.button, .button:visited) {
 	background-color: darken(@color_normal, 5%);
 	border: 3px solid @color_light;
 	padding: @pad1/2-2px 0.75*@pad1 @pad1/3 0.75*@pad1;
@@ -235,7 +217,7 @@ button.hyperlink {
 	}
 }
 
-.button:hover, .button:active {
+:global(.button:hover, .button:active) {
 	background-color: darken(@color_normal, 10%);
 	text-shadow: 0px 1px 4px @color_dark;
 	/*.tausta-gradientti;*/
@@ -251,7 +233,7 @@ button.hyperlink {
 	}
 }
 
-.closewindow {
+:global(.closewindow) {
 	min-width: 0;
 	padding: 6px 10px;
 	position: absolute;
@@ -263,7 +245,7 @@ button.hyperlink {
 /* FORMS */
 /* ======================================================== */
 
-input[type=text], input[type=password], input[type=email], select {
+:global(input[type=text], input[type=password], input[type=email], select) {
 	display: block;
 	width: 100%;
 	min-height: 36px;
@@ -278,12 +260,12 @@ input[type=text], input[type=password], input[type=email], select {
 	outline: none;
 }
 
-select {
+:global(select) {
 	height: 36px;
 	margin: 1em 0;
 }
 
-label, .label {
+:global(label, .label) {
 	padding: @pad1/4 0.75*@pad1 @pad1/4-2px 0.75*@pad1;
 	font-size: 1.2em;
 	font-weight:400;
@@ -303,13 +285,13 @@ label, .label {
 /* IMAGES */
 /* ======================================================== */
 
-img, object, svg {
+:global(img, object, svg) {
 	display: block;
 	max-width: 100%;
     height: auto;
 }
 
-.tiny-icon {
+:global(.tiny-icon) {
 	height: 1.1em;
 	display: inline-block;
 	margin-bottom: -0.2em;
@@ -317,7 +299,7 @@ img, object, svg {
 	margin-right: 0.2em;
 }
 
-a:hover .tiny-icon, button:hover .tiny-icon {
+:global(a:hover .tiny-icon, button:hover .tiny-icon) {
 	filter: brightness(1.15);
 	-webkit-filter: brightness(1.15);
 }
@@ -326,7 +308,7 @@ a:hover .tiny-icon, button:hover .tiny-icon {
 /* STRUCTURE */
 /* ======================================================== */
 
-.full {
+:global(.full) {
 	width: 100%;
 	float: left;
 	overflow: hidden;
@@ -335,14 +317,14 @@ a:hover .tiny-icon, button:hover .tiny-icon {
 	flex-wrap: wrap;
 }
 
-.row {
+:global(.row) {
 	.clearfix;
 	
 	display: flex;
 	flex-wrap: wrap;
 }
 
-.separator {
+:global(.separator) {
 	width: 100%;
 	height: 1px;
 	border-top: @border2;
@@ -352,14 +334,14 @@ a:hover .tiny-icon, button:hover .tiny-icon {
 	margin: @pad2 0 @pad3 0;
 }
 
-.wrapper {
+:global(.wrapper) {
 	width: 94%;
 	display: block;
 	margin: 0 3%;
 	.clearfix;
 }
 
-.menuwrapper {
+:global(.menuwrapper) {
 	max-width: 500px;
 	margin: @pad2 @pad1;
 	padding: @pad2 @pad1 @pad3 @pad1;
@@ -384,7 +366,7 @@ a:hover .tiny-icon, button:hover .tiny-icon {
 	}
 }
 
-header, footer, #sidebar-left, #sidebar-right, .popup, #tileinfo {
+:global(header, footer, #sidebar-left, #sidebar-right, .popup, #tileinfo) {
 	background-color: #333;
 	.back-stone;
 	.border-stone;
@@ -393,7 +375,7 @@ header, footer, #sidebar-left, #sidebar-right, .popup, #tileinfo {
 	display: block;
 }
 
-main {
+:global(main) {
 	position: fixed;
 	overflow: scroll;
     overscroll-behavior: contain;
@@ -403,7 +385,7 @@ main {
 	
 }
 
-header, header.full {
+:global(header, header.full) {
 	top: 0;
 	padding: 0;
 	height: 84px; // Fixed height so the #map top-padding can be fixed
@@ -435,7 +417,7 @@ header, header.full {
 	}
 }
 
-#sidebar-left, #sidebar-right, #tileinfo {
+:global(#sidebar-left, #sidebar-right, #tileinfo) {
 	background-color: #444;
 	box-sizing: border-box;
 	overflow: hidden;
@@ -447,12 +429,12 @@ header, header.full {
 	margin-top: 42px;
 }
 
-#sidebar-right, #tileinfo {
+:global(#sidebar-right, #tileinfo) {
 	right: 0;
 	left: inherit;
 }
 
-.popup {
+:global(.popup) {
 	box-sizing: border-box;
 	width: 50%;
 	height: auto;
@@ -468,7 +450,7 @@ header, header.full {
     transform: translateX(-50%);
 }
 
-footer {
+:global(footer) {
 	bottom: 0;
 	height: 128px; // Fixed height so the #map bottom-padding can be fixed
 	overflow: hidden;
@@ -482,7 +464,7 @@ footer {
 	overflow-x: scroll;
 }
 
-.footer-panel {
+:global(.footer-panel) {
 	padding: @pad2;
 
 	h3, p, table {
@@ -491,12 +473,12 @@ footer {
 	}
 }
 
-#research-bar, #menu-bar, #commands-panel, #status-panel {
+:global(#research-bar, #menu-bar, #commands-panel, #status-panel) {
 	background-color: #444;
 	.back-stone;
 }
 
-#research-bar {
+:global(#research-bar) {
 	flex-grow: 2;
 }
 
@@ -504,49 +486,49 @@ footer {
 /* COLUMNS */
 /* ======================================================== */
 
-.whole, .half, .two-thirds, .third, .fourth, .sixth, .three-fours {
+:global(.whole, .half, .two-thirds, .third, .fourth, .sixth, .three-fours) {
 	.col;
 	width: 100.00%;
 	clear: none;
 }
 
-.half.non-responsive {
+:global(.half.non-responsive) {
 	.col;
 	width: 50.00%;
 	clear: none;
 }
 
-.two-thirds.non-responsive {
+:global(.two-thirds.non-responsive) {
 	.col;
 	width: 66.66%;
 	clear: none;
 }
 
-.third.non-responsive {
+:global(.third.non-responsive) {
 	.col;
 	width: 33.333%;
 	clear: none;
 }
 
-.fourth.non-responsive {
+:global(.fourth.non-responsive) {
 	.col;
 	width: 25%;
 	clear: none;
 }
 
-.three-fours.non-responsive {
+:global(.three-fours.non-responsive) {
 	.col;
 	width: 75%;
 	clear: none;
 }
 
-.sixth.non-responsive {
+:global(.sixth.non-responsive) {
 	.col;
 	width: 33.333%;
 	clear: none;
 }
 
-.hide-mobile {
+:global(.hide-mobile) {
 	display: none;
 }
 
@@ -555,19 +537,19 @@ footer {
 /* ======================================================== */
 @media only screen and (min-width: 640px) {
 	
-	.fourth {
+	:global(.fourth) {
 		width: 50%;
 	}
 
-	.fourth.non-responsive {
+	:global(.fourth.non-responsive) {
 		width: 25%;
 	}
 	
-	header, header.full {
+	:global(header, header.full) {
 		height: 42px; // Fixed height so the #map top-padding can be fixed
 	}
 
-	footer {
+	:global(footer) {
 		width: 200%;
 		overflow-x: scroll;
 	}
@@ -577,69 +559,68 @@ footer {
 /* ======================================================== */
 @media only screen and (min-width: 1024px) {
 
-	.menuwrapper {
+	:global(.menuwrapper) {
 		margin: @pad3 auto;
 	}
 
-	.full {
+	:global(.full) {
 		flex-wrap: nowrap;
 	}
 
-	footer {
+	:global(footer) {
 		width: 100%;
 		overflow-x: hidden;
 	}
 
-	.half, .two-thirds, .third, .fourth, .sixth {
+	:global(.half, .two-thirds, .third, .fourth, .sixth) {
 		padding-right: @pad1/2;
 		padding-left: @pad1/2;
 		box-sizing: border-box;
 	}
 
-	.row > :last-child {
+	:global(.row > :last-child) {
 		padding-right: 0;
 	}
 
-	.row > :first-child {
+	:global(.row > :first-child) {
 		padding-left: 0;
 	}
 
-	.half {
+	:global(.half) {
 		width: 50.00%;
 		clear: none;
 	}
 	
-	.two-thirds {
+	:global(.two-thirds) {
 		width: 66.66%;
 		clear: none;
 	}
 	
-	.third {
+	:global(.third) {
 		width: 33.333%;
 		clear: none;
 	}
 	
-	.fourth {
+	:global(.fourth) {
 		width: 25%;
 		clear: none;
 	}
 
-	.three-fours {
+	:global(.three-fours) {
 		width: 75%;
 		clear: none;
 	}
 	
-	.sixth {
+	:global(.sixth) {
 		width: 33.333%;
 		clear: none;
 	}
 
-	.hide-mobile {
+	:global(.hide-mobile) {
 		display: initial;
 	}
 
-	.hide-desktop {
+	:global(.hide-desktop) {
 		display: none;
 	}
-
 }

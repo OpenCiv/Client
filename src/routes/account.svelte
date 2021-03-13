@@ -1,7 +1,3 @@
-<style lang="less">
-   @import url("../less/layout.less");
-</style>
-
 <script>
 import { onMount } from 'svelte';
 import * as sapper from '@sapper/app';
@@ -133,7 +129,7 @@ async function remove() {
          {#if editName}
             <input type=text disabled={$busy} bind:value={name} on:change={onChangeName} on:keydown={cancelName}>
          {:else}
-            <label>{user.name} </label> 
+            <span class="label">{user.name} </span> 
          {/if}
       </div>
       <div class="half">
@@ -149,7 +145,7 @@ async function remove() {
          {#if editEmail}
             <input type=email disabled={$busy} bind:value={email} on:change={onChangeEmail} on:keydown={cancelEmail}>
          {:else}
-            <label>{user.email} </label>
+            <span class="label">{user.email} </span>
          {/if}
       </div>
       <div class="half">
@@ -162,7 +158,7 @@ async function remove() {
    <a href="/changepassword" class="button">Change password</a>
    <button class="button" disabled={$busy} on:click={remove}>Delete account</button>
       {#if !user.verified}
-         <p div="unverified">
+         <p>
             <span>Your account has not been verified yet.</span><br>
             <button class="button" disabled={$busy} on:click={resend}>Resend verification e-mail</button>
          </p>

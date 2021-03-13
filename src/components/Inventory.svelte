@@ -1,109 +1,106 @@
 <style lang="less">
-    @import url("../less/layout.less");
+@import url("../less/base.less");
 
-    #inventory-container {
-        width: auto;
-        overflow-x: hidden;
-        overflow-y: scroll;
-        margin: 0 12px 12px 12px;
+   #inventory-container {
+      width: auto;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      margin: 0 12px 12px 12px;
 
-        #inventory {
-            width: auto;
+      #inventory {
+         width: auto;
+         .clearfix;
+
+      .item-wrapper {
+            padding: @pad2 @pad1;
             .clearfix;
 
-            .item-wrapper {
-                padding: @pad2 @pad1;
-                .clearfix;
-
-                h3 {
-                    margin-left: 1em;
-                    margin-bottom: 1em; 
-                }
-
-                .item-card {
-                    width: 100px;
-                    float: left;
-                    padding: 4px;
-                    margin-right: 24px;
-                    margin-bottom: 12px;
-                    background-color: #555;
-                    border-radius: 5px;
-                    -webkit-border-radius: 5px;
-                    -moz-border-radius: 5px;
-                    align-items: center;
-                    .back-stone;
-                    .box-shadow;
-                    .border-stone-thin;
-                    .clearfix;
-
-                    .item-icon {
-                        width: 40%;
-                        float: left;
-                        box-sizing: border-box;
-                        color: @color_negatext;
-                        letter-spacing: 0px;
-                        padding-left: 0.25em;
-                        //margin: 0.05em 0 0 0;
-                    }
-
-                    .amount {
-                        box-sizing: border-box;
-                        display: block;
-                        width: 60%;
-                        text-align: center;
-                        line-height: 150%;
-                        float: left;
-                        font-size: 24px;
-                        font-weight: 700;
-                        margin: 0.05em 0 0 0;
-                        padding: 0 0.25em 0 0.25em;
-                    }
-                }
-
-                .item-card:last-of-type {
-                    margin-right: 0;
-                }
-
-                .item-card:hover {
-                    cursor: pointer;
-                    background-color: #777777;
-                    border-top-color: #999999;
-                }
-
-                .item-card.unavailable {
-                    background-color: #333;
-
-                    h3 {
-                        color: #777;
-                    }
-                }
-
-                .item-card.unavailable:hover {
-                    cursor: default;
-                    background-color: #333;
-                    border-top-color: #777;
-                }
+            h3 {
+               margin-left: 1em;
+               margin-bottom: 1em; 
             }
-        }
-    }
 
-    
+            .item-card {
+               width: 100px;
+               float: left;
+               padding: 4px;
+               margin-right: 24px;
+               margin-bottom: 12px;
+               background-color: #555;
+               border-radius: 5px;
+               -webkit-border-radius: 5px;
+               -moz-border-radius: 5px;
+               align-items: center;
+               .back-stone;
+               .box-shadow;
+               .border-stone-thin;
+               .clearfix;
 
-    .unavailable .item-icon {
-        border-color: darken(@color_text, 30%);
-        background-color: darken(@color_text,40%);
+               .item-icon {
+                  width: 40%;
+                  float: left;
+                  box-sizing: border-box;
+                  color: @color_negatext;
+                  letter-spacing: 0px;
+                  padding-left: 0.25em;
+                  //margin: 0.05em 0 0 0;
+               }
 
-        img {
-            -webkit-filter: grayscale(100%) brightness(50%);
-            filter: grayscale(100%) brightness(50%);
-        }
-    }
+               .amount {
+                  box-sizing: border-box;
+                  display: block;
+                  width: 60%;
+                  text-align: center;
+                  line-height: 150%;
+                  float: left;
+                  font-size: 24px;
+                  font-weight: 700;
+                  margin: 0.05em 0 0 0;
+                  padding: 0 0.25em 0 0.25em;
+               }
+            }
 
-    .owned .iconbutton, .owned .iconbutton:visited, .owned .iconbutton:hover {
-        border-color: @color_light;
-        background-color: @color_normal;
-    }
+            .item-card:last-of-type {
+               margin-right: 0;
+            }
 
+            .item-card:hover {
+               cursor: pointer;
+               background-color: #777777;
+               border-top-color: #999999;
+            }
+
+            /* .item-card.unavailable {
+               background-color: #333;
+
+               h3 {
+                  color: #777;
+               }
+            }
+
+            .item-card.unavailable:hover {
+               cursor: default;
+               background-color: #333;
+               border-top-color: #777;
+            } */
+         }
+      }
+   }
+
+   /* .unavailable .item-icon {
+      border-color: darken(@color_text, 30%);
+      background-color: darken(@color_text,40%);
+
+      img {
+         -webkit-filter: grayscale(100%) brightness(50%);
+         filter: grayscale(100%) brightness(50%);
+      }
+   }
+
+   .owned .iconbutton, .owned .iconbutton:visited, .owned .iconbutton:hover {
+      border-color: @color_light;
+      background-color: @color_normal;
+   } */
 </style>
 
 <script>

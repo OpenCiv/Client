@@ -1,3 +1,7 @@
+<style lang="less">
+@import url("../less/layout.less");
+</style>
+
 <script>
 import Alerts from '../components/Alerts.svelte';
 </script>

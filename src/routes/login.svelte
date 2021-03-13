@@ -3,10 +3,6 @@
    <link href="https://fonts.googleapis.com/css?family=Hind:400,600|Lora:400i&display=swap" rel="stylesheet">
 </svelte:head>
 
-<style lang="less">
-   @import url("../less/layout.less");
-</style>
-
 <script>
 import * as sapper from '@sapper/app';
 import { alerts, backend, busy } from '../stores';
@@ -41,18 +37,18 @@ async function login() {
    <h1>Login</h1>
    <div class="row">
       <div class="third left">
-         <label>E-mail address</label>
+         <label for="email">E-mail address</label>
       </div>
       <div class="two-thirds">
-         <input type=email disabled={$busy} bind:value={email}>
+         <input type=email disabled={$busy} id="email" bind:value={email}>
       </div>
    </div>
    <div class="row">
       <div class="third left">
-         <label>Password</label>
+         <label for="password">Password</label>
       </div>
       <div class="two-thirds">
-         <input type=password disabled={$busy} bind:value={password}>
+         <input type=password disabled={$busy} id="password" bind:value={password}>
       </div>
    </div>
    <button class="button" {disabled} on:click={login}>Log in</button>

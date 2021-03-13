@@ -3,10 +3,6 @@
    <link href="https://fonts.googleapis.com/css?family=Hind:400,600|Lora:400i&display=swap" rel="stylesheet">
 </svelte:head>
 
-<style lang="less">
-   @import url("../less/layout.less");
-</style>
-
 <script>
 import * as sapper from '@sapper/app';
 import { alerts, backend, busy } from '../stores';
@@ -50,26 +46,26 @@ async function submitPassword() {
 
    <div class="row">
       <div class="third left">
-         <label>Current password</label>
+         <label for="oldpass">Current password</label>
       </div>
       <div class="two-thirds">
-         <input type=password disabled={$busy} bind:value={oldpass}>
+         <input type=password disabled={$busy} id="oldpass" bind:value={oldpass}>
       </div>
    </div>
    <div class="row">
       <div class="third left">
-         <label>New password</label>
+         <label for="newpass">New password</label>
       </div>
       <div class="two-thirds">
-         <input type=password disabled={$busy} bind:value={newpass}>
+         <input type=password disabled={$busy} id="newpass" bind:value={newpass}>
       </div>
    </div>
    <div class="row">
       <div class="third left">
-         <label>Repeat password</label>
+         <label for="repeat">Repeat password</label>
       </div>
       <div class="two-thirds">
-         <input type=password disabled={$busy} bind:value={repeat}>
+         <input type=password disabled={$busy} id="repeat" bind:value={repeat}>
       </div>
    </div>
 

@@ -3,10 +3,6 @@
    <link href="https://fonts.googleapis.com/css?family=Hind:400,600|Lora:400i&display=swap" rel="stylesheet">
 </svelte:head>
 
-<style lang="less">
-   @import url("../less/layout.less");
-</style>
-
 <script>
 import * as sapper from '@sapper/app';
 import { backend, busy } from '../stores';
@@ -36,10 +32,10 @@ async function newgame(e) {
    <h2>Game Settings</h2>
    <div class="row">
       <div class="third right">
-         <label for="game_name">Name</label>
+         <label for="name">Name</label>
       </div>
       <div class="two-thirds">
-         <input type=text disabled={$busy} bind:value={name} id="game_name" placeholder="John Doe´s Game">
+         <input type=text disabled={$busy} bind:value={name} id="name" placeholder="John Doe's Game">
       </div>
    </div>
 
@@ -48,10 +44,10 @@ async function newgame(e) {
    <h2>Map Settings</h2>
    <div class="row">
       <div class="third right">
-         <label for="map_size">Map Size</label>
+         <label for="mapsize">Map Size</label>
       </div>
       <div class="two-thirds">
-         <select id="map_size">
+         <select id="mapsize">
             <option value="Tiny">Tiny</option>
             <option value="Small">Small</option>
             <option value="Standard" selected>Standard</option>

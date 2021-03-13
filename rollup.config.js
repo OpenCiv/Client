@@ -73,7 +73,12 @@ export default {
 			svelte({
 				generate: 'ssr',
 				dev,
-            preprocess: autoPreprocess({})
+            preprocess: autoPreprocess({}),
+            onwarn: (warning, handler) => {
+               if (warning.code !== 'css-unused-selector') {
+                  handler(warning);
+               }
+           }
 			}),
 			resolve({
 				dedupe

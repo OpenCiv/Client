@@ -138,6 +138,15 @@
     }
 }
 
+.improvement:hover {
+    cursor: pointer;
+    filter: brightness(1.05);
+}
+
+.improvement-front {
+    pointer-events : none;
+}
+
 .hill img {
     margin: 0 auto;
 }
@@ -154,7 +163,6 @@
     margin-top: @tile_land_padding_top + 14;
     margin-left: 14px;
     //z-index: 15;
-
 
     img {
         // margin-top: -1*@tile_improvement_padding_top;
@@ -175,6 +183,11 @@
         width: 48px;
         height: 64px;
     }
+}
+
+.unit:hover {
+    cursor: pointer;
+    filter: brightness(1.05);
 }
 
 .path {

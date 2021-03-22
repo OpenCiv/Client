@@ -203,18 +203,18 @@
 	transition: all .2s ease-in-out;
 
 	.box-shadow;
+}
 
-	&.cancel {
-		background-color: darken(#F26346, 5%);
-		border: 3px solid #FFA896;
-		text-shadow: 0px 1px 1px #FFA896;
-		color: #803425;
-	}
+/* For some reason the following is not working... */
+:global(.button svg) {
+	vertical-align: middle;
+}
 
-	/* For some reason the following is not working... */
-	svg {
-		vertical-align: middle;
-	}
+:global(.button.cancel) {
+	background-color: darken(#F26346, 5%);
+	border: 3px solid #FFA896;
+	text-shadow: 0px 1px 1px #FFA896;
+	color: #803425;
 }
 
 :global(.button:hover, .button:active) {
@@ -225,12 +225,12 @@
 	outline: none;
 	
 	transform: scale(1.05);
+}
 
-	&.cancel {
-		background-color: darken(#F26346, 10%);
-		text-shadow: 0px 1px 4px #AB6E61;
-		color: @color_text;
-	}
+:global(.button.cancel:hover) {
+	background-color: darken(#F26346, 10%);
+	text-shadow: 0px 1px 4px #AB6E61;
+	color: @color_text;
 }
 
 :global(.closewindow) {
@@ -351,19 +351,19 @@
 	.back-stone;
 	.box-shadow;
 	.border-stone;
+}
 
-	.button, button, input, label {
-		width: 100%;
-		box-sizing: border-box;
-		margin: @pad2 0 @pad2 0;
-	}
+:global(.menuwrapper .button, .menuwrapper button, .menuwrapper input, .menuwrapper label) {
+	width: 100%;
+	box-sizing: border-box;
+	margin: @pad2 0 @pad2 0;
+}
 
-	.menulogo {
-		margin: @pad2 auto;
-		display: block;
-		width: 80%;
-		max-width: 250px;
-	}
+:global(.menulogo) {
+	margin: @pad2 auto;
+	display: block;
+	width: 80%;
+	max-width: 250px;
 }
 
 :global(header, footer, #sidebar-left, #sidebar-right, .popup, #tileinfo) {
@@ -396,25 +396,25 @@
 	overflow-x: visible;
 
 	border-top: 0px none;
+}
 
-	p {
-		margin: 0;
-		line-height: 42px;
-		//font-size: 1.2em;
-	}
+:global(header .account-banner) {
+	width: 32px;
+	height: 48px;
+	left: 16px;
+	position: fixed;
+}
 
-	.account-banner {
-		width: 32px;
-		height: 48px;
-		left: 16px;
-		position: fixed;
-	}
-	
-	.account-name {
-		width: auto;
-		text-align: center;
-		margin-left: @pad1 + 32px;
-	}
+:global(header .account-name) {
+	width: auto;
+	text-align: center;
+	margin-left: @pad1 + 32px;
+}
+
+:global(header p, header.full p) {
+	margin: 0;
+	line-height: 42px;
+	//font-size: 1.2em;
 }
 
 :global(#sidebar-left, #sidebar-right, #tileinfo) {
@@ -466,11 +466,11 @@
 
 :global(.footer-panel) {
 	padding: @pad2;
+}
 
-	h3, p, table {
-		margin-left: 0;
-		margin-right: 0;
-	}
+:global(.footer-panel h3, .footer-panel p, .footer-panel table) {
+	margin-left: 0;
+	margin-right: 0;
 }
 
 :global(#research-bar, #menu-bar, #commands-panel, #status-panel) {
